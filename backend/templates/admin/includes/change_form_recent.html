@@ -1,0 +1,24 @@
+<div class="recent-actions-panel">
+    <div class="rap-title">
+        <i class="fa-solid fa-bolt" style="color: #2563eb;"></i>
+        <span>Recent Actions</span>
+    </div>
+
+    {% if recent_activities %}
+        {% for act in recent_activities %}
+            <div class="rap-item">
+                <div class="rap-icon {{ act.color }}"><i class="{{ act.icon }}"></i></div>
+                <div class="rap-text">
+                    <h6>{{ act.title }}</h6>
+                    <span>{{ act.description|truncatechars:20 }} • {{ act.timestamp|timesince }} ago</span>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div style="text-align: center; color: #94a3b8; font-size: 12px; padding: 12px 0;">
+            <span>No admin activities recorded yet.</span>
+        </div>
+    {% endif %}
+
+    <a href="/admin/audit_logs/auditlog/" class="btn-view-all-act">View All Activity →</a>
+</div>

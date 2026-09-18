@@ -1,0 +1,79 @@
+<div class="module-list-panel">
+    <div class="mlp-title">
+        <i class="fa-solid fa-shapes" style="color: #2563eb;"></i>
+        <span>Admin Modules</span>
+    </div>
+    <input type="text" id="moduleSearchInput" placeholder="Search module..." class="mlp-search-input" onkeyup="filterModules()">
+
+    <div id="modulesContainer">
+        <a href="/admin/achievements/achievement/" class="mlp-item {% if 'achievements' in request.path %}active{% endif %}">
+            <span><i class="fa-solid fa-trophy" style="width: 18px; margin-right: 6px; color: #eab308;"></i> Achievements</span>
+            <span class="badge-action-pill">+ Add</span>
+        </a>
+
+        <a href="/admin/projects/project/" class="mlp-item {% if 'projects' in request.path %}active{% endif %}">
+            <span><i class="fa-solid fa-laptop-code" style="width: 18px; margin-right: 6px; color: #6366f1;"></i> Projects</span>
+            <span class="badge-action-pill">+ Add</span>
+        </a>
+
+        <a href="/admin/skills/skill/" class="mlp-item {% if 'skills' in request.path %}active{% endif %}">
+            <span><i class="fa-solid fa-layer-group" style="width: 18px; margin-right: 6px; color: #10b981;"></i> Skills</span>
+            <span class="badge-action-pill">+ Add</span>
+        </a>
+
+        <a href="/admin/education/education/" class="mlp-item {% if 'education' in request.path %}active{% endif %}">
+            <span><i class="fa-solid fa-graduation-cap" style="width: 18px; margin-right: 6px; color: #3b82f6;"></i> Education</span>
+            <span class="badge-action-pill">+ Add</span>
+        </a>
+
+        <a href="/admin/certificates/certificate/" class="mlp-item {% if 'certificates' in request.path %}active{% endif %}">
+            <span><i class="fa-solid fa-award" style="width: 18px; margin-right: 6px; color: #f59e0b;"></i> Certificates</span>
+            <span class="badge-action-pill">+ Add</span>
+        </a>
+
+        <a href="/admin/notifications/notification/" class="mlp-item {% if 'notifications' in request.path %}active{% endif %}">
+            <span><i class="fa-solid fa-bell" style="width: 18px; margin-right: 6px; color: #f43f5e;"></i> Notifications</span>
+            <span class="badge-action-pill">+ Add</span>
+        </a>
+
+        <a href="/admin/blogs/blogcategory/" class="mlp-item {% if 'blogcategory' in request.path %}active{% endif %}">
+            <span><i class="fa-regular fa-newspaper" style="width: 18px; margin-right: 6px; color: #8b5cf6;"></i> Blog Categories</span>
+            <span class="badge-action-pill">+ Add</span>
+        </a>
+
+        <a href="/admin/blogs/blogpost/" class="mlp-item {% if 'blogpost' in request.path and 'blogcategory' not in request.path %}active{% endif %}">
+            <span><i class="fa-solid fa-pen-nib" style="width: 18px; margin-right: 6px; color: #ec4899;"></i> Blog Posts</span>
+            <span class="badge-action-pill">+ Add</span>
+        </a>
+
+        <a href="/admin/media_manager/mediaasset/" class="mlp-item {% if 'media_manager' in request.path %}active{% endif %}">
+            <span><i class="fa-regular fa-image" style="width: 18px; margin-right: 6px; color: #0ea5e9;"></i> Media Library Assets</span>
+            <span class="badge-action-pill">+ Add</span>
+        </a>
+
+        <a href="/admin/dashboard/pageview/" class="mlp-item {% if 'pageview' in request.path %}active{% endif %}">
+            <span><i class="fa-solid fa-chart-line" style="width: 18px; margin-right: 6px; color: #06b6d4;"></i> Page Views</span>
+            <span class="badge-action-pill view-mode">👁 View</span>
+        </a>
+
+        <a href="/admin/audit_logs/auditlog/" class="mlp-item {% if 'audit_logs' in request.path %}active{% endif %}">
+            <span><i class="fa-solid fa-clipboard-list" style="width: 18px; margin-right: 6px; color: #64748b;"></i> Audit Logs</span>
+            <span class="badge-action-pill view-mode">👁 View</span>
+        </a>
+
+        <a href="/admin/auth/group/" class="mlp-item {% if 'auth/group' in request.path %}active{% endif %}">
+            <span><i class="fa-solid fa-users-gear" style="width: 18px; margin-right: 6px; color: #475569;"></i> Groups</span>
+            <span class="badge-action-pill">+ Add</span>
+        </a>
+
+        <a href="/admin/accounts/user/" class="mlp-item {% if 'accounts/user' in request.path %}active{% endif %}">
+            <span><i class="fa-solid fa-user-group" style="width: 18px; margin-right: 6px; color: #14b8a6;"></i> Users</span>
+            <span class="badge-action-pill">+ Add</span>
+        </a>
+
+        <a href="/admin/settings/sitesetting/" class="mlp-item {% if 'settings' in request.path %}active{% endif %}">
+            <span><i class="fa-solid fa-gear" style="width: 18px; margin-right: 6px; color: #64748b;"></i> Settings</span>
+            <span class="badge-action-pill">+ Add</span>
+        </a>
+    </div>
+</div>

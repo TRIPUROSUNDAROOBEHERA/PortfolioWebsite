@@ -1,0 +1,16 @@
+<div class="modal-overlay" id="logoutModal">
+    <div class="modal-box">
+        <div class="modal-signout-icon">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        </div>
+        <h3>Are you sure you want to sign out?</h3>
+        <p>Your current administrator session will be closed securely.</p>
+        <form action="/admin/logout/" method="post">
+            {% csrf_token %}
+            <div class="modal-actions">
+                <button type="button" class="btn-modal-cancel" id="cancelLogoutBtn">Cancel</button>
+                <button type="submit" class="btn-modal-logout">Log Out</button>
+            </div>
+        </form>
+    </div>
+</div>

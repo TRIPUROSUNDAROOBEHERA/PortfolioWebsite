@@ -1,0 +1,170 @@
+[
+{
+  "model": "skills.skill",
+  "pk": 1,
+  "fields": {
+    "name": "Python",
+    "category": "Backend",
+    "icon_name": "",
+    "icon_image": "",
+    "proficiency_percentage": 85,
+    "is_featured": true,
+    "order": 0,
+    "created_at": "2026-01-01T00:00:00Z",
+    "updated_at": "2026-01-01T00:00:00Z"
+  }
+},
+{
+  "model": "skills.skill",
+  "pk": 2,
+  "fields": {
+    "name": "Django REST Framework",
+    "category": "Backend",
+    "icon_name": "",
+    "icon_image": "",
+    "proficiency_percentage": 85,
+    "is_featured": true,
+    "order": 0,
+    "created_at": "2026-01-01T00:00:00Z",
+    "updated_at": "2026-01-01T00:00:00Z"
+  }
+},
+{
+  "model": "skills.skill",
+  "pk": 3,
+  "fields": {
+    "name": "React.js",
+    "category": "Frontend",
+    "icon_name": "",
+    "icon_image": "",
+    "proficiency_percentage": 85,
+    "is_featured": true,
+    "order": 0,
+    "created_at": "2026-01-01T00:00:00Z",
+    "updated_at": "2026-01-01T00:00:00Z"
+  }
+},
+{
+  "model": "skills.skill",
+  "pk": 4,
+  "fields": {
+    "name": "MySQL",
+    "category": "Database",
+    "icon_name": "",
+    "icon_image": "",
+    "proficiency_percentage": 85,
+    "is_featured": true,
+    "order": 0,
+    "created_at": "2026-01-01T00:00:00Z",
+    "updated_at": "2026-01-01T00:00:00Z"
+  }
+},
+{
+  "model": "skills.skill",
+  "pk": 5,
+  "fields": {
+    "name": "Tailwind CSS",
+    "category": "Frontend",
+    "icon_name": "",
+    "icon_image": "",
+    "proficiency_percentage": 85,
+    "is_featured": true,
+    "order": 0,
+    "created_at": "2026-01-01T00:00:00Z",
+    "updated_at": "2026-01-01T00:00:00Z"
+  }
+},
+{
+  "model": "skills.skill",
+  "pk": 6,
+  "fields": {
+    "name": "Docker",
+    "category": "DevOps",
+    "icon_name": "",
+    "icon_image": "",
+    "proficiency_percentage": 85,
+    "is_featured": true,
+    "order": 0,
+    "created_at": "2026-01-01T00:00:00Z",
+    "updated_at": "2026-01-01T00:00:00Z"
+  }
+},
+{
+  "model": "projects.project",
+  "pk": 1,
+  "fields": {
+    "title": "Dockerized Portfolio Website",
+    "slug": "dockerized-portfolio-website",
+    "category": "full_stack",
+    "description": "Full-stack Dockerized portfolio application using Django, React, and PostgreSQL.",
+    "detailed_description": "",
+    "technologies": "React, Django, PostgreSQL, Docker, Nginx",
+    "thumbnail": "",
+    "live_url": "",
+    "github_url": "",
+    "is_featured": true,
+    "order": 0,
+    "created_at": "2026-08-26T13:38:26.670Z",
+    "updated_at": "2026-08-26T13:38:26.670Z"
+  }
+},
+{
+  "model": "projects.project",
+  "pk": 2,
+  "fields": {
+    "title": "E-Commerce API Platform",
+    "slug": "ecommerce-api-platform",
+    "category": "full_stack",
+    "description": "High-performance REST API built with Django REST framework and PostgreSQL.",
+    "detailed_description": "",
+    "technologies": "Django REST Framework, PostgreSQL, Redis, Celery",
+    "thumbnail": "",
+    "live_url": "",
+    "github_url": "",
+    "is_featured": true,
+    "order": 0,
+    "created_at": "2026-08-26T13:38:26.709Z",
+    "updated_at": "2026-08-26T13:38:26.709Z"
+  }
+},
+{
+  "model": "blogs.blogpost",
+  "pk": 1,
+  "fields": {
+    "title": "Building Scalable Django Backends",
+    "slug": "building-scalable-django-backends",
+    "category": null,
+    "summary": "Best architectural practices for structuring Django REST APIs with MySQL/PostgreSQL databases.",
+    "content": "Designing high-concurrency backends requires careful database indexing, granular permission sets, and clean serializations with Django REST Framework.",
+    "cover_image": "",
+    "tags": "",
+    "reading_time": 5,
+    "views_count": 0,
+    "is_published": true,
+    "is_featured": false,
+    "published_date": "2026-08-26",
+    "created_at": "2026-05-20T00:00:00Z",
+    "updated_at": "2026-05-20T00:00:00Z"
+  }
+},
+{
+  "model": "blogs.blogpost",
+  "pk": 2,
+  "fields": {
+    "title": "How I Built My Portfolio CMS",
+    "slug": "how-i-built-my-portfolio-cms",
+    "category": null,
+    "summary": "Architecting a full stack application with decoupled React UI and authenticated management controllers.",
+    "content": "A detailed technical breakdown of state management, custom responsive layout grids, and JWT token refresh middleware.",
+    "cover_image": "",
+    "tags": "",
+    "reading_time": 5,
+    "views_count": 0,
+    "is_published": true,
+    "is_featured": false,
+    "published_date": "2026-08-26",
+    "created_at": "2026-05-10T00:00:00Z",
+    "updated_at": "2026-05-10T00:00:00Z"
+  }
+}
+]

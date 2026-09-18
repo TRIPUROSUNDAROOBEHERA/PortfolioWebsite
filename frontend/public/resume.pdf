@@ -1,0 +1,8 @@
+<a 
+  href="/resume.pdf" 
+  target="_blank" 
+  rel="noopener noreferrer"
+  className="px-6 py-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-medium"
+>
+  Download Resume
+</a>

@@ -1,0 +1,142 @@
+<aside class="admin-sidebar" id="adminSidebar">
+    <div>
+        <!-- Brand Header -->
+        <div class="sidebar-brand">
+            <div class="brand-group">
+                <div class="brand-badge">AS</div>
+                <div class="brand-text">
+                    <h2>Portfolio Administration</h2>
+                    <span>Site Admin Panel</span>
+                </div>
+            </div>
+            <button type="button" class="sidebar-close-btn" id="closeSidebarBtn">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- Sidebar Navigation List -->
+        <div class="sidebar-nav">
+            <!-- 1. Main Menu -->
+            <div class="nav-category">Main Menu</div>
+            <a href="/admin/" class="nav-link {% if request.path == '/admin/' %}active{% endif %}">
+                <div class="nav-link-left">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Dashboard</span>
+                </div>
+            </a>
+            <a href="/admin/achievements/achievement/" class="nav-link {% if '/admin/achievements/' in request.path %}active{% endif %}">
+                <div class="nav-link-left">
+                    <i class="fa-solid fa-trophy"></i>
+                    <span>Achievements & Honors</span>
+                </div>
+                <i class="fa-solid fa-angle-right" style="font-size: 10px;"></i>
+            </a>
+            <a href="/admin/notifications/notification/" class="nav-link {% if '/admin/notifications/' in request.path %}active{% endif %}">
+                <div class="nav-link-left">
+                    <i class="fa-solid fa-bell"></i>
+                    <span>Admin Notifications</span>
+                </div>
+                <span class="badge-count" id="sidebarNotifBadge">3</span>
+            </a>
+
+            <!-- 2. Communications -->
+            <div class="nav-category">Communications</div>
+            <a href="/admin/contact/contactmessage/" class="nav-link {% if '/admin/contact/' in request.path %}active{% endif %}">
+                <div class="nav-link-left">
+                    <i class="fa-solid fa-envelope-open-text"></i>
+                    <span>Contact Messages</span>
+                </div>
+            </a>
+
+            <!-- 3. Content Management -->
+            <div class="nav-category">Content Management</div>
+            <a href="/admin/blogs/blogcategory/" class="nav-link {% if '/admin/blogs/blogcategory/' in request.path %}active{% endif %}">
+                <div class="nav-link-left">
+                    <i class="fa-regular fa-newspaper"></i>
+                    <span>Blog Categories</span>
+                </div>
+            </a>
+            <a href="/admin/blogs/blogpost/" class="nav-link {% if '/admin/blogs/blogpost/' in request.path %}active{% endif %}">
+                <div class="nav-link-left">
+                    <i class="fa-solid fa-pen-nib"></i>
+                    <span>Blog Posts</span>
+                </div>
+            </a>
+            <a href="/admin/media_manager/mediaasset/" class="nav-link {% if '/admin/media_manager/' in request.path %}active{% endif %}">
+                <div class="nav-link-left">
+                    <i class="fa-regular fa-image"></i>
+                    <span>Media Library</span>
+                </div>
+            </a>
+            <a href="/admin/projects/project/" class="nav-link {% if '/admin/projects/' in request.path %}active{% endif %}">
+                <div class="nav-link-left">
+                    <i class="fa-solid fa-laptop-code"></i>
+                    <span>Projects</span>
+                </div>
+            </a>
+            <a href="/admin/skills/skill/" class="nav-link {% if '/admin/skills/' in request.path %}active{% endif %}">
+                <div class="nav-link-left">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <span>Skills</span>
+                </div>
+            </a>
+            <a href="/admin/education/education/" class="nav-link {% if '/admin/education/' in request.path %}active{% endif %}">
+                <div class="nav-link-left">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <span>Education</span>
+                </div>
+            </a>
+            <a href="/admin/certificates/certificate/" class="nav-link {% if '/admin/certificates/' in request.path %}active{% endif %}">
+                <div class="nav-link-left">
+                    <i class="fa-solid fa-award"></i>
+                    <span>Certificates</span>
+                </div>
+            </a>
+
+            <!-- 4. Analytics & Reports -->
+            <div class="nav-category">Analytics & Reports</div>
+            <a href="/admin/dashboard/pageview/" class="nav-link {% if '/admin/dashboard/' in request.path %}active{% endif %}">
+                <div class="nav-link-left">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span>Page Views</span>
+                </div>
+            </a>
+            <a href="/admin/audit_logs/auditlog/" class="nav-link {% if '/admin/audit_logs/' in request.path %}active{% endif %}">
+                <div class="nav-link-left">
+                    <i class="fa-solid fa-clipboard-list"></i>
+                    <span>Audit Logs</span>
+                </div>
+            </a>
+
+            <!-- 5. System -->
+            <div class="nav-category">System</div>
+            <a href="/admin/auth/group/" class="nav-link {% if '/admin/auth/' in request.path %}active{% endif %}">
+                <div class="nav-link-left">
+                    <i class="fa-solid fa-users-gear"></i>
+                    <span>Groups</span>
+                </div>
+            </a>
+            <a href="/admin/settings/sitesetting/" class="nav-link {% if '/admin/settings/' in request.path %}active{% endif %}">
+                <div class="nav-link-left">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Settings</span>
+                </div>
+            </a>
+            <a href="/admin/accounts/user/" class="nav-link {% if '/admin/accounts/' in request.path %}active{% endif %}">
+                <div class="nav-link-left">
+                    <i class="fa-solid fa-user-group"></i>
+                    <span>Users</span>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Sidebar Bottom Badge -->
+    <div class="sidebar-bottom-card">
+        <div class="trophy-glow-icon">
+            <i class="fa-solid fa-trophy"></i>
+        </div>
+        <h4>Manage Your<br>Professional Portfolio</h4>
+        <p>Build • Share • Grow</p>
+    </div>
+</aside>

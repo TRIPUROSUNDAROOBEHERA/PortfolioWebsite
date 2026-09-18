@@ -1,0 +1,105 @@
+<div class="form-content-card">
+    <div class="form-headline-banner">
+        {% if 'mediaasset' in opts.model_name or 'media' in opts.model_name %}
+            <div class="banner-icon-avatar icon-media"><i class="fa-regular fa-image"></i></div>
+        {% elif 'notification' in opts.model_name %}
+            <div class="banner-icon-avatar icon-notification"><i class="fa-solid fa-bell"></i></div>
+        {% elif 'project' in opts.model_name %}
+            <div class="banner-icon-avatar icon-project"><i class="fa-solid fa-laptop-code"></i></div>
+        {% elif 'skill' in opts.model_name %}
+            <div class="banner-icon-avatar icon-skill"><i class="fa-solid fa-layer-group"></i></div>
+        {% elif 'education' in opts.model_name %}
+            <div class="banner-icon-avatar icon-education"><i class="fa-solid fa-graduation-cap"></i></div>
+        {% elif 'certificate' in opts.model_name %}
+            <div class="banner-icon-avatar icon-certificate"><i class="fa-solid fa-award"></i></div>
+        {% elif 'blogcategory' in opts.model_name %}
+            <div class="banner-icon-avatar icon-category"><i class="fa-regular fa-newspaper"></i></div>
+        {% elif 'blogpost' in opts.model_name or 'blog' in opts.model_name %}
+            <div class="banner-icon-avatar icon-blog"><i class="fa-solid fa-pen-nib"></i></div>
+        {% elif 'user' in opts.model_name %}
+            <div class="banner-icon-avatar icon-user"><i class="fa-solid fa-user-group"></i></div>
+        {% elif 'group' in opts.model_name %}
+            <div class="banner-icon-avatar icon-group"><i class="fa-solid fa-users-gear"></i></div>
+        {% elif 'setting' in opts.model_name %}
+            <div class="banner-icon-avatar icon-setting"><i class="fa-solid fa-gear"></i></div>
+        {% else %}
+            <div class="banner-icon-avatar icon-achievement"><i class="fa-solid fa-trophy"></i></div>
+        {% endif %}
+
+        <div>
+            <h2>{{ title }}</h2>
+            <p>Manage and configure {{ opts.verbose_name }} details for your portfolio</p>
+        </div>
+    </div>
+
+    <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}{% if form_url %}action="{{ form_url }}" {% endif %}method="post" id="{{ opts.model_name }}_form" novalidate>
+        {% csrf_token %}
+        {% block form_top %}{% endblock %}
+
+        {% if errors %}
+            <div style="background: #fef2f2; border: 1px solid #fecaca; color: #dc2626; padding: 12px 16px; border-radius: 12px; font-size: 13px; font-weight: 700; margin-bottom: 20px;">
+                <i class="fa-solid fa-circle-exclamation" style="margin-right: 6px;"></i> Please correct the error(s) below.
+            </div>
+        {% endif %}
+
+        {% for fieldset in adminform %}
+            <div class="form-section-accordion">
+                <div class="accordion-header">
+                    <div>
+                        {% if 'mediaasset' in opts.model_name or 'media' in opts.model_name %}
+                            <i class="fa-regular fa-image lead" style="color: #0ea5e9;"></i>
+                        {% elif 'notification' in opts.model_name %}
+                            <i class="fa-solid fa-bell lead" style="color: #f43f5e;"></i>
+                        {% elif 'project' in opts.model_name %}
+                            <i class="fa-solid fa-laptop-code lead" style="color: #6366f1;"></i>
+                        {% elif 'skill' in opts.model_name %}
+                            <i class="fa-solid fa-layer-group lead" style="color: #10b981;"></i>
+                        {% elif 'education' in opts.model_name %}
+                            <i class="fa-solid fa-graduation-cap lead" style="color: #3b82f6;"></i>
+                        {% elif 'certificate' in opts.model_name %}
+                            <i class="fa-solid fa-award lead" style="color: #f59e0b;"></i>
+                        {% elif 'blogcategory' in opts.model_name %}
+                            <i class="fa-regular fa-newspaper lead" style="color: #8b5cf6;"></i>
+                        {% elif 'blogpost' in opts.model_name or 'blog' in opts.model_name %}
+                            <i class="fa-solid fa-pen-nib lead" style="color: #ec4899;"></i>
+                        {% elif 'user' in opts.model_name %}
+                            <i class="fa-solid fa-user-group lead" style="color: #06b6d4;"></i>
+                        {% elif 'group' in opts.model_name %}
+                            <i class="fa-solid fa-users-gear lead" style="color: #64748b;"></i>
+                        {% elif 'setting' in opts.model_name %}
+                            <i class="fa-solid fa-gear lead" style="color: #475569;"></i>
+                        {% else %}
+                            <i class="fa-solid fa-medal lead" style="color: #eab308;"></i>
+                        {% endif %}
+                        <span>{{ fieldset.name|default:opts.verbose_name|capfirst }} {% if not fieldset.name %}Information & Details{% endif %}</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-up" style="font-size: 11px; color: #94a3b8;"></i>
+                </div>
+                <div class="accordion-body">
+                    {% for line in fieldset %}
+                        {% for field in line %}
+                            <div class="custom-field-row">
+                                {{ field.label_tag }}
+                                <div class="input-icon-box">
+                                    <i class="fa-solid fa-pen-to-square f-icon"></i>
+                                    {{ field.field }}
+                                </div>
+                                {% if field.field.help_text %}
+                                    <small style="color: #64748b; font-size: 11px; margin-top: 4px; display: block;">{{ field.field.help_text }}</small>
+                                {% endif %}
+                                {{ field.errors }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+
+        <div class="form-actions-bar">
+            <a href="javascript:history.back()" class="btn-action-cancel">✕ Cancel</a>
+            <button type="submit" name="_save" class="btn-action-save">
+                <i class="fa-solid fa-paper-plane"></i> Save {{ opts.verbose_name|capfirst }}
+            </button>
+        </div>
+    </form>
+</div>

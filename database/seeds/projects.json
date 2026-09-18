@@ -1,0 +1,40 @@
+[
+{
+  "model": "projects.project",
+  "pk": 1,
+  "fields": {
+    "title": "Dockerized Portfolio Website",
+    "slug": "dockerized-portfolio-website",
+    "category": "full_stack",
+    "description": "Full-stack Dockerized portfolio application using Django, React, and PostgreSQL.",
+    "detailed_description": "",
+    "technologies": "React, Django, PostgreSQL, Docker, Nginx",
+    "thumbnail": "",
+    "live_url": "",
+    "github_url": "",
+    "is_featured": true,
+    "order": 0,
+    "created_at": "2026-08-26T13:38:26.670Z",
+    "updated_at": "2026-08-26T13:38:26.670Z"
+  }
+},
+{
+  "model": "projects.project",
+  "pk": 2,
+  "fields": {
+    "title": "E-Commerce API Platform",
+    "slug": "ecommerce-api-platform",
+    "category": "full_stack",
+    "description": "High-performance REST API built with Django REST framework and PostgreSQL.",
+    "detailed_description": "",
+    "technologies": "Django REST Framework, PostgreSQL, Redis, Celery",
+    "thumbnail": "",
+    "live_url": "",
+    "github_url": "",
+    "is_featured": true,
+    "order": 0,
+    "created_at": "2026-08-26T13:38:26.709Z",
+    "updated_at": "2026-08-26T13:38:26.709Z"
+  }
+}
+]

@@ -1,0 +1,87 @@
+services:
+  # ============================================================================
+  # 1. PostgreSQL Database Service
+  # ============================================================================
+  db:
+    image: postgres:16-alpine
+    container_name: portfolio_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: portfolio_db
+      POSTGRES_USER: portfolio_user
+      POSTGRES_PASSWORD: portfolio_secret_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - portfolio_net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U portfolio_user -d portfolio_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ============================================================================
+  # 2. Django REST Framework Backend API
+  # ============================================================================
+  backend:
+    image: portfolio-backend:latest
+    build:
+      context: .
+      dockerfile: deployment/docker/backend/Dockerfile
+    container_name: portfolio_backend
+    restart: unless-stopped
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PGSSLMODE=disable
+      - DJANGO_SETTINGS_MODULE=config.settings.production
+      - DJANGO_SECRET_KEY=django-insecure-portfolio-cms-secret-key-production-ready-2026
+      - DJANGO_ALLOWED_HOSTS=*
+      - DB_ENGINE=django.db.backends.postgresql
+      - DB_NAME=portfolio_db
+      - DB_USER=portfolio_user
+      - DB_PASSWORD=portfolio_secret_password
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_SSL_REQUIRE=False
+      - DB_SSLMODE=disable
+      - DATABASE_URL=postgres://portfolio_user:portfolio_secret_password@db:5432/portfolio_db?sslmode=disable
+    volumes:
+      - static_volume:/app/staticfiles
+      - media_volume:/app/media
+    expose:
+      - "8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - portfolio_net
+
+  # ============================================================================
+  # 3. React UI & Hardened Nginx Reverse Proxy
+  # ============================================================================
+  frontend:
+    image: portfolio-frontend:latest
+    build:
+      context: .
+      dockerfile: deployment/docker/frontend/Dockerfile
+      target: production
+    container_name: portfolio_frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - portfolio_net
+
+# ==============================================================================
+# Persistent Volumes & Shared Networking
+# ==============================================================================
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:
+
+networks:
+  portfolio_net:
+    driver: bridge

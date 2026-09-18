@@ -1,0 +1,37 @@
+<div class="form-stat-cards">
+    <div class="fsc-card purple">
+        <div class="fsc-icon"><i class="fa-solid fa-trophy"></i></div>
+        <div>
+            <div class="fsc-label">Total Achievements</div>
+            <div class="fsc-num">{{ real_counts.achievements|default:0 }}</div>
+            <div class="fsc-pill">Live Records</div>
+        </div>
+    </div>
+
+    <div class="fsc-card blue">
+        <div class="fsc-icon"><i class="fa-solid fa-file-lines"></i></div>
+        <div>
+            <div class="fsc-label">Blog Posts</div>
+            <div class="fsc-num">{{ real_counts.blogs|default:0 }}</div>
+            <div class="fsc-pill">Live Articles</div>
+        </div>
+    </div>
+
+    <div class="fsc-card green">
+        <div class="fsc-icon"><i class="fa-regular fa-eye"></i></div>
+        <div>
+            <div class="fsc-label">Total Page Views</div>
+            <div class="fsc-num">{{ real_counts.views|default:0 }}</div>
+            <div class="fsc-pill">Real Traffic</div>
+        </div>
+    </div>
+
+    <div class="fsc-card orange">
+        <div class="fsc-icon"><i class="fa-solid fa-users"></i></div>
+        <div>
+            <div class="fsc-label">Active Users</div>
+            <div class="fsc-num">{{ real_counts.users|default:1 }}</div>
+            <div class="fsc-pill">● All Systems Active</div>
+        </div>
+    </div>
+</div>

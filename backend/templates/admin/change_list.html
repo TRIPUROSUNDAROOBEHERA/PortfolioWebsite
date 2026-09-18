@@ -1,0 +1,83 @@
+{% extends "admin/base.html" %}
+{% load i18n admin_urls static admin_list %}
+
+{% block extrahead %}
+{{ block.super }}
+<style>
+    .cl-header-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 24px;
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .cl-header-bar h1 {
+        font-size: 24px;
+        font-weight: 800;
+        color: #0f172a;
+        letter-spacing: -0.5px;
+    }
+
+    .cl-header-bar p {
+        font-size: 13px;
+        color: #64748b;
+        margin-top: 3px;
+    }
+
+    .btn-add-entity {
+        background: linear-gradient(135deg, #0070f3 0%, #2563eb 100%);
+        color: #ffffff !important;
+        padding: 9px 20px;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 13px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+    }
+
+    .cl-table-container {
+        background: #ffffff;
+        border-radius: 20px;
+        border: 1px solid var(--border-light);
+        padding: 24px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+        overflow-x: auto;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="cl-header-bar">
+    <div>
+        <h1>{{ cl.opts.verbose_name_plural|capfirst }}</h1>
+        <p>Manage, edit and filter all records for {{ cl.opts.verbose_name_plural }}.</p>
+    </div>
+    {% if has_add_permission %}
+        <a href="add/" class="btn-add-entity">
+            <i class="fa-solid fa-plus"></i> Add {{ cl.opts.verbose_name }}
+        </a>
+    {% endif %}
+</div>
+
+<div class="cl-table-container">
+    <form id="changelist-form" method="post"{% if cl.formset and cl.formset.is_multipart %} enctype="multipart/form-data"{% endif %} novalidate>
+        {% csrf_token %}
+        {% if cl.formset %}
+            <div>{{ cl.formset.management_form }}</div>
+        {% endif %}
+
+        {% block result_list %}
+            {% result_list cl %}
+        {% endblock %}
+
+        {% block pagination %}
+            {% pagination cl %}
+        {% endblock %}
+    </form>
+</div>
+{% endblock %}

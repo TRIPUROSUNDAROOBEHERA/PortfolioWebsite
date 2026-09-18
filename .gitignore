@@ -1,0 +1,66 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Environments & Virtual Envs
+.venv/
+venv/
+env/
+/opt/venv/
+ENV/
+
+# Local Environment Variables
+.env
+.env.local
+.env.*.local
+*.env
+
+# Database & SQLite files
+*.sqlite3
+*.db
+db.sqlite3
+
+# Database backups (keep seeds, ignore dynamic SQL dumps)
+database/backups/*.sql
+!database/backups/.gitkeep
+
+# Node & Frontend
+node_modules/
+dist/
+build/
+coverage/
+.npm
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Static & Uploaded Media
+/staticfiles/
+/media/
+backend/staticfiles/
+backend/media/
+!database/seeds/
+
+# Logs & Runtime Artefacts
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# Testing & Reports
+.pytest_cache/
+.coverage
+htmlcov/
+test-results/
+playwright-report/
+blob-report/
+
+# OS & Editor Artefacts
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json

@@ -1,0 +1,264 @@
+/* ==========================================================================
+   PORTFOLIO DJANGO ADMIN - PROFESSIONAL LIGHT THEME
+   File: backend/static/css/admin.css
+   ========================================================================== */
+
+:root {
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-light: #eff6ff;
+  --bg-page: #f8fafc;
+  --bg-surface: #ffffff;
+  --border: #e2e8f0;
+  --border-subtle: #f1f5f9;
+  --text-main: #0f172a;
+  --text-body: #334155;
+  --text-muted: #64748b;
+  --accent-success: #16a34a;
+  --accent-success-hover: #15803d;
+  --accent-danger: #dc2626;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+}
+
+/* Base Document & Typography */
+body {
+  background-color: var(--bg-page) !important;
+  color: var(--text-body) !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+  font-size: 13.5px !important;
+}
+
+/* Header & Branding */
+#header {
+  background: var(--bg-surface) !important;
+  color: var(--text-main) !important;
+  border-bottom: 1px solid var(--border) !important;
+  padding: 14px 28px !important;
+}
+
+#header #branding h1 {
+  font-size: 17px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.01em !important;
+  color: var(--text-main) !important;
+}
+
+#header #branding h1 a:link,
+#header #branding h1 a:visited {
+  color: var(--text-main) !important;
+}
+
+#user-tools {
+  font-size: 13px !important;
+  color: var(--text-muted) !important;
+}
+
+#user-tools a {
+  color: var(--primary) !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  border-bottom: 1px solid transparent !important;
+}
+
+#user-tools a:hover {
+  text-decoration: none !important;
+  border-bottom-color: var(--primary) !important;
+}
+
+/* Breadcrumbs Navigation */
+div.breadcrumbs {
+  background: var(--bg-surface) !important;
+  border-bottom: 1px solid var(--border) !important;
+  padding: 10px 28px !important;
+  font-size: 12.5px !important;
+  color: var(--text-muted) !important;
+}
+
+div.breadcrumbs a {
+  color: var(--primary) !important;
+  text-decoration: none !important;
+  font-weight: 500 !important;
+}
+
+div.breadcrumbs a:hover {
+  text-decoration: underline !important;
+}
+
+/* Modules & Section Containers */
+.module {
+  background: var(--bg-surface) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-lg) !important;
+  margin-bottom: 20px !important;
+  overflow: hidden !important;
+}
+
+.module caption,
+.module h2,
+.inline-group h2 {
+  background: #f1f5f9 !important;
+  color: var(--text-main) !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+  padding: 10px 16px !important;
+  border-bottom: 1px solid var(--border) !important;
+}
+
+/* Tables & Change Lists */
+#changelist table {
+  background: var(--bg-surface) !important;
+  border-collapse: collapse !important;
+  width: 100% !important;
+}
+
+table thead th {
+  background: #f8fafc !important;
+  color: var(--text-muted) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.03em !important;
+  padding: 10px 14px !important;
+  border-bottom: 1px solid var(--border) !important;
+  border-top: none !important;
+}
+
+table thead th a {
+  color: var(--text-muted) !important;
+}
+
+table tbody tr {
+  background: var(--bg-surface) !important;
+  border-bottom: 1px solid var(--border-subtle) !important;
+  transition: background-color 0.1s ease !important;
+}
+
+table tbody tr:hover {
+  background-color: var(--primary-light) !important;
+}
+
+table tbody td,
+table tbody th {
+  padding: 11px 14px !important;
+  font-size: 13px !important;
+  color: var(--text-body) !important;
+  vertical-align: middle !important;
+}
+
+table tbody td a,
+table tbody th a {
+  color: var(--primary) !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+}
+
+table tbody td a:hover,
+table tbody th a:hover {
+  text-decoration: underline !important;
+}
+
+/* Form Inputs & Controls */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="url"],
+input[type="number"],
+input[type="file"],
+select,
+textarea {
+  background-color: var(--bg-surface) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-md) !important;
+  color: var(--text-main) !important;
+  padding: 8px 12px !important;
+  font-size: 13.5px !important;
+  outline: none !important;
+  transition: border-color 0.15s ease !important;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="number"]:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--primary) !important;
+}
+
+/* Action Buttons */
+.button,
+input[type="submit"],
+input[type="button"],
+.submit-row input,
+a.button {
+  background: var(--primary) !important;
+  color: #ffffff !important;
+  border: 1px solid var(--primary) !important;
+  border-radius: var(--radius-md) !important;
+  padding: 8px 16px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: background-color 0.15s ease !important;
+}
+
+.button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover,
+.submit-row input:hover,
+a.button:hover {
+  background: var(--primary-hover) !important;
+  border-color: var(--primary-hover) !important;
+}
+
+.button.default,
+input[type="submit"].default,
+.submit-row input.default {
+  background: var(--accent-success) !important;
+  border-color: var(--accent-success) !important;
+}
+
+.button.default:hover,
+input[type="submit"].default:hover,
+.submit-row input.default:hover {
+  background: var(--accent-success-hover) !important;
+  border-color: var(--accent-success-hover) !important;
+}
+
+.deletelink,
+a.deletelink {
+  background: var(--accent-danger) !important;
+  color: #ffffff !important;
+  border-radius: var(--radius-md) !important;
+  padding: 8px 14px !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+}
+
+/* Filter Sidebar */
+#changelist-filter {
+  background: var(--bg-surface) !important;
+  border-left: 1px solid var(--border) !important;
+}
+
+#changelist-filter h2 {
+  background: #f1f5f9 !important;
+  color: var(--text-main) !important;
+  border-bottom: 1px solid var(--border) !important;
+}
+
+#changelist-filter h3 {
+  color: var(--text-muted) !important;
+  font-weight: 600 !important;
+  font-size: 12px !important;
+}
+
+#changelist-filter li.selected a {
+  color: var(--primary) !important;
+  font-weight: 700 !important;
+}

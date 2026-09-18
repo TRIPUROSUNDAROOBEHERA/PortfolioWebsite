@@ -1,0 +1,558 @@
+{% load i18n static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Administration - Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 45%, #06b6d4 100%);
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Ambient Glow Circles */
+        body::before {
+            content: '';
+            position: absolute;
+            width: clamp(300px, 45vw, 600px);
+            height: clamp(300px, 45vw, 600px);
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.45) 0%, rgba(59, 130, 246, 0) 70%);
+            top: -50px;
+            left: -50px;
+            border-radius: 50%;
+            z-index: 0;
+            filter: blur(40px);
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            width: clamp(350px, 50vw, 700px);
+            height: clamp(350px, 50vw, 700px);
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.35) 0%, rgba(99, 102, 241, 0) 70%);
+            bottom: -80px;
+            right: -50px;
+            border-radius: 50%;
+            z-index: 0;
+            filter: blur(50px);
+        }
+
+        .portal-container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 1120px;
+            min-height: 640px;
+            background: linear-gradient(135deg, rgba(88, 70, 246, 0.94) 0%, rgba(59, 130, 246, 0.96) 100%);
+            border-radius: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 30px 70px rgba(15, 23, 42, 0.35);
+            backdrop-filter: blur(20px);
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        /* Left Side Showcase */
+        .showcase-pane {
+            padding: clamp(24px, 4vw, 48px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+
+        .brand-badge {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        .brand-title-group h1 {
+            font-size: clamp(20px, 2.5vw, 26px);
+            font-weight: 800;
+            color: #ffffff;
+            line-height: 1.2;
+        }
+
+        .brand-subtitle {
+            margin-top: 10px;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1.45;
+            max-width: 380px;
+        }
+
+        /* 3D Dashboard Mockup Graphic */
+        .mockup-wrapper {
+            margin: 20px 0;
+            perspective: 1000px;
+        }
+
+        .dashboard-mockup {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            transform: rotateX(6deg) rotateY(-8deg);
+            transition: transform 0.3s ease;
+        }
+
+        .dashboard-mockup:hover {
+            transform: rotateX(0deg) rotateY(0deg);
+        }
+
+        .mockup-nav {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .dot { width: 8px; height: 8px; border-radius: 50%; }
+        .dot-red { background: #ef4444; }
+        .dot-yellow { background: #f59e0b; }
+        .dot-green { background: #10b981; }
+
+        .mockup-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .mockup-card {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 10px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .mockup-card span {
+            font-size: 10.5px;
+            font-weight: 600;
+            color: #64748b;
+        }
+
+        .mockup-card h3 {
+            font-size: 18px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-top: 2px;
+        }
+
+        .mockup-chart-box {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .mockup-chart-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            font-weight: 700;
+            color: #334155;
+            margin-bottom: 6px;
+        }
+
+        .wave-svg {
+            width: 100%;
+            height: 48px;
+            stroke: #4f46e5;
+            fill: none;
+            stroke-width: 3;
+            stroke-linecap: round;
+        }
+
+        /* Right Side Form Card */
+        .login-pane {
+            background: #ffffff;
+            margin: 14px;
+            border-radius: 22px;
+            padding: clamp(24px, 4vw, 42px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .form-top {
+            text-align: center;
+        }
+
+        .shield-icon {
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+            border-radius: 16px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 22px;
+            box-shadow: 0 8px 18px rgba(79, 70, 229, 0.3);
+            margin-bottom: 12px;
+        }
+
+        .form-top h2 {
+            font-size: 22px;
+            font-weight: 800;
+            color: #0f172a;
+        }
+
+        .form-top p {
+            color: #64748b;
+            font-size: 13.5px;
+            margin-top: 2px;
+            font-weight: 500;
+        }
+
+        .login-form {
+            margin-top: 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            text-align: left;
+        }
+
+        .form-group label {
+            font-size: 12.5px;
+            font-weight: 700;
+            color: #334155;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-wrapper i.lead-icon {
+            position: absolute;
+            left: 14px;
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            height: 46px;
+            padding: 0 42px;
+            border-radius: 12px;
+            border: 1.5px solid #e2e8f0;
+            background: #f8fafc;
+            font-size: 13.5px;
+            color: #0f172a;
+            font-weight: 500;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .input-wrapper input:focus {
+            border-color: #4f46e5;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 14px;
+            color: #94a3b8;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .form-options {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12.5px;
+            font-weight: 600;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #475569;
+            cursor: pointer;
+        }
+
+        .forgot-link {
+            color: #4f46e5;
+            text-decoration: none;
+        }
+
+        .btn-submit {
+            height: 46px;
+            width: 100%;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+            color: #ffffff;
+            font-size: 14.5px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.35);
+            transition: transform 0.15s ease;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-1px);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .divider:not(:empty)::before { margin-right: .75em; }
+        .divider:not(:empty)::after { margin-left: .75em; }
+
+        .btn-return {
+            height: 44px;
+            width: 100%;
+            border-radius: 12px;
+            border: 1.5px solid #e2e8f0;
+            background: #ffffff;
+            color: #334155;
+            font-size: 13.5px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .portal-footer {
+            font-size: 11px;
+            font-weight: 600;
+            color: #94a3b8;
+            text-align: center;
+            margin-top: 12px;
+        }
+
+        /* ─── 3-DEVICE RESPONSIVE QUERIES ─── */
+
+        /* 1. TABLET LAYOUT (768px to 1023px) */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .portal-container {
+                grid-template-columns: 1fr;
+                max-width: 620px;
+                min-height: auto;
+            }
+            .mockup-wrapper {
+                display: none;
+            }
+            .showcase-pane {
+                padding: 32px 32px 16px 32px;
+                text-align: center;
+                align-items: center;
+            }
+            .brand-title-group h1 { font-size: 22px; }
+            .login-pane { margin: 16px 24px 24px 24px; padding: 32px; }
+        }
+
+        /* 2. MOBILE LAYOUT (< 768px) */
+        @media (max-width: 767px) {
+            body { padding: 12px; }
+            .portal-container {
+                grid-template-columns: 1fr;
+                border-radius: 20px;
+                min-height: auto;
+            }
+            .showcase-pane {
+                display: none;
+            }
+            .login-pane {
+                margin: 0;
+                border-radius: 20px;
+                padding: 28px 20px;
+            }
+            .form-top h2 { font-size: 20px; }
+            .input-wrapper input { height: 44px; }
+            .btn-submit { height: 44px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="portal-container">
+        
+        <!-- Left Showcase Pane -->
+        <div class="showcase-pane">
+            <div>
+                <div style="display: flex; align-items: center; gap: 14px;">
+                    <div class="brand-badge">AS</div>
+                    <div class="brand-title-group">
+                        <h1>Portfolio<br>Administration</h1>
+                    </div>
+                </div>
+                <p class="brand-subtitle">Manage your portfolio content, projects, blogs, and site analytics seamlessly.</p>
+            </div>
+
+            <!-- Graphic Preview (Desktop only) -->
+            <div class="mockup-wrapper">
+                <div class="dashboard-mockup">
+                    <div class="mockup-nav">
+                        <span class="dot dot-red"></span>
+                        <span class="dot dot-yellow"></span>
+                        <span class="dot dot-green"></span>
+                    </div>
+                    <div class="mockup-grid">
+                        <div class="mockup-card">
+                            <span>Total Projects</span>
+                            <h3>24</h3>
+                        </div>
+                        <div class="mockup-card">
+                            <span>Certifications</span>
+                            <h3>18</h3>
+                        </div>
+                        <div class="mockup-card">
+                            <span>Total Views</span>
+                            <h3>1,248</h3>
+                        </div>
+                    </div>
+                    <div class="mockup-chart-box">
+                        <div class="mockup-chart-header">
+                            <span>Analytics Overview</span>
+                            <span style="color: #10b981;">+12.5%</span>
+                        </div>
+                        <svg class="wave-svg" viewBox="0 0 300 60">
+                            <path d="M 0,40 Q 60,10 120,35 T 240,15 T 300,30" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div style="font-size: 12px; color: rgba(255,255,255,0.7); font-weight: 500;">
+                <i class="fa-solid fa-lock" style="margin-right: 6px;"></i> Secure Administrator Session
+            </div>
+        </div>
+
+        <!-- Right Login Card -->
+        <div class="login-pane">
+            <div class="form-top">
+                <div class="shield-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <h2>Welcome Back!</h2>
+                <p>Sign in to your admin account</p>
+            </div>
+
+            {% if form.errors %}
+                <div style="background: #fef2f2; border: 1px solid #fecaca; color: #dc2626; padding: 10px 14px; border-radius: 10px; font-size: 13px; font-weight: 600; margin-top: 14px;">
+                    Invalid credentials. Please verify your email and password.
+                </div>
+            {% endif %}
+
+            <form action="{{ app_path }}" method="post" id="login-form" class="login-form">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="id_username">Email Address / Username</label>
+                    <div class="input-wrapper">
+                        <i class="fa-regular fa-envelope lead-icon"></i>
+                        <input type="text" name="username" autofocus autocomplete="username" required id="id_username" placeholder="admin@example.com">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="id_password">Password</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-lock lead-icon"></i>
+                        <input type="password" name="password" autocomplete="current-password" required id="id_password" placeholder="••••••••">
+                        <i class="fa-regular fa-eye-slash toggle-password" id="togglePasswordBtn"></i>
+                    </div>
+                </div>
+
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox" name="remember_me" checked> Remember me
+                    </label>
+                    <a href="{% url 'admin_password_reset' %}" class="forgot-link">Forgot password?</a>
+                </div>
+
+                <input type="hidden" name="next" value="{{ next }}">
+
+                <button type="submit" class="btn-submit">Log In</button>
+
+                <div class="divider">or</div>
+
+                <a href="/api/" class="btn-return">
+                    <i class="fa-solid fa-globe"></i> Return to API / Website
+                </a>
+            </form>
+
+            <div class="portal-footer">
+                Portfolio CMS • REST API Backend • Active Environment
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const togglePassword = document.querySelector('#togglePasswordBtn');
+        const passwordInput = document.querySelector('#id_password');
+
+        if (togglePassword && passwordInput) {
+            togglePassword.addEventListener('click', function () {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                this.classList.toggle('fa-eye');
+                this.classList.toggle('fa-eye-slash');
+            });
+        }
+    </script>
+</body>
+</html>

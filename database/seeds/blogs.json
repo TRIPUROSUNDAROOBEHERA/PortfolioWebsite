@@ -1,0 +1,26 @@
+[
+  {
+    "model": "blogs.blogpost",
+    "pk": 1,
+    "fields": {
+      "title": "Building Scalable Django Backends",
+      "slug": "building-scalable-django-backends",
+      "summary": "Best architectural practices for structuring Django REST APIs with MySQL/PostgreSQL databases.",
+      "content": "Designing high-concurrency backends requires careful database indexing, granular permission sets, and clean serializations with Django REST Framework.",
+      "created_at": "2026-05-20T00:00:00Z",
+      "updated_at": "2026-05-20T00:00:00Z"
+    }
+  },
+  {
+    "model": "blogs.blogpost",
+    "pk": 2,
+    "fields": {
+      "title": "How I Built My Portfolio CMS",
+      "slug": "how-i-built-my-portfolio-cms",
+      "summary": "Architecting a full stack application with decoupled React UI and authenticated management controllers.",
+      "content": "A detailed technical breakdown of state management, custom responsive layout grids, and JWT token refresh middleware.",
+      "created_at": "2026-05-10T00:00:00Z",
+      "updated_at": "2026-05-10T00:00:00Z"
+    }
+  }
+]

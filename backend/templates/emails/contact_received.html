@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>New Contact Message</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f8fafc; margin: 0; padding: 32px 16px; color: #334155; }
+    .card { max-width: 580px; margin: 0 auto; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 32px; }
+    .badge { display: inline-block; padding: 4px 10px; border-radius: 4px; background: #eff6ff; color: #2563eb; font-size: 12px; font-weight: 700; margin-bottom: 12px; }
+    .title { font-size: 18px; font-weight: 700; color: #0f172a; margin-bottom: 20px; }
+    .field-row { margin-bottom: 10px; font-size: 13.5px; }
+    .field-label { font-weight: 600; color: #64748b; width: 100px; display: inline-block; }
+    .field-val { color: #0f172a; }
+    .content-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 16px; margin: 20px 0; font-size: 14px; line-height: 1.5; white-space: pre-wrap; color: #1e293b; }
+    .btn { display: inline-block; background: #2563eb; color: #ffffff !important; padding: 9px 18px; border-radius: 6px; font-size: 13px; font-weight: 600; text-decoration: none; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <span class="badge">Portfolio Inbound Inquiry</span>
+    <div class="title">New Message Received</div>
+
+    <div class="field-row"><span class="field-label">Sender:</span> <span class="field-val">{{ name }}</span></div>
+    <div class="field-row"><span class="field-label">Email:</span> <span class="field-val"><a href="mailto:{{ email }}">{{ email }}</a></span></div>
+    {% if phone %}<div class="field-row"><span class="field-label">Phone:</span> <span class="field-val">{{ phone }}</span></div>{% endif %}
+    {% if subject %}<div class="field-row"><span class="field-label">Subject:</span> <span class="field-val">{{ subject }}</span></div>{% endif %}
+    <div class="field-row"><span class="field-label">Received At:</span> <span class="field-val">{{ created_at }}</span></div>
+
+    <div class="content-box">{{ message }}</div>
+
+    <a href="mailto:{{ email }}?subject=Re: {{ subject|default:'Portfolio Inquiry' }}" class="btn">Reply Directly</a>
+  </div>
+</body>
+</html>

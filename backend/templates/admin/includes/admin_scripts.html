@@ -1,0 +1,171 @@
+<script>
+    // ─── 1. Persistent Notifications ───
+    const headerNotifBtn = document.getElementById('headerNotifBtn');
+    const notificationsMenu = document.getElementById('notificationsMenu');
+    const headerNotifBadge = document.getElementById('headerNotifBadge');
+    const sidebarNotifBadge = document.getElementById('sidebarNotifBadge');
+    const clearNotifBtn = document.getElementById('clearNotifBtn');
+
+    function applyNotificationVisibility() {
+        const isRead = localStorage.getItem('admin_notif_read');
+        if (isRead === 'true') {
+            if (headerNotifBadge) headerNotifBadge.style.display = 'none';
+            if (sidebarNotifBadge) sidebarNotifBadge.style.display = 'none';
+        } else {
+            if (headerNotifBadge) headerNotifBadge.style.display = 'block';
+            if (sidebarNotifBadge) sidebarNotifBadge.style.display = 'inline-block';
+        }
+    }
+    applyNotificationVisibility();
+
+    function dismissNotificationBadge() {
+        localStorage.setItem('admin_notif_read', 'true');
+        applyNotificationVisibility();
+    }
+
+    if (headerNotifBtn && notificationsMenu) {
+        headerNotifBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            notificationsMenu.classList.toggle('active');
+            if (userProfileMenu) userProfileMenu.classList.remove('active');
+            dismissNotificationBadge();
+        });
+    }
+
+    if (clearNotifBtn) {
+        clearNotifBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dismissNotificationBadge();
+            if (notificationsMenu) notificationsMenu.classList.remove('active');
+        });
+    }
+
+    // ─── 2. Profile Dropdown ───
+    const userProfileBtn = document.getElementById('userProfileBtn');
+    const userProfileMenu = document.getElementById('userProfileMenu');
+
+    if (userProfileBtn && userProfileMenu) {
+        userProfileBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            userProfileMenu.classList.toggle('active');
+            if (notificationsMenu) notificationsMenu.classList.remove('active');
+        });
+    }
+
+    document.addEventListener('click', () => {
+        if (notificationsMenu) notificationsMenu.classList.remove('active');
+        if (userProfileMenu) userProfileMenu.classList.remove('active');
+        if (dropdown) dropdown.classList.remove('active');
+    });
+
+    // ─── 3. Logout Confirmation Modal ───
+    const logoutModal = document.getElementById('logoutModal');
+    const menuLogoutBtn = document.getElementById('menuLogoutBtn');
+    const cancelLogoutBtn = document.getElementById('cancelLogoutBtn');
+
+    function openModal() {
+        if (logoutModal) logoutModal.classList.add('active');
+        if (userProfileMenu) userProfileMenu.classList.remove('active');
+    }
+
+    if (menuLogoutBtn) menuLogoutBtn.addEventListener('click', openModal);
+    if (cancelLogoutBtn) cancelLogoutBtn.addEventListener('click', () => logoutModal.classList.remove('active'));
+
+    // ─── 4. Global Search ───
+    const searchableModules = [
+        { title: "Dashboard", url: "/admin/", category: "Main Menu", icon: "fa-solid fa-house" },
+        { title: "Achievements & Honors", url: "/admin/achievements/achievement/", category: "Main Menu", icon: "fa-solid fa-trophy" },
+        { title: "Add Achievement", url: "/admin/achievements/achievement/add/", category: "Actions", icon: "fa-solid fa-plus" },
+        { title: "Admin Notifications", url: "/admin/notifications/notification/", category: "Main Menu", icon: "fa-solid fa-bell" },
+        { title: "Blog Posts", url: "/admin/blogs/blogpost/", category: "Content Management", icon: "fa-solid fa-pen-nib" },
+        { title: "Add Blog Post", url: "/admin/blogs/blogpost/add/", category: "Actions", icon: "fa-solid fa-plus" },
+        { title: "Blog Categories", url: "/admin/blogs/blogcategory/", category: "Content Management", icon: "fa-regular fa-newspaper" },
+        { title: "Media Library", url: "/admin/media_manager/mediaasset/", category: "Content Management", icon: "fa-regular fa-image" },
+        { title: "Projects", url: "/admin/projects/project/", category: "Content Management", icon: "fa-solid fa-laptop-code" },
+        { title: "Skills", url: "/admin/skills/skill/", category: "Content Management", icon: "fa-solid fa-layer-group" },
+        { title: "Education", url: "/admin/education/education/", category: "Content Management", icon: "fa-solid fa-graduation-cap" },
+        { title: "Certificates", url: "/admin/certificates/certificate/", category: "Content Management", icon: "fa-solid fa-award" },
+        { title: "Page Views Analytics", url: "/admin/dashboard/pageview/", category: "Analytics & Reports", icon: "fa-solid fa-chart-line" },
+        { title: "Audit Logs", url: "/admin/audit_logs/auditlog/", category: "Analytics & Reports", icon: "fa-solid fa-clipboard-list" },
+        { title: "User Accounts", url: "/admin/accounts/user/", category: "System", icon: "fa-solid fa-user-group" },
+        { title: "Groups & Permissions", url: "/admin/auth/group/", category: "System", icon: "fa-solid fa-users-gear" },
+        { title: "Site Settings", url: "/admin/settings/sitesetting/", category: "System", icon: "fa-solid fa-gear" }
+    ];
+
+    const searchInput = document.getElementById('globalAdminSearch');
+    const dropdown = document.getElementById('searchResultsDropdown');
+
+    if (searchInput && dropdown) {
+        searchInput.addEventListener('input', function() {
+            const query = this.value.trim().toLowerCase();
+            if (query.length === 0) {
+                dropdown.classList.remove('active');
+                dropdown.innerHTML = '';
+                return;
+            }
+
+            const filtered = searchableModules.filter(m => 
+                m.title.toLowerCase().includes(query) || 
+                m.category.toLowerCase().includes(query)
+            );
+
+            if (filtered.length > 0) {
+                let html = '';
+                filtered.forEach(item => {
+                    html += `
+                        <a href="${item.url}" class="search-result-item">
+                            <div>
+                                <i class="${item.icon}"></i>
+                                <span>${item.title}</span>
+                            </div>
+                            <span class="search-result-tag">${item.category}</span>
+                        </a>
+                    `;
+                });
+                dropdown.innerHTML = html;
+                dropdown.classList.add('active');
+            } else {
+                dropdown.innerHTML = `<div class="search-no-results">No modules matching "<strong>${query}</strong>"</div>`;
+                dropdown.classList.add('active');
+            }
+        });
+
+        searchInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const firstMatch = dropdown.querySelector('.search-result-item');
+                if (firstMatch) window.location.href = firstMatch.getAttribute('href');
+            }
+        });
+    }
+
+    // Shortcut: Ctrl + K
+    document.addEventListener('keydown', function(e) {
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+            e.preventDefault();
+            if (searchInput) {
+                searchInput.focus();
+                searchInput.select();
+            }
+        }
+    });
+
+    // Mobile drawer toggle
+    const adminSidebar = document.getElementById('adminSidebar');
+    const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+    const openSidebarBtn = document.getElementById('openSidebarBtn');
+    const closeSidebarBtn = document.getElementById('closeSidebarBtn');
+
+    function toggleSidebar(open) {
+        if (open) {
+            adminSidebar.classList.add('open');
+            sidebarBackdrop.classList.add('active');
+        } else {
+            adminSidebar.classList.remove('open');
+            sidebarBackdrop.classList.remove('active');
+        }
+    }
+
+    if (openSidebarBtn) openSidebarBtn.addEventListener('click', () => toggleSidebar(true));
+    if (closeSidebarBtn) closeSidebarBtn.addEventListener('click', () => toggleSidebar(false));
+    if (sidebarBackdrop) sidebarBackdrop.addEventListener('click', () => toggleSidebar(false));
+</script>
