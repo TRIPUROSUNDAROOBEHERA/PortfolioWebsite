@@ -51,7 +51,7 @@ export default function ContactCard() {
     <div className="bg-white rounded-3xl p-5 border border-slate-200/90 shadow-sm flex flex-col justify-between h-full">
       <div className="flex items-center gap-2 text-xs font-black text-slate-900 mb-3">
         <i className="fa-regular fa-paper-plane text-blue-600"></i>
-        <span>{"Let's Connect"}</span>
+        <span>Let&apos;s Connect</span>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-3">
