@@ -1,9 +1,11 @@
 name: Production Deployment
 
 on:
-  push:
-    branches: [ main ]
+  # Triggers deployment manually via the GitHub Actions tab button
   workflow_dispatch:
+  # To enable automatic deployment on push after your server is live, uncomment the lines below:
+  # push:
+  #   branches: [ main ]
 
 jobs:
   deploy:
@@ -19,29 +21,31 @@ jobs:
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
+          # Supports either SSH key or server password:
           key: ${{ secrets.SERVER_SSH_KEY }}
+          password: ${{ secrets.SERVER_PASSWORD }}
           port: ${{ secrets.SERVER_PORT || 22 }}
           script: |
             set -e
-            echo "Starting deployment on production server..."
+            echo "Starting production deployment..."
 
-            # Navigate to production directory
+            # 1. Navigate to target project folder
             cd ~/PortfolioWebsite || cd /var/www/PortfolioWebsite
 
-            # Pull latest changes
+            # 2. Fetch and synchronize latest code from main branch
             git fetch origin main
             git reset --hard origin/main
 
-            # Rebuild and restart Docker containers
+            # 3. Gracefully stop previous containers and rebuild
             docker compose -f docker-compose.prod.yml down
             docker compose -f docker-compose.prod.yml build --no-cache
             docker compose -f docker-compose.prod.yml up -d
 
-            # Run migrations and collect static files inside backend container
+            # 4. Run Django database migrations and static collection inside backend container
             docker compose -f docker-compose.prod.yml exec -T backend python manage.py migrate --noinput
             docker compose -f docker-compose.prod.yml exec -T backend python manage.py collectstatic --noinput
 
-            # Clean unused images to save disk space
+            # 5. Prune dangling Docker images to maintain server disk space
             docker image prune -f
 
             echo "Deployment completed successfully!"
