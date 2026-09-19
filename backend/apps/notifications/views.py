@@ -32,7 +32,7 @@ class NotificationViewSet(viewsets.ModelViewSet):
         user = self.request.user
         if user.is_superuser:
             return Notification.objects.all()
-        return Notification.objects.filter(models.Q(recipient=user) | models.Q(recipient__isnull=True))
+        return Notification.objects.filter(Q(recipient=user) | Q(recipient__isnull=True))
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
