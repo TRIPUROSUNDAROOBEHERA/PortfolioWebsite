@@ -11,21 +11,18 @@ on:
     paths:
       - 'backend/**'
       - '.github/workflows/backend-ci.yml'
+  workflow_dispatch:
 
 jobs:
   django-tests:
     name: Run Django Lint & Unit Tests
     runs-on: ubuntu-latest
 
-    services:
-      mysql:
-        image: mysql:8.0
-        env:
-          MYSQL_DATABASE: portfolio_db
-          MYSQL_ROOT_PASSWORD: rootpassword
-        ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    env:
+      DJANGO_SETTINGS_MODULE: config.settings.development
+      SECRET_KEY: ci-test-secret-key-safe-for-github-actions-only
+      DEBUG: "True"
+      ALLOWED_HOSTS: "localhost,127.0.0.1"
 
     steps:
       - name: Checkout Repository
@@ -37,42 +34,31 @@ jobs:
           python-version: '3.11'
           cache: 'pip'
 
-      - name: Install Dependencies
+      - name: Install Python Dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r backend/requirements.txt
           pip install flake8 pytest pytest-django
 
-      - name: Run Linting (Flake8)
+      - name: Code Quality & Syntax Check (Flake8)
         run: |
-          # Stop build if there are Python syntax errors or undefined names
+          # Stop build immediately if there are syntax errors or undefined names
           flake8 backend --count --select=E9,F63,F7,F82 --show-source --statistics
-          # Exit-zero treats all other errors as warnings
-          flake8 backend --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+          # Warnings and code-style formatting checks (non-blocking)
+          flake8 backend --count --exit-zero --max-complexity=12 --max-line-length=127 --statistics
 
-      - name: Run Database Migrations
-        env:
-          DJANGO_SETTINGS_MODULE: config.settings.testing
-          DB_NAME: portfolio_db
-          DB_USER: root
-          DB_PASSWORD: rootpassword
-          DB_HOST: 127.0.0.1
-          DB_PORT: 3306
-          SECRET_KEY: ci-test-secret-key-replace-in-production
+      - name: Validate Django Configuration
+        run: |
+          cd backend
+          python manage.py check
+
+      - name: Check Database Migrations
         run: |
           cd backend
           python manage.py makemigrations --check --dry-run
-          python manage.py migrate
+          python manage.py migrate --noinput
 
-      - name: Execute Tests
-        env:
-          DJANGO_SETTINGS_MODULE: config.settings.testing
-          DB_NAME: portfolio_db
-          DB_USER: root
-          DB_PASSWORD: rootpassword
-          DB_HOST: 127.0.0.1
-          DB_PORT: 3306
-          SECRET_KEY: ci-test-secret-key-replace-in-production
+      - name: Run Backend Unit Tests
         run: |
           cd backend
-          python manage.py test
+          python manage.py test --verbosity=2
