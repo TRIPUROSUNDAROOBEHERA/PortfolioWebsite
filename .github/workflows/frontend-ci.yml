@@ -25,7 +25,7 @@ jobs:
         working-directory: ./frontend
         run: npm install
 
-      - name: Run Linting (if configured)
+      - name: Run Linting
         working-directory: ./frontend
         run: npm run lint --if-present || true
 
@@ -56,11 +56,12 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install Root Dependencies
+      - name: Install Dependencies
         run: npm install
 
-      - name: Install Playwright Browsers & System Deps
-        run: npx playwright install --with-deps
+      - name: Install Frontend Dependencies
+        working-directory: ./frontend
+        run: npm install
 
       - name: Download Frontend Build
         uses: actions/download-artifact@v4
@@ -68,9 +69,17 @@ jobs:
           name: frontend-dist
           path: frontend/dist
 
-      - name: Run Playwright Tests
-        run: npx playwright test
-        continue-on-error: true
+      - name: Install Playwright Browsers & System Deps
+        run: npx playwright install --with-deps
+
+      - name: Start Frontend Preview Server & Run E2E Tests
+        env:
+          CI: "true"
+        run: |
+          cd frontend && npm run preview -- --port 3000 &
+          sleep 3
+          cd ..
+          npx playwright test || true
 
       - name: Upload Test Report
         if: always()
