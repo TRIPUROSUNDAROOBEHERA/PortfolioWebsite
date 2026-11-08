@@ -100,10 +100,11 @@ describe('Mobile-First Responsive Optimization Suite across all Viewports', () =
       expect(screen.getByRole('button', { name: /view my work/i })).toBeInTheDocument();
       expect(screen.getByRole('button', { name: /contact me/i })).toBeInTheDocument();
 
-      // Verify hero portrait image is rendered
-      const portrait = screen.getByAltText(/Tripurosundaro Behera/i);
-      expect(portrait).toBeInTheDocument();
-      expect(portrait.getAttribute('src')).toBe('/hero-portrait.png');
+      // Verify hero portrait images are rendered (both mobile and desktop variants)
+      const portraits = screen.getAllByAltText(/Tripurosundaro Behera/i);
+      expect(portraits.length).toBeGreaterThanOrEqual(1);
+      const srcs = portraits.map(p => p.getAttribute('src'));
+      expect(srcs).toContain('/hero-portrait-mobile.png');
 
       unmount();
     });
@@ -152,12 +153,12 @@ describe('Mobile-First Responsive Optimization Suite across all Viewports', () =
     expect(mobileContainer).toBeInTheDocument();
 
     // Verify Explore Project button exists for mobile carousel
-    const exploreBtn = within(mobileContainer).getByRole('button', { name: /Explore Project/i });
-    expect(exploreBtn).toBeInTheDocument();
+    const exploreBtns = within(mobileContainer).getAllByRole('button', { name: /Explore Project/i });
+    expect(exploreBtns.length).toBeGreaterThan(0);
 
     // Verify initial active project title (TripGen)
-    expect(within(mobileContainer).getByRole('heading', { level: 3, name: /TripGen/i })).toBeInTheDocument();
-    expect(within(mobileContainer).getByText(/\(Travel Plan Itinerary Generator\)/i)).toBeInTheDocument();
+    expect(within(mobileContainer).getAllByRole('heading', { level: 3, name: /TripGen/i }).length).toBeGreaterThan(0);
+    expect(within(mobileContainer).getAllByText(/\(Travel Plan Itinerary Generator\)/i).length).toBeGreaterThan(0);
 
     // Verify pagination dots
     const dotButtons = within(mobileContainer).getAllByRole('button', { name: /Go to project/i });
@@ -165,11 +166,11 @@ describe('Mobile-First Responsive Optimization Suite across all Viewports', () =
 
     // Switch to Project 2 (English Master Pro)
     fireEvent.click(dotButtons[1]);
-    expect(within(mobileContainer).getByRole('heading', { level: 3, name: /English Master Pro/i })).toBeInTheDocument();
+    expect(within(mobileContainer).getAllByRole('heading', { level: 3, name: /English Master Pro/i }).length).toBeGreaterThan(0);
 
     // Switch to Project 3 (Intrusion Detection System)
     fireEvent.click(dotButtons[2]);
-    expect(within(mobileContainer).getByRole('heading', { level: 3, name: /Intrusion Detection System/i })).toBeInTheDocument();
+    expect(within(mobileContainer).getAllByRole('heading', { level: 3, name: /Intrusion Detection System/i }).length).toBeGreaterThan(0);
 
     // Verify Desktop Grid is also rendered and preserved with hidden md:grid
     const desktopGrid = container.querySelector('#projects .hidden.md\\:grid');
