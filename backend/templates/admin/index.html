@@ -287,17 +287,149 @@
     .status-bar-fill {
         height: 100%;
         border-radius: 6px;
+        transition: width 0.4s ease;
+    }
+
+    .status-bar-fill.purple-bar { background: #9333ea; }
+    .status-bar-fill.blue-bar { background: #3b82f6; }
+
+    /* ─── ALL MODULES & DATABASE CONTROLS DIRECTORY ─── */
+    .all-modules-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-top: 16px;
+    }
+
+    .app-module-card {
+        background: #f8fafc;
+        border: 1px solid var(--border-light);
+        border-radius: 16px;
+        padding: 16px 18px;
+        transition: all 0.2s;
+    }
+
+    .app-module-card:hover {
+        background: #ffffff;
+        border-color: #cbd5e1;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+    }
+
+    .app-module-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .app-module-header h4 {
+        font-size: 13.5px;
+        font-weight: 800;
+        color: #0f172a;
+        margin: 0;
+    }
+
+    .app-view-link {
+        font-size: 11px;
+        font-weight: 700;
+        color: #6366f1;
+        text-decoration: none;
+    }
+
+    .model-rows-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .model-single-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 7px 10px;
+        background: #ffffff;
+        border: 1px solid #edf2f7;
+        border-radius: 10px;
+        gap: 8px;
+        transition: border-color 0.15s;
+    }
+
+    .model-single-row:hover {
+        border-color: #cbd5e1;
+    }
+
+    .model-name-link {
+        font-size: 12px;
+        font-weight: 700;
+        color: #334155;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .model-name-link:hover {
+        color: #2563eb;
+    }
+
+    .model-actions-btns {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .mod-add-btn {
+        font-size: 11px;
+        font-weight: 700;
+        color: #16a34a;
+        background: #dcfce7;
+        padding: 2px 8px;
+        border-radius: 6px;
+        text-decoration: none;
+        transition: background 0.15s;
+    }
+
+    .mod-add-btn:hover {
+        background: #bbf7d0;
+    }
+
+    .mod-change-btn {
+        font-size: 11px;
+        font-weight: 600;
+        color: #475569;
+        background: #f1f5f9;
+        padding: 2px 8px;
+        border-radius: 6px;
+        text-decoration: none;
+        transition: all 0.15s;
+    }
+
+    .mod-change-btn:hover {
+        background: #e2e8f0;
+        color: #0f172a;
     }
 
     @media (max-width: 1200px) {
         .stat-cards-grid { grid-template-columns: repeat(2, 1fr); }
         .dashboard-mid-grid { grid-template-columns: 1fr; }
         .dashboard-bottom-grid { grid-template-columns: 1fr; }
-        .action-boxes-container { grid-template-columns: repeat(3, 1fr); }
+        .action-boxes-container { grid-template-columns: repeat(4, 1fr); }
+        .all-modules-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     @media (max-width: 767px) {
         .stat-cards-grid { grid-template-columns: 1fr; }
+        .action-boxes-container { grid-template-columns: repeat(3, 1fr); }
+        .all-modules-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 480px) {
         .action-boxes-container { grid-template-columns: repeat(2, 1fr); }
     }
 </style>
@@ -307,7 +439,7 @@
 <!-- 1. TOP HEADER WITH LIVE DATE -->
 <div class="dashboard-top-row">
     <div class="welcome-header">
-        <h1> S. Ram Kumar! 👋</h1>
+        <h1>Welcome back, Tripurosundaro Behera! 👋</h1>
         <p>Here's what's happening with your portfolio website today.</p>
     </div>
 
@@ -426,8 +558,55 @@
 <!-- 4. QUICK ACTIONS & REAL SYSTEM STATUS -->
 <div class="dashboard-bottom-grid">
     <div class="panel-box">
-        <div class="panel-box-title">Quick Actions</div>
+        <div class="panel-box-header">
+            <div class="panel-box-title">
+                <i class="fa-solid fa-bolt" style="color: #6366f1; margin-right: 6px;"></i>
+                Quick Controls & Core Actions
+            </div>
+            <span style="font-size: 11.5px; color: #64748b; font-weight: 700;">12 Fast Controls</span>
+        </div>
         <div class="action-boxes-container">
+            <!-- 1. Profile -->
+            <a href="/admin/profile/profile/" class="single-action-box">
+                <div class="action-icon-circle" style="background: #eff6ff; color: #2563eb;">
+                    <i class="fa-solid fa-id-card"></i>
+                </div>
+                <span>Edit Profile</span>
+            </a>
+
+            <!-- 2. Projects -->
+            <a href="/admin/projects/project/add/" class="single-action-box">
+                <div class="action-icon-circle" style="background: #dcfce7; color: #16a34a;">
+                    <i class="fa-solid fa-laptop-code"></i>
+                </div>
+                <span>New Project</span>
+            </a>
+
+            <!-- 3. Skills -->
+            <a href="/admin/skills/skill/add/" class="single-action-box">
+                <div class="action-icon-circle" style="background: #f5f3ff; color: #7c3aed;">
+                    <i class="fa-solid fa-layer-group"></i>
+                </div>
+                <span>Add Skill</span>
+            </a>
+
+            <!-- 4. Education -->
+            <a href="/admin/education/education/add/" class="single-action-box">
+                <div class="action-icon-circle" style="background: #ecfdf5; color: #059669;">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <span>Add Degree</span>
+            </a>
+
+            <!-- 5. Certificates -->
+            <a href="/admin/certificates/certificate/add/" class="single-action-box">
+                <div class="action-icon-circle" style="background: #fef3c7; color: #d97706;">
+                    <i class="fa-solid fa-award"></i>
+                </div>
+                <span>Add Certificate</span>
+            </a>
+
+            <!-- 6. Achievements -->
             <a href="/admin/achievements/achievement/add/" class="single-action-box">
                 <div class="action-icon-circle" style="background: #f3e8ff; color: #9333ea;">
                     <i class="fa-solid fa-trophy"></i>
@@ -435,13 +614,23 @@
                 <span>Add Achievement</span>
             </a>
 
+            <!-- 7. Contact Messages -->
+            <a href="/admin/contact/contactmessage/" class="single-action-box">
+                <div class="action-icon-circle" style="background: #e0f2fe; color: #0284c7;">
+                    <i class="fa-solid fa-envelope-open-text"></i>
+                </div>
+                <span>Messages ({{ real_counts.messages|default:0 }})</span>
+            </a>
+
+            <!-- 8. Blogs -->
             <a href="/admin/blogs/blogpost/add/" class="single-action-box">
                 <div class="action-icon-circle" style="background: #fce7f3; color: #db2777;">
                     <i class="fa-solid fa-pen-nib"></i>
                 </div>
-                <span>New Blog Post</span>
+                <span>New Blog</span>
             </a>
 
+            <!-- 9. Media -->
             <a href="/admin/media_manager/mediaasset/add/" class="single-action-box">
                 <div class="action-icon-circle" style="background: #ffedd5; color: #ea580c;">
                     <i class="fa-solid fa-cloud-arrow-up"></i>
@@ -449,22 +638,25 @@
                 <span>Upload Media</span>
             </a>
 
-            <a href="/admin/projects/project/add/" class="single-action-box">
-                <div class="action-icon-circle" style="background: #dcfce7; color: #16a34a;">
-                    <i class="fa-solid fa-laptop-code"></i>
+            <!-- 10. Courses -->
+            <a href="/admin/courses/course/add/" class="single-action-box">
+                <div class="action-icon-circle" style="background: #e0e7ff; color: #4338ca;">
+                    <i class="fa-solid fa-book-bookmark"></i>
                 </div>
-                <span>Create Project</span>
+                <span>Add Course</span>
             </a>
 
+            <!-- 11. Users -->
             <a href="/admin/accounts/user/" class="single-action-box">
-                <div class="action-icon-circle" style="background: #dbeafe; color: #2563eb;">
+                <div class="action-icon-circle" style="background: #dbeafe; color: #1d4ed8;">
                     <i class="fa-solid fa-users"></i>
                 </div>
                 <span>Manage Users</span>
             </a>
 
+            <!-- 12. Settings -->
             <a href="/admin/settings/sitesetting/" class="single-action-box">
-                <div class="action-icon-circle" style="background: #f3e8ff; color: #7c3aed;">
+                <div class="action-icon-circle" style="background: #f3e8ff; color: #6d28d9;">
                     <i class="fa-solid fa-gear"></i>
                 </div>
                 <span>Site Settings</span>
@@ -472,7 +664,7 @@
         </div>
     </div>
 
-    <!-- REAL SYSTEM STATUS -->
+    <!-- REAL SYSTEM STATUS (ZERO LINTER ERRORS) -->
     <div class="panel-box">
         <div class="panel-box-header">
             <div class="panel-box-title">System Status</div>
@@ -502,7 +694,7 @@
                 <span title="Total: {{ system_metrics.storage_used_gb }} GB / {{ system_metrics.storage_total_gb }} GB">Storage Used</span>
                 <div style="display: flex; align-items: center; gap: 8px;">
                     <div class="status-bar-bg">
-                        <div class="status-bar-fill" style="width: {{ system_metrics.storage_percent|default:0 }}%; background: #9333ea;"></div>
+                        <div class="status-bar-fill purple-bar" data-percent="{{ system_metrics.storage_percent|default:0 }}"></div>
                     </div>
                     <span style="font-size: 11px; font-weight: 700; min-width: 32px; text-align: right;">{{ system_metrics.storage_percent|default:0 }}%</span>
                 </div>
@@ -512,7 +704,7 @@
                 <span title="Traffic: {{ system_metrics.bandwidth_total_mb }} MB transfer">Bandwidth Used</span>
                 <div style="display: flex; align-items: center; gap: 8px;">
                     <div class="status-bar-bg">
-                        <div class="status-bar-fill" style="width: {{ system_metrics.bandwidth_percent|default:0 }}%; background: #3b82f6;"></div>
+                        <div class="status-bar-fill blue-bar" data-percent="{{ system_metrics.bandwidth_percent|default:0 }}"></div>
                     </div>
                     <span style="font-size: 11px; font-weight: 700; min-width: 32px; text-align: right;">{{ system_metrics.bandwidth_percent|default:0 }}%</span>
                 </div>
@@ -520,6 +712,53 @@
         </div>
     </div>
 </div>
+
+<!-- 5. ALL SYSTEM MODULES & DATABASE CONTROLS (FULL DJANGO ADMIN APPS DIRECTORY) -->
+{% if app_list %}
+<div class="panel-box" style="margin-top: 24px;">
+    <div class="panel-box-header">
+        <div class="panel-box-title">
+            <i class="fa-solid fa-cubes" style="color: #6366f1; margin-right: 8px;"></i>
+            All System Modules & Database Controls
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <input type="text" id="moduleFilterInput" placeholder="Filter models..." onkeyup="filterAdminModels(this.value)" style="padding: 5px 12px; border-radius: 8px; border: 1px solid var(--border-light); font-size: 12px; outline: none; background: #f8fafc; color: #334155;">
+            <span style="font-size: 12px; color: #64748b; font-weight: 700;">{{ app_list|length }} Applications</span>
+        </div>
+    </div>
+
+    <div class="all-modules-grid" id="allModulesGrid">
+        {% for app in app_list %}
+            <div class="app-module-card" data-app-name="{{ app.name|lower }}">
+                <div class="app-module-header">
+                    <h4>{{ app.name }}</h4>
+                    {% if app.app_url %}
+                        <a href="{{ app.app_url }}" class="app-view-link">View App &rarr;</a>
+                    {% endif %}
+                </div>
+                <div class="model-rows-list">
+                    {% for model in app.models %}
+                        <div class="model-single-row" data-model-name="{{ model.name|lower }}">
+                            <a href="{{ model.admin_url }}" class="model-name-link">
+                                <i class="fa-regular fa-folder" style="color: #94a3b8; font-size: 12px;"></i>
+                                <span>{{ model.name }}</span>
+                            </a>
+                            <div class="model-actions-btns">
+                                {% if model.add_url %}
+                                    <a href="{{ model.add_url }}" class="mod-add-btn" title="Add new {{ model.name }}">+ Add</a>
+                                {% endif %}
+                                {% if model.admin_url %}
+                                    <a href="{{ model.admin_url }}" class="mod-change-btn" title="Manage {{ model.name }}">Manage</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
 {% endblock %}
 
 {% block extrajs %}
@@ -627,6 +866,33 @@
         analyticsChart.data.datasets[0].data = d.visitors;
         analyticsChart.data.datasets[1].data = d.views;
         analyticsChart.update();
+    }
+
+    // Initialize Progress Bar Widths smoothly from data-percent attribute
+    document.querySelectorAll('.status-bar-fill[data-percent]').forEach(function(el) {
+        var val = parseFloat(el.getAttribute('data-percent')) || 0;
+        el.style.width = Math.min(100, Math.max(0, val)) + '%';
+    });
+
+    // Real-time Search and Filter for All System Modules
+    function filterAdminModels(query) {
+        var q = (query || '').toLowerCase().trim();
+        var modelRows = document.querySelectorAll('#allModulesGrid .model-single-row');
+        modelRows.forEach(function(row) {
+            var name = (row.getAttribute('data-model-name') || '').toLowerCase();
+            row.style.display = (!q || name.indexOf(q) !== -1) ? 'flex' : 'none';
+        });
+
+        var appCards = document.querySelectorAll('#allModulesGrid .app-module-card');
+        appCards.forEach(function(card) {
+            var visibleRows = card.querySelectorAll('.model-single-row:not([style*="display: none"])');
+            var appName = (card.getAttribute('data-app-name') || '').toLowerCase();
+            if (!q || appName.indexOf(q) !== -1 || visibleRows.length > 0) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
     }
 </script>
 {% endblock %}

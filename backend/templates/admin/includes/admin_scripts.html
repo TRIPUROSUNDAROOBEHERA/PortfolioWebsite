@@ -159,13 +159,20 @@
         if (open) {
             adminSidebar.classList.add('open');
             sidebarBackdrop.classList.add('active');
+            document.body.classList.add('sidebar-open');
         } else {
             adminSidebar.classList.remove('open');
             sidebarBackdrop.classList.remove('active');
+            document.body.classList.remove('sidebar-open');
         }
     }
 
     if (openSidebarBtn) openSidebarBtn.addEventListener('click', () => toggleSidebar(true));
     if (closeSidebarBtn) closeSidebarBtn.addEventListener('click', () => toggleSidebar(false));
-    if (sidebarBackdrop) sidebarBackdrop.addEventListener('click', () => toggleSidebar(false));
+    if (sidebarBackdrop) {
+        sidebarBackdrop.addEventListener('click', () => toggleSidebar(false));
+        sidebarBackdrop.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+        }, { passive: false });
+    }
 </script>

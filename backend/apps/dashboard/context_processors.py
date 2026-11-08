@@ -70,6 +70,17 @@ def system_status_processor(request):
         total_blogs = get_model_count('blogs', 'BlogPost')
         total_views = get_model_count('dashboard', 'PageView')
         active_users = User.objects.filter(is_active=True).count()
+        total_projects = get_model_count('projects', 'Project')
+        total_skills = get_model_count('skills', 'Skill')
+        total_education = get_model_count('education', 'Education')
+        total_certificates = get_model_count('certificates', 'Certificate')
+        total_messages = get_model_count('contact', 'ContactMessage')
+        total_media = get_model_count('media_manager', 'MediaAsset')
+        total_courses = get_model_count('courses', 'Course')
+        total_future_plans = get_model_count('future_plan', 'FuturePlan')
+        total_publications = get_model_count('publications', 'Publication')
+        total_research = get_model_count('research', 'ResearchPaper')
+        total_resources = get_model_count('resources', 'Resource')
 
         return {
             'system_metrics': get_real_system_metrics(),
@@ -79,6 +90,17 @@ def system_status_processor(request):
                 'blogs': total_blogs,
                 'views': total_views,
                 'users': active_users if active_users > 0 else 1,
+                'projects': total_projects,
+                'skills': total_skills,
+                'education': total_education,
+                'certificates': total_certificates,
+                'messages': total_messages,
+                'media': total_media,
+                'courses': total_courses,
+                'future_plans': total_future_plans,
+                'publications': total_publications,
+                'research': total_research,
+                'resources': total_resources,
             }
         }
     return {}

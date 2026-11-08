@@ -3,7 +3,7 @@
         <!-- Brand Header -->
         <div class="sidebar-brand">
             <div class="brand-group">
-                <div class="brand-badge">AS</div>
+                <div class="brand-badge">TB</div>
                 <div class="brand-text">
                     <h2>Portfolio Administration</h2>
                     <span>Site Admin Panel</span>
@@ -23,6 +23,13 @@
                     <i class="fa-solid fa-house"></i>
                     <span>Dashboard</span>
                 </div>
+            </a>
+            <a href="/admin/profile/profile/" class="nav-link {% if '/admin/profile/' in request.path %}active{% endif %}">
+                <div class="nav-link-left">
+                    <i class="fa-solid fa-id-card"></i>
+                    <span>Profile & Bio</span>
+                </div>
+                <i class="fa-solid fa-angle-right" style="font-size: 10px;"></i>
             </a>
             <a href="/admin/achievements/achievement/" class="nav-link {% if '/admin/achievements/' in request.path %}active{% endif %}">
                 <div class="nav-link-left">
@@ -48,26 +55,8 @@
                 </div>
             </a>
 
-            <!-- 3. Content Management -->
-            <div class="nav-category">Content Management</div>
-            <a href="/admin/blogs/blogcategory/" class="nav-link {% if '/admin/blogs/blogcategory/' in request.path %}active{% endif %}">
-                <div class="nav-link-left">
-                    <i class="fa-regular fa-newspaper"></i>
-                    <span>Blog Categories</span>
-                </div>
-            </a>
-            <a href="/admin/blogs/blogpost/" class="nav-link {% if '/admin/blogs/blogpost/' in request.path %}active{% endif %}">
-                <div class="nav-link-left">
-                    <i class="fa-solid fa-pen-nib"></i>
-                    <span>Blog Posts</span>
-                </div>
-            </a>
-            <a href="/admin/media_manager/mediaasset/" class="nav-link {% if '/admin/media_manager/' in request.path %}active{% endif %}">
-                <div class="nav-link-left">
-                    <i class="fa-regular fa-image"></i>
-                    <span>Media Library</span>
-                </div>
-            </a>
+            <!-- 3. Portfolio & Content Management -->
+            <div class="nav-category">Portfolio Content</div>
             <a href="/admin/projects/project/" class="nav-link {% if '/admin/projects/' in request.path %}active{% endif %}">
                 <div class="nav-link-left">
                     <i class="fa-solid fa-laptop-code"></i>
@@ -90,6 +79,54 @@
                 <div class="nav-link-left">
                     <i class="fa-solid fa-award"></i>
                     <span>Certificates</span>
+                </div>
+            </a>
+            <a href="/admin/blogs/blogcategory/" class="nav-link {% if '/admin/blogs/blogcategory/' in request.path %}active{% endif %}">
+                <div class="nav-link-left">
+                    <i class="fa-regular fa-newspaper"></i>
+                    <span>Blog Categories</span>
+                </div>
+            </a>
+            <a href="/admin/blogs/blogpost/" class="nav-link {% if '/admin/blogs/blogpost/' in request.path %}active{% endif %}">
+                <div class="nav-link-left">
+                    <i class="fa-solid fa-pen-nib"></i>
+                    <span>Blog Posts</span>
+                </div>
+            </a>
+            <a href="/admin/media_manager/mediaasset/" class="nav-link {% if '/admin/media_manager/' in request.path %}active{% endif %}">
+                <div class="nav-link-left">
+                    <i class="fa-regular fa-image"></i>
+                    <span>Media Library</span>
+                </div>
+            </a>
+            <a href="/admin/courses/course/" class="nav-link {% if '/admin/courses/' in request.path %}active{% endif %}">
+                <div class="nav-link-left">
+                    <i class="fa-solid fa-book-bookmark"></i>
+                    <span>Courses</span>
+                </div>
+            </a>
+            <a href="/admin/future_plan/futureplan/" class="nav-link {% if '/admin/future_plan/' in request.path %}active{% endif %}">
+                <div class="nav-link-left">
+                    <i class="fa-solid fa-compass"></i>
+                    <span>Future Plans</span>
+                </div>
+            </a>
+            <a href="/admin/publications/publication/" class="nav-link {% if '/admin/publications/' in request.path %}active{% endif %}">
+                <div class="nav-link-left">
+                    <i class="fa-solid fa-scroll"></i>
+                    <span>Publications</span>
+                </div>
+            </a>
+            <a href="/admin/research/researchpaper/" class="nav-link {% if '/admin/research/' in request.path %}active{% endif %}">
+                <div class="nav-link-left">
+                    <i class="fa-solid fa-microscope"></i>
+                    <span>Research Papers</span>
+                </div>
+            </a>
+            <a href="/admin/resources/resource/" class="nav-link {% if '/admin/resources/' in request.path %}active{% endif %}">
+                <div class="nav-link-left">
+                    <i class="fa-solid fa-folder-open"></i>
+                    <span>Resources</span>
                 </div>
             </a>
 

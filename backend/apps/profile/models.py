@@ -164,6 +164,11 @@ class Profile(models.Model):
         default="https://instagram.com",
         help_text="Instagram profile URL"
     )
+    whatsapp_url = models.URLField(
+        blank=True,
+        default="",
+        help_text="WhatsApp profile or chat URL (e.g., https://wa.me/919876543210)"
+    )
 
     # --------------------------------------------------------------------------
     # 7. Metadata Timestamps

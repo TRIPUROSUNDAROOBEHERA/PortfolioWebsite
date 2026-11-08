@@ -2,10 +2,2209 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
+html, body {
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
+  max-width: 100vw;
   font-family: 'Plus Jakarta Sans', sans-serif;
-  background-color: #f8faff;
+  background-color: #ffffff;
   color: #0f172a;
+  -webkit-tap-highlight-color: transparent;
+  scroll-behavior: smooth;
 }
+
+html {
+  scroll-padding-top: 70px;
+}
+
+/* Full-page one-scroll section snap alignment (desktop only to prevent trapping mobile touch scrolling) */
+@media (min-width: 1024px) {
+  #home,
+  #about,
+  #skills,
+  #projects,
+  #education,
+  #certificates,
+  #contact {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+}
+
+/* ─── MODAL SCROLL ISOLATION: COMPLETELY REMOVE SCROLLBAR ON SKILL MODAL ─── */
+html.modal-open,
+body.modal-open {
+  overflow: hidden !important;
+  overflow-y: hidden !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+html.modal-open::-webkit-scrollbar,
+body.modal-open::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* ─── SLIM BLUE-TO-PURPLE GRADIENT SCROLLBAR (MATCHING HOME FOOTER) ─── */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+::-webkit-scrollbar-thumb {
+  background: #0b3bca;
+  background: linear-gradient(180deg, #0b3bca 0%, #1738c8 25%, #2524a8 50%, #351a8e 75%, #431282 100%);
+  border-radius: 9999px;
+  box-shadow: 0 0 6px rgba(53, 26, 142, 0.4);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #092fb0;
+  background: linear-gradient(180deg, #092fb0 0%, #122ca5 25%, #1e1d88 50%, #2b1473 75%, #350e68 100%);
+  box-shadow: 0 0 10px rgba(67, 18, 130, 0.6);
+}
+html,
+body,
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #2524a8 transparent;
+}
+
+/* ─── Complete Scrollbar Removal Utilities (Skill Modal & Seamless Views) ─── */
+.no-scrollbar::-webkit-scrollbar,
+.skill-modal-scrollbar-hidden::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+.no-scrollbar,
+.skill-modal-scrollbar-hidden {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+
+/* Explicit class for modal & custom containers (clean slim gray) */
+.custom-slim-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.custom-slim-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-slim-scrollbar::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+.custom-slim-scrollbar::-webkit-scrollbar-thumb {
+  background: #94A3B8;
+  background: linear-gradient(180deg, #CBD5E1 0%, #94A3B8 50%, #64748B 100%);
+  border-radius: 9999px;
+}
+.custom-slim-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #64748B;
+  background: linear-gradient(180deg, #94A3B8 0%, #64748B 50%, #475569 100%);
+}
+.custom-slim-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #94A3B8 transparent;
+}
+
+/* ─── TRIPGEN DEDICATED SCROLLBAR (MATCHING TRIPGEN FOOTER) ─── */
+.tripgen-scrollbar::-webkit-scrollbar,
+.custom-slim-scrollbar.tripgen-scrollbar::-webkit-scrollbar,
+.pink-slim-scrollbar::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+.tripgen-scrollbar::-webkit-scrollbar-track,
+.custom-slim-scrollbar.tripgen-scrollbar::-webkit-scrollbar-track,
+.pink-slim-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.tripgen-scrollbar::-webkit-scrollbar-button,
+.custom-slim-scrollbar.tripgen-scrollbar::-webkit-scrollbar-button,
+.pink-slim-scrollbar::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+.tripgen-scrollbar::-webkit-scrollbar-thumb,
+.custom-slim-scrollbar.tripgen-scrollbar::-webkit-scrollbar-thumb,
+.pink-slim-scrollbar::-webkit-scrollbar-thumb {
+  background: #ed9ade;
+  background: linear-gradient(180deg, #ed9ade 0%, #bb7fda 28%, #926bd0 45%, #6b5ac4 60%, #474bb5 75%, #0c2864 100%);
+  border-radius: 9999px;
+  box-shadow: 0 0 6px rgba(187, 127, 218, 0.4);
+}
+.tripgen-scrollbar::-webkit-scrollbar-thumb:hover,
+.custom-slim-scrollbar.tripgen-scrollbar::-webkit-scrollbar-thumb:hover,
+.pink-slim-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #d980ce;
+  background: linear-gradient(180deg, #e582d3 0%, #a964ce 25%, #7b50bf 45%, #3337a3 70%, #051842 100%);
+  box-shadow: 0 0 10px rgba(146, 107, 208, 0.6);
+}
+.tripgen-scrollbar,
+.custom-slim-scrollbar.tripgen-scrollbar,
+.pink-slim-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #bb7fda transparent;
+}
+
+/* ─── ENGLISH MASTER PRO DEDICATED SCROLLBAR (ORANGE #FF762E) ─── */
+.english-master-scrollbar::-webkit-scrollbar,
+.custom-slim-scrollbar.english-master-scrollbar::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+.english-master-scrollbar::-webkit-scrollbar-track,
+.custom-slim-scrollbar.english-master-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.english-master-scrollbar::-webkit-scrollbar-button,
+.custom-slim-scrollbar.english-master-scrollbar::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+.english-master-scrollbar::-webkit-scrollbar-thumb,
+.custom-slim-scrollbar.english-master-scrollbar::-webkit-scrollbar-thumb {
+  background: #FF762E;
+  background: linear-gradient(180deg, #FF762E 0%, #FF8A48 50%, #FF5E00 100%);
+  border-radius: 9999px;
+  box-shadow: 0 0 6px rgba(255, 118, 46, 0.45);
+}
+.english-master-scrollbar::-webkit-scrollbar-thumb:hover,
+.custom-slim-scrollbar.english-master-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #E05E1B;
+  background: linear-gradient(180deg, #E05E1B 0%, #FF762E 50%, #E04E00 100%);
+  box-shadow: 0 0 10px rgba(255, 118, 46, 0.7);
+}
+.english-master-scrollbar,
+.custom-slim-scrollbar.english-master-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #FF762E transparent;
+}
+
+/* ─── IDS DEDICATED SCROLLBAR (MATCHING IDS FOOTER & BRAND PALETTE) ─── */
+.ids-scrollbar::-webkit-scrollbar,
+.custom-slim-scrollbar.ids-scrollbar::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+.ids-scrollbar::-webkit-scrollbar-track,
+.custom-slim-scrollbar.ids-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.ids-scrollbar::-webkit-scrollbar-button,
+.custom-slim-scrollbar.ids-scrollbar::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+.ids-scrollbar::-webkit-scrollbar-thumb,
+.custom-slim-scrollbar.ids-scrollbar::-webkit-scrollbar-thumb {
+  background: #00C2FF;
+  background: linear-gradient(180deg, #00E5FF 0%, #0070F3 50%, #0F172A 100%);
+  border-radius: 9999px;
+  box-shadow: 0 0 6px rgba(0, 194, 255, 0.4);
+}
+.ids-scrollbar::-webkit-scrollbar-thumb:hover,
+.custom-slim-scrollbar.ids-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #0099FF;
+  background: linear-gradient(180deg, #00C2FF 0%, #0050D8 50%, #050B14 100%);
+  box-shadow: 0 0 10px rgba(0, 112, 243, 0.6);
+}
+.ids-scrollbar,
+.custom-slim-scrollbar.ids-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #00C2FF transparent;
+}
+
+/* Slim scrollbar for book pages */
+.slim-page-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.slim-page-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.slim-page-scroll::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.4);
+  border-radius: 4px;
+}
+.slim-page-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.7);
+}
+.slim-page-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.4) transparent;
+}
+
+/* Continuous slow-motion marquee animation for Skills & Technologies */
+@keyframes marqueeSlow {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee-slow {
+  display: flex;
+  width: max-content;
+  animation: marqueeSlow 80s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-slow:hover {
+  animation-play-state: paused;
+}
+
+/* ─── 1. HEADING FADE IN + SLIDE UP ANIMATION ─── */
+@keyframes headingFadeSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-heading-fade-slide-up {
+  animation: headingFadeSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ─── MOBILE HERO NAME: SLIDE IN FROM LEFT + SERIAL TYPING (MOBILE ONLY) ─── */
+@keyframes mobileNameSlideFromLeft {
+  0% {
+    opacity: 0;
+    transform: translate3d(-36px, 0, 0);
+  }
+  25% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-mobile-name-slide {
+  animation: mobileNameSlideFromLeft 1.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, opacity;
+}
+
+/* ─── MOBILE HERO: ROUND PROFILE IMAGE SLOWLY COMING FROM TOP SIDE (ON OPEN / REFRESH) ─── */
+@keyframes mobileProfileSlideFromTop {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -45px, 0);
+  }
+  25% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (max-width: 1023px) {
+  .animate-mobile-profile-slide {
+    animation: mobileProfileSlideFromTop 1.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+    will-change: transform, opacity;
+  }
+}
+
+/* ─── DESKTOP HERO: SLOW & SMOOTH 3D PHOTO FLIP ENTRANCE (ON REFRESH / PAGE LOAD) ─── */
+@keyframes desktopPhotoFlipEntrance {
+  0% {
+    opacity: 0;
+    transform: perspective(1200px) rotateY(-80deg) scale(0.92);
+  }
+  30% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(1200px) rotateY(0deg) scale(1);
+  }
+}
+
+@media (min-width: 1024px) {
+  .animate-desktop-photo-flip {
+    animation: desktopPhotoFlipEntrance 2.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+    transform-origin: center center;
+    backface-visibility: hidden;
+    will-change: transform, opacity;
+  }
+}
+
+/* ─── MOBILE ABOUT: ILLUSTRATION SLOWLY COMING FROM RIGHT SIDE (ON SCROLL / REFRESH) ─── */
+@keyframes mobileAboutSlideFromRight {
+  0% {
+    opacity: 0;
+    transform: translate3d(45px, 0, 0);
+  }
+  25% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (max-width: 1023px) {
+  .animate-mobile-about-slide,
+  .animate-mobile-illustration-slide {
+    animation: mobileAboutSlideFromRight 1.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+    will-change: transform, opacity;
+  }
+}
+
+/* ─── MOBILE ABOUT PILLAR CARDS: 3-DIRECTIONAL SMOOTH SCROLL ENTRANCE ─── */
+/* 1. Left Card: Slowly glides into position from Left */
+@keyframes mobilePillarSlideFromLeft {
+  0% {
+    opacity: 0;
+    transform: translate3d(-38px, 0, 0);
+  }
+  25% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* 2. Middle Card: Slowly glides into position from Down / Bottom */
+@keyframes mobilePillarSlideFromDown {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 38px, 0);
+  }
+  25% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* 3. Right Card: Slowly glides into position from Right */
+@keyframes mobilePillarSlideFromRight {
+  0% {
+    opacity: 0;
+    transform: translate3d(38px, 0, 0);
+  }
+  25% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (max-width: 1023px) {
+  .animate-mobile-pillar-left {
+    animation: mobilePillarSlideFromLeft 1.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+    will-change: transform, opacity;
+  }
+  .animate-mobile-pillar-down {
+    animation: mobilePillarSlideFromDown 1.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+    will-change: transform, opacity;
+  }
+  .animate-mobile-pillar-right {
+    animation: mobilePillarSlideFromRight 1.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+    will-change: transform, opacity;
+  }
+}
+
+/* ─── MOBILE CERTIFICATES: THUMBNAIL FROM LEFT, CONTENT TEXT FROM RIGHT ─── */
+@keyframes mobileCertThumbSlideFromLeft {
+  0% {
+    opacity: 0;
+    transform: translate3d(-36px, 0, 0);
+  }
+  25% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes mobileCertTextSlideFromRight {
+  0% {
+    opacity: 0;
+    transform: translate3d(36px, 0, 0);
+  }
+  25% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (max-width: 639px) {
+  .animate-mobile-cert-thumb-left {
+    animation: mobileCertThumbSlideFromLeft 1.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+    will-change: transform, opacity;
+  }
+  .animate-mobile-cert-text-right {
+    animation: mobileCertTextSlideFromRight 1.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+    will-change: transform, opacity;
+  }
+}
+
+/* ─── IDS SHOWCASE HEADER ENTRANCE ANIMATION (FADE IN + STAGGERED REVEAL ON OPEN) ─── */
+@keyframes idsBannerFadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.995);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-ids-banner-fade {
+  animation: idsBannerFadeIn 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes idsElementFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-ids-element-reveal {
+  animation: idsElementFadeUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ─── IDS APPLICATION MODULES - SMOOTH DIRECTIONAL SLIDE ANIMATIONS ─── */
+@keyframes idsSlideInFromRight {
+  0% {
+    transform: translate3d(100%, 0, 0);
+    opacity: 0.2;
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes idsSlideOutToLeft {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(-100%, 0, 0);
+    opacity: 0.15;
+  }
+}
+
+@keyframes idsSlideInFromLeft {
+  0% {
+    transform: translate3d(-100%, 0, 0);
+    opacity: 0.2;
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes idsSlideOutToRight {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(100%, 0, 0);
+    opacity: 0.15;
+  }
+}
+
+.animate-ids-slide-in-right {
+  animation: idsSlideInFromRight 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+
+.animate-ids-slide-out-left {
+  animation: idsSlideOutToLeft 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+
+.animate-ids-slide-in-left {
+  animation: idsSlideInFromLeft 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+
+.animate-ids-slide-out-right {
+  animation: idsSlideOutToRight 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+
+@keyframes idsContentSlideRight {
+  0% {
+    opacity: 0;
+    transform: translate3d(24px, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes idsContentSlideLeft {
+  0% {
+    opacity: 0;
+    transform: translate3d(-24px, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-ids-content-right {
+  animation: idsContentSlideRight 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-ids-content-left {
+  animation: idsContentSlideLeft 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+
+/* ─── ACADEMIC PRESENTATION SLIDE SMOOTH AUTO-FADE TRANSITION (4s CYCLE) ─── */
+@keyframes academicSlideFadeIn {
+  0% {
+    opacity: 0.3;
+    transform: scale(0.992);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-academic-slide {
+  animation: academicSlideFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ─── 2. TIMELINE DRAW ANIMATION (TOP TO BOTTOM) ─── */
+@keyframes timelineLineDraw {
+  0% {
+    transform: scaleY(0);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+.animate-timeline-line-draw {
+  transform-origin: bottom;
+  animation: timelineLineDraw 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes timelineBeamDown {
+  0% {
+    top: -25%;
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    top: 105%;
+    opacity: 0;
+  }
+}
+
+.animate-timeline-beam-down {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 95px;
+  background: linear-gradient(180deg, rgba(30, 107, 255, 0) 0%, #1E6BFF 50%, rgba(30, 107, 255, 0) 100%);
+  animation: timelineBeamDown 4.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* ─── TIMELINE BEAM: BOTTOM TO TOP (SLOW, SMOOTH FLOW) ─── */
+@keyframes timelineBeamUp {
+  0% {
+    top: 105%;
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    top: -25%;
+    opacity: 0;
+  }
+}
+
+.animate-timeline-beam-up {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 110px;
+  background: linear-gradient(0deg, rgba(30, 107, 255, 0) 0%, #1E6BFF 50%, #60a5fa 85%, rgba(30, 107, 255, 0) 100%);
+  box-shadow: 0 0 10px rgba(30, 107, 255, 0.6);
+  animation: timelineBeamUp 7.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* ─── 3. CARD SLIDE IN + FADE ANIMATION (STAGGERED) ─── */
+@keyframes cardSlideInFade {
+  0% {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-card-slide-fade {
+  animation: cardSlideInFade 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ─── EDUCATION TIMELINE SCROLL ENTRANCE: ROUND ONLY (STAGGERED CASCADE & 100% TEXT CLARITY) ─── */
+@keyframes eduLineDrawDown {
+  0% {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+.animate-edu-line-draw {
+  transform-origin: top;
+  animation: eduLineDrawDown 1.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes eduNodePop {
+  0% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-edu-node-pop {
+  animation: eduNodePop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes eduCardSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-edu-card-in {
+  animation: eduCardSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* 100% Native Text Clarity & Crisp Font Rendering (Zero Blur, Zero Distortion) */
+.edu-text-clarity,
+.animate-edu-text-in,
+.animate-edu-badge-in {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+/* ─── EDUCATION & CERTIFICATE CARD HOVER: ZERO VIBRATION, ROCK-SOLID STABILITY ─── */
+.edu-card-hover {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.edu-card-hover:hover {
+  transform: none !important;
+  border-color: #1E6BFF;
+  box-shadow: 0 10px 25px -4px rgba(30, 107, 255, 0.12), 0 4px 8px -2px rgba(15, 23, 42, 0.04);
+}
+
+.cert-card-hover {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cert-card-hover:hover {
+  transform: none !important;
+  border-color: #f59e0b !important;
+  box-shadow: 0 12px 28px -6px rgba(245, 158, 11, 0.18), 0 4px 10px -2px rgba(15, 23, 42, 0.05) !important;
+}
+
+/* ─── CONTACT / FOOTER SOCIAL ICONS: ZERO VIBRATION, ROCK-SOLID STABILITY ─── */
+.contact-social-item,
+.contact-social-icon {
+  transform: none !important;
+}
+
+.contact-social-item:hover,
+.contact-social-item:hover .contact-social-icon,
+.contact-social-icon:hover {
+  transform: none !important;
+}
+
+.contact-social-icon {
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease !important;
+}
+
+/* ─── FEATURED PROJECTS: 3-DIRECTIONAL SMOOTH SCROLL ENTRANCE ─── */
+/* 1. Left Card (TripGen): Slowly glides into position from Left */
+@keyframes projectSlideFromLeft {
+  0% {
+    opacity: 0;
+    transform: translate3d(-100px, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* 2. Middle Card (English Master Pro): Slowly glides into position from Down / Bottom */
+@keyframes projectSlideFromDown {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 100px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* 3. Right Card (IDS): Slowly glides into position from Right */
+@keyframes projectSlideFromRight {
+  0% {
+    opacity: 0;
+    transform: translate3d(100px, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-project-left {
+  animation: projectSlideFromLeft 1.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, opacity;
+}
+
+.animate-project-down {
+  animation: projectSlideFromDown 1.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, opacity;
+}
+
+.animate-project-right {
+  animation: projectSlideFromRight 1.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, opacity;
+}
+
+@media (max-width: 640px) {
+  @keyframes projectSlideFromLeft {
+    0% {
+      opacity: 0;
+      transform: translate3d(-50px, 0, 0);
+    }
+    100% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+  @keyframes projectSlideFromDown {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, 50px, 0);
+    }
+    100% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+  @keyframes projectSlideFromRight {
+    0% {
+      opacity: 0;
+      transform: translate3d(50px, 0, 0);
+    }
+    100% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+}
+
+/* ─── CERTIFICATES SCROLL ENTRANCE: 3 HORIZONTAL CARDS SLOW VERTICAL ENTRANCE ─── */
+@keyframes certCardSlowVerticalUp {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 85px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-cert-card-up {
+  animation: certCardSlowVerticalUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+@keyframes certTextSlowVerticalUp {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-cert-text-in {
+  animation: certTextSlowVerticalUp 1.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+@media (max-width: 640px) {
+  @keyframes certCardSlowVerticalUp {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, 50px, 0);
+    }
+    100% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+  @keyframes certTextSlowVerticalUp {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, 14px, 0);
+    }
+    100% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+}
+
+/* ─── 4. ICON SCALE & PULSE ANIMATION (WITH CIRCULAR HALO) ─── */
+@keyframes iconScalePulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(30, 107, 255, 0.4);
+  }
+  50% {
+    transform: scale(1.12);
+    box-shadow: 0 0 0 9px rgba(30, 107, 255, 0.16);
+  }
+}
+
+.animate-icon-scale {
+  animation: iconScalePulse 3s ease-in-out infinite;
+}
+
+/* ─── 5. HOVER LIFT EFFECT (SAFE - ZERO VIBRATION JITTER) ─── */
+.card-hover-lift {
+  transition: box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.card-hover-lift:hover {
+  transform: none !important;
+  box-shadow: 0 14px 28px -6px rgba(30, 107, 255, 0.16), 0 4px 10px -2px rgba(15, 23, 42, 0.05);
+  border-color: #1E6BFF;
+}
+
+/* ─── 6. ILLUSTRATION FLOAT ANIMATION (CONTINUOUS GENTLE UP-DOWN) ─── */
+@keyframes illustrationFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+.animate-illustration-float {
+  animation: illustrationFloat 4.5s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Holographic Cyber Dial Animations for Education Hub */
+@keyframes spinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spinSlow 22s linear infinite;
+}
+
+@keyframes spinReverseSlow {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+.animate-spin-reverse-slow {
+  animation: spinReverseSlow 28s linear infinite;
+}
+
+@keyframes cyberBeaconPulse {
+  0%, 100% {
+    transform: scale(0.95);
+    opacity: 0.6;
+    filter: drop-shadow(0 0 6px rgba(6, 182, 212, 0.4));
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+    filter: drop-shadow(0 0 16px rgba(6, 182, 212, 0.9));
+  }
+}
+
+.animate-cyber-beacon {
+  animation: cyberBeaconPulse 2.4s ease-in-out infinite;
+}
+
+@keyframes hologramScan {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  40%, 60% {
+    opacity: 0.45;
+  }
+  100% {
+    transform: translateY(200%);
+    opacity: 0;
+  }
+}
+
+.animate-hologram-scan {
+  animation: hologramScan 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* Hero illustration entrance: smooth fade-in and slight upward motion */
+@keyframes illustrationEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-illustration-entrance {
+  animation: illustrationEntrance 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+
+/* ─── 7. SMOOTH PAGE REFRESH & ENTRANCE TRANSITIONS ─── */
+@keyframes pageEntranceFade {
+  0% {
+    opacity: 0.6;
+    transform: translateY(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-page-entrance {
+  animation: pageEntranceFade 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: opacity, transform;
+}
+
+/* Page content container transition state during refresh */
+.page-refresh-container {
+  transition: opacity 0.22s ease;
+  will-change: opacity;
+}
+
+.page-refresh-fading-out {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.page-refresh-fading-in {
+  opacity: 1;
+}
+
+/* ─── SKILL MODAL STAGGERED SMOOTH ENTRANCE ANIMATION ─── */
+@keyframes skillModalLaptopEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(24px) scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes skillModalItemFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-skill-laptop-entrance {
+  animation: skillModalLaptopEntrance 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, opacity;
+}
+
+.animate-skill-item-entrance {
+  animation: skillModalItemFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, opacity;
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .animate-page-entrance {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .page-refresh-container {
+    transition: opacity 0.15s ease !important;
+    transform: none !important;
+  }
+  .page-refresh-fading-out {
+    opacity: 0.6 !important;
+    transform: none !important;
+  }
+  .page-refresh-fading-in {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ─── 8. TRIPGEN CINEMATIC ANIMATIONS & SCROLL REVEAL ─── */
+
+/* 1. Cinematic Background Gradient Shift */
+@keyframes tripgenGradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.tripgen-cinematic-header {
+  position: relative;
+  background: linear-gradient(
+    to bottom,
+    #031e47 0%,
+    #0c2864 18%,
+    #263b98 38%,
+    #474bb5 48%,
+    #6b5ac4 58%,
+    #926bd0 68%,
+    #bb7fda 78%,
+    #d990de 88%,
+    #ed9ade 100%
+  );
+  color: #FFFFFF;
+}
+
+.tripgen-cinematic-header::before,
+.tripgen-cinematic-header::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* TripGen Cinematic Footer (Vertical: Pink Gradient → Purple → Navy Blue) */
+.tripgen-cinematic-footer {
+  position: relative;
+  background: linear-gradient(
+    to bottom,
+    #ed9ade 0%,
+    #d990de 14%,
+    #bb7fda 28%,
+    #926bd0 45%,
+    #6b5ac4 60%,
+    #474bb5 75%,
+    #263b98 87%,
+    #0c2864 94%,
+    #031e47 100%
+  );
+  color: #FFFFFF;
+}
+
+.tripgen-cinematic-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.5),
+    rgba(255, 255, 255, 0.15),
+    rgba(255, 255, 255, 0.3)
+  );
+  pointer-events: none;
+}
+
+/* TripGen Showcase Card (Exact Image 2 Template) */
+.tripgen-3d-card {
+  background-color: #fee8eb;
+  background: #fee8eb;
+  border-color: #fbd0d8;
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .tripgen-3d-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
+  }
+}
+
+/* 5. Project Overview Micro-Animations & Glows */
+@keyframes tripgenPulseWarning {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.4);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 0 0 8px rgba(244, 63, 94, 0);
+  }
+}
+
+@keyframes tripgenPulseRadar {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 0 0 8px rgba(59, 130, 246, 0);
+  }
+}
+
+@keyframes tripgenPulseBulb {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+  }
+}
+
+.tripgen-icon-problem {
+  animation: tripgenPulseWarning 3.2s ease-in-out infinite;
+}
+
+.tripgen-icon-objective {
+  animation: tripgenPulseRadar 3.2s ease-in-out infinite 0.6s;
+}
+
+.tripgen-icon-solution {
+  animation: tripgenPulseBulb 3.2s ease-in-out infinite 1.2s;
+}
+
+.tripgen-overview-card-problem {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.tripgen-overview-card-problem:hover {
+  transform: translateY(-8px);
+  border-color: rgba(244, 63, 94, 0.45) !important;
+  box-shadow: 0 20px 35px -10px rgba(244, 63, 94, 0.25), 0 0 22px rgba(244, 63, 94, 0.12) !important;
+}
+
+.tripgen-overview-card-objective {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.tripgen-overview-card-objective:hover {
+  transform: translateY(-8px);
+  border-color: rgba(59, 130, 246, 0.45) !important;
+  box-shadow: 0 20px 35px -10px rgba(59, 130, 246, 0.25), 0 0 22px rgba(59, 130, 246, 0.12) !important;
+}
+
+.tripgen-overview-card-solution {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.tripgen-overview-card-solution:hover {
+  transform: translateY(-8px);
+  border-color: rgba(16, 185, 129, 0.45) !important;
+  box-shadow: 0 20px 35px -10px rgba(16, 185, 129, 0.25), 0 0 22px rgba(16, 185, 129, 0.12) !important;
+}
+
+/* TripGen Project Overview Interactive Image Swap Animation */
+@keyframes tripgenOverviewSwap {
+  0% {
+    opacity: 0;
+    transform: scale(0.96) translateY(6px);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+  }
+}
+
+.tripgen-overview-image-swap {
+  animation: tripgenOverviewSwap 0.42s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ─── Project Overview Interactive Pillar Card Animations ─── */
+@keyframes tripgenActivePulseRose {
+  0%, 100% {
+    box-shadow: 0 16px 36px -8px rgba(244, 63, 94, 0.32), 0 0 0 2.5px rgba(244, 63, 94, 0.45);
+    transform: translateY(-8px);
+  }
+  50% {
+    box-shadow: 0 22px 45px -6px rgba(244, 63, 94, 0.45), 0 0 0 4.5px rgba(244, 63, 94, 0.6);
+    transform: translateY(-11px);
+  }
+}
+
+@keyframes tripgenActivePulseBlue {
+  0%, 100% {
+    box-shadow: 0 16px 36px -8px rgba(37, 99, 235, 0.32), 0 0 0 2.5px rgba(37, 99, 235, 0.45);
+    transform: translateY(-8px);
+  }
+  50% {
+    box-shadow: 0 22px 45px -6px rgba(37, 99, 235, 0.45), 0 0 0 4.5px rgba(37, 99, 235, 0.6);
+    transform: translateY(-11px);
+  }
+}
+
+@keyframes tripgenActivePulseEmerald {
+  0%, 100% {
+    box-shadow: 0 16px 36px -8px rgba(5, 150, 105, 0.32), 0 0 0 2.5px rgba(5, 150, 105, 0.45);
+    transform: translateY(-8px);
+  }
+  50% {
+    box-shadow: 0 22px 45px -6px rgba(5, 150, 105, 0.45), 0 0 0 4.5px rgba(5, 150, 105, 0.6);
+    transform: translateY(-11px);
+  }
+}
+
+.tripgen-card-active-problem {
+  border-color: #f43f5e !important;
+  animation: tripgenActivePulseRose 3.2s ease-in-out infinite;
+}
+
+.tripgen-card-active-target {
+  border-color: #2563eb !important;
+  animation: tripgenActivePulseBlue 3.2s ease-in-out infinite;
+}
+
+.tripgen-card-active-solution {
+  border-color: #059669 !important;
+  animation: tripgenActivePulseEmerald 3.2s ease-in-out infinite;
+}
+
+@keyframes tripgenGradientFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.tripgen-gradient-flow {
+  background-size: 200% 200% !important;
+  animation: tripgenGradientFlow 3s ease infinite !important;
+}
+
+@keyframes tripgenIconBeacon {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.18);
+  }
+}
+
+.tripgen-icon-beacon {
+  animation: tripgenIconBeacon 2s ease-in-out infinite;
+}
+
+.tripgen-card-sheen {
+  position: absolute;
+  top: -60%;
+  left: -80%;
+  width: 50%;
+  height: 220%;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.5) 50%, transparent 100%);
+  transform: rotate(25deg);
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.tripgen-stagger-card:hover .tripgen-card-sheen,
+.group:hover .tripgen-card-sheen {
+  opacity: 1;
+  transform: translateX(380%) rotate(25deg);
+}
+
+@keyframes tripgenBeamDown {
+  0% {
+    top: -20%;
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    top: 110%;
+    opacity: 0;
+  }
+}
+
+.tripgen-timeline-beam {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 90px;
+  background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.95) 50%, transparent 100%);
+  animation: tripgenBeamDown 3.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  pointer-events: none;
+}
+
+/* 5b. Simple & Crisp Module Cards Micro-Animations (Admin, Employee, Traveler, Public) */
+.tripgen-module-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.26s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.26s ease,
+              border-color 0.26s ease,
+              background-color 0.26s ease;
+  will-change: transform, box-shadow;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .tripgen-module-card:hover {
+    transform: translateY(-4px) !important;
+  }
+
+  .tripgen-module-card[data-role="admin"]:hover {
+    border-color: rgba(168, 85, 247, 0.55) !important;
+    box-shadow: 0 12px 24px -4px rgba(168, 85, 247, 0.16), 0 4px 10px -2px rgba(168, 85, 247, 0.08) !important;
+  }
+
+  .tripgen-module-card[data-role="employee"]:hover {
+    border-color: rgba(16, 185, 129, 0.55) !important;
+    box-shadow: 0 12px 24px -4px rgba(16, 185, 129, 0.16), 0 4px 10px -2px rgba(16, 185, 129, 0.08) !important;
+  }
+
+  .tripgen-module-card[data-role="traveler"]:hover {
+    border-color: rgba(245, 158, 11, 0.55) !important;
+    box-shadow: 0 12px 24px -4px rgba(245, 158, 11, 0.16), 0 4px 10px -2px rgba(245, 158, 11, 0.08) !important;
+  }
+
+  .tripgen-module-card[data-role="public"]:hover {
+    border-color: rgba(14, 165, 233, 0.55) !important;
+    box-shadow: 0 12px 24px -4px rgba(14, 165, 233, 0.16), 0 4px 10px -2px rgba(14, 165, 233, 0.08) !important;
+  }
+}
+
+/* 5c. Complete Application Modules Role Switcher & Animated Image Showcase */
+@keyframes tripgenImageSwap {
+  0% {
+    opacity: 0.2;
+    transform: scale(0.96) translateY(6px);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes tripgenContentSwap {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes tripgenPulsePill {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.tripgen-role-image-swap {
+  animation: tripgenImageSwap 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity, filter;
+}
+
+.tripgen-role-content-swap {
+  animation: tripgenContentSwap 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+
+.tripgen-glow-public {
+  box-shadow: 0 16px 36px -8px rgba(2, 132, 199, 0.22), 0 0 0 1px rgba(2, 132, 199, 0.18);
+}
+
+.tripgen-glow-admin {
+  box-shadow: 0 16px 36px -8px rgba(147, 51, 234, 0.22), 0 0 0 1px rgba(147, 51, 234, 0.18);
+}
+
+.tripgen-glow-employee {
+  box-shadow: 0 16px 36px -8px rgba(5, 150, 105, 0.22), 0 0 0 1px rgba(5, 150, 105, 0.18);
+}
+
+.tripgen-glow-traveler {
+  box-shadow: 0 16px 36px -8px rgba(37, 99, 235, 0.22), 0 0 0 1px rgba(37, 99, 235, 0.18);
+}
+
+/* 6. Desktop Hover Zoom on Hero & Media Cards */
+@media (hover: hover) and (pointer: fine) {
+  .tripgen-logo-hover-zoom {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+  }
+  .tripgen-logo-hover-zoom:hover {
+    transform: scale(1.03);
+    box-shadow: 0 20px 36px -8px rgba(247, 56, 54, 0.15), 0 8px 18px -4px rgba(6, 47, 100, 0.09);
+  }
+}
+
+/* 7. Scroll-Based Section & Card Reveals */
+/* Default: visible if JS is not active */
+.tripgen-reveal-section {
+  opacity: 1;
+  transform: none;
+}
+
+.tripgen-stagger-card {
+  opacity: 1;
+  transform: none;
+}
+
+/* When JS observer is active */
+.tripgen-scroll-ready .tripgen-reveal-section {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.tripgen-scroll-ready .tripgen-reveal-section.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.tripgen-scroll-ready .tripgen-reveal-section .tripgen-stagger-card {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.tripgen-scroll-ready .tripgen-reveal-section.is-revealed .tripgen-stagger-card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger delays for cards inside revealed section */
+.tripgen-scroll-ready .tripgen-reveal-section.is-revealed .tripgen-stagger-card:nth-child(1) { transition-delay: 50ms; }
+.tripgen-scroll-ready .tripgen-reveal-section.is-revealed .tripgen-stagger-card:nth-child(2) { transition-delay: 100ms; }
+.tripgen-scroll-ready .tripgen-reveal-section.is-revealed .tripgen-stagger-card:nth-child(3) { transition-delay: 150ms; }
+.tripgen-scroll-ready .tripgen-reveal-section.is-revealed .tripgen-stagger-card:nth-child(4) { transition-delay: 200ms; }
+.tripgen-scroll-ready .tripgen-reveal-section.is-revealed .tripgen-stagger-card:nth-child(5) { transition-delay: 250ms; }
+.tripgen-scroll-ready .tripgen-reveal-section.is-revealed .tripgen-stagger-card:nth-child(6) { transition-delay: 300ms; }
+.tripgen-scroll-ready .tripgen-reveal-section.is-revealed .tripgen-stagger-card:nth-child(7) { transition-delay: 350ms; }
+.tripgen-scroll-ready .tripgen-reveal-section.is-revealed .tripgen-stagger-card:nth-child(8) { transition-delay: 400ms; }
+.tripgen-scroll-ready .tripgen-reveal-section.is-revealed .tripgen-stagger-card:nth-child(9) { transition-delay: 450ms; }
+.tripgen-scroll-ready .tripgen-reveal-section.is-revealed .tripgen-stagger-card:nth-child(10) { transition-delay: 500ms; }
+.tripgen-scroll-ready .tripgen-reveal-section.is-revealed .tripgen-stagger-card:nth-child(11) { transition-delay: 550ms; }
+.tripgen-scroll-ready .tripgen-reveal-section.is-revealed .tripgen-stagger-card:nth-child(12) { transition-delay: 600ms; }
+
+/* ─── IDS STAGGERED CARD REVEAL (CARDS APPEAR ONE AFTER ANOTHER) ─── */
+.ids-reveal-section {
+  opacity: 1;
+  transform: none;
+}
+
+.ids-stagger-card {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.52s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.25s ease;
+  will-change: opacity, transform;
+}
+
+/* When scroll observer is active inside the IDS modal */
+.ids-scroll-ready .ids-reveal-section {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.ids-scroll-ready .ids-reveal-section.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Directional Stagger Entrance: Left cards slide from left, right cards slide from right */
+.ids-scroll-ready .ids-reveal-section .ids-stagger-card.ids-card-left {
+  opacity: 0;
+  transform: translateX(-20px) scale(0.98);
+}
+
+.ids-scroll-ready .ids-reveal-section .ids-stagger-card.ids-card-right {
+  opacity: 0;
+  transform: translateX(20px) scale(0.98);
+}
+
+.ids-scroll-ready .ids-reveal-section .ids-stagger-card {
+  opacity: 0;
+  transform: translateY(18px) scale(0.98);
+}
+
+.ids-scroll-ready .ids-reveal-section.is-revealed .ids-stagger-card {
+  opacity: 1;
+  transform: translate(0, 0) scale(1);
+}
+
+/* Fallback CSS child delays if inline delay is absent */
+.ids-scroll-ready .ids-reveal-section.is-revealed .ids-stagger-card:nth-child(1) { transition-delay: 40ms; }
+.ids-scroll-ready .ids-reveal-section.is-revealed .ids-stagger-card:nth-child(2) { transition-delay: 100ms; }
+.ids-scroll-ready .ids-reveal-section.is-revealed .ids-stagger-card:nth-child(3) { transition-delay: 160ms; }
+.ids-scroll-ready .ids-reveal-section.is-revealed .ids-stagger-card:nth-child(4) { transition-delay: 220ms; }
+.ids-scroll-ready .ids-reveal-section.is-revealed .ids-stagger-card:nth-child(5) { transition-delay: 280ms; }
+.ids-scroll-ready .ids-reveal-section.is-revealed .ids-stagger-card:nth-child(6) { transition-delay: 340ms; }
+.ids-scroll-ready .ids-reveal-section.is-revealed .ids-stagger-card:nth-child(7) { transition-delay: 400ms; }
+.ids-scroll-ready .ids-reveal-section.is-revealed .ids-stagger-card:nth-child(8) { transition-delay: 460ms; }
+.ids-scroll-ready .ids-reveal-section.is-revealed .ids-stagger-card:nth-child(9) { transition-delay: 520ms; }
+.ids-scroll-ready .ids-reveal-section.is-revealed .ids-stagger-card:nth-child(10) { transition-delay: 580ms; }
+
+/* IDS Stagger Card Smooth Interactive Hover Lift */
+.ids-stagger-card:hover {
+  transform: translateY(-3px) scale(1.012);
+}
+
+/* 8. Accessibility: Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .tripgen-cinematic-header,
+  .tripgen-3d-card,
+  .tripgen-3d-sheen,
+  .tripgen-dark-aura {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .tripgen-3d-sheen,
+  .tripgen-dark-aura {
+    display: none !important;
+  }
+  .tripgen-logo-hover-zoom:hover,
+  .group:hover img {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+  .tripgen-scroll-ready .tripgen-reveal-section,
+  .tripgen-scroll-ready .tripgen-reveal-section.is-revealed,
+  .tripgen-scroll-ready .tripgen-reveal-section .tripgen-stagger-card,
+  .tripgen-scroll-ready .tripgen-reveal-section.is-revealed .tripgen-stagger-card {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* ─── TripGen Testing & Validation Dynamic Infographic Animations ─── */
+@keyframes tripgenHubFloat {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-5px) scale(1.02);
+  }
+}
+
+@keyframes tripgenHubPulseAura {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes tripgenOrbitSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes tripgenOrbitCounterSpin {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes tripgenDashFlow {
+  0% {
+    stroke-dashoffset: 36;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes tripgenNodePulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 2px currentColor);
+  }
+  50% {
+    transform: scale(1.35);
+    filter: drop-shadow(0 0 6px currentColor);
+  }
+}
+
+.tripgen-hub-float {
+  animation: tripgenHubFloat 4.2s ease-in-out infinite;
+}
+
+.tripgen-hub-aura {
+  animation: tripgenHubPulseAura 3s ease-in-out infinite;
+}
+
+.tripgen-orbit-ring {
+  animation: tripgenOrbitSpin 36s linear infinite;
+  transform-origin: center;
+}
+
+.tripgen-orbit-counter-ring {
+  animation: tripgenOrbitCounterSpin 48s linear infinite;
+  transform-origin: center;
+}
+
+.tripgen-animated-flow {
+  stroke-dasharray: 6 5;
+  animation: tripgenDashFlow 1.4s linear infinite;
+}
+
+.tripgen-node-pulse {
+  animation: tripgenNodePulse 2.4s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* ─── 8. TRIPGEN FLOWING WAVE SECTION DIVIDER ANIMATION ─── */
+@keyframes tripgenWaveFlowBack {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes tripgenWaveFlowMid {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes tripgenWaveFlowFront {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* Medium subtle vertical height undulating motion */
+@keyframes tripgenWaveBobBack {
+  0% {
+    transform: translate3d(0, -3px, 0);
+  }
+  50% {
+    transform: translate3d(0, 3px, 0);
+  }
+  100% {
+    transform: translate3d(0, -3px, 0);
+  }
+}
+
+@keyframes tripgenWaveBobMid {
+  0% {
+    transform: translate3d(0, 4px, 0);
+  }
+  50% {
+    transform: translate3d(0, -4px, 0);
+  }
+  100% {
+    transform: translate3d(0, 4px, 0);
+  }
+}
+
+@keyframes tripgenWaveBobFront {
+  0% {
+    transform: translate3d(0, -5px, 0);
+  }
+  50% {
+    transform: translate3d(0, 4px, 0);
+  }
+  100% {
+    transform: translate3d(0, -5px, 0);
+  }
+}
+
+.tripgen-wave-back {
+  animation: tripgenWaveFlowBack 22s linear infinite !important;
+  will-change: transform;
+}
+
+.tripgen-wave-mid {
+  animation: tripgenWaveFlowMid 15s linear infinite !important;
+  will-change: transform;
+}
+
+.tripgen-wave-front {
+  animation: tripgenWaveFlowFront 9s linear infinite !important;
+  will-change: transform;
+}
+
+.tripgen-wave-bob-back {
+  animation: tripgenWaveBobBack 6.2s ease-in-out infinite !important;
+  will-change: transform;
+}
+
+.tripgen-wave-bob-mid {
+  animation: tripgenWaveBobMid 4.8s ease-in-out infinite !important;
+  will-change: transform;
+}
+
+.tripgen-wave-bob-front {
+  animation: tripgenWaveBobFront 3.8s ease-in-out infinite !important;
+  will-change: transform;
+}
+
+/* ─── 9. TRIPGEN SPLIT-SCREEN BANNER ENTRANCE & WATERFALL MOTION ─── */
+@keyframes tripgenSplitLeftIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes tripgenSplitRightIn {
+  0% {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes tripgenWaterfallShimmer {
+  0% {
+    opacity: 0.15;
+    transform: translateY(-6px);
+  }
+  50% {
+    opacity: 0.35;
+    transform: translateY(6px);
+  }
+  100% {
+    opacity: 0.15;
+    transform: translateY(-6px);
+  }
+}
+
+/* Pre-animation resting state: hidden off-screen until banner becomes visible */
+.tripgen-split-left {
+  opacity: 0;
+  transform: translateX(-100px);
+  will-change: transform, opacity;
+}
+
+.tripgen-split-right {
+  opacity: 0;
+  transform: translateX(100px);
+  will-change: transform, opacity;
+}
+
+/* Triggered entrance animation: runs when banner scrolls into view */
+.tripgen-split-left.is-active,
+.tripgen-banner-animated .tripgen-split-left,
+.tripgen-reveal-section.is-revealed .tripgen-split-left {
+  animation: tripgenSplitLeftIn 1.2s ease-out forwards !important;
+}
+
+.tripgen-split-right.is-active,
+.tripgen-banner-animated .tripgen-split-right,
+.tripgen-reveal-section.is-revealed .tripgen-split-right {
+  animation: tripgenSplitRightIn 1.2s ease-out 0.05s forwards !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tripgen-wave-back,
+  .tripgen-wave-mid,
+  .tripgen-wave-front,
+  .tripgen-wave-bob-back,
+  .tripgen-wave-bob-mid,
+  .tripgen-wave-bob-front {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* Print styling for Resume Document */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #printable-resume, #printable-resume * {
+    visibility: visible;
+  }
+  #printable-resume {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 24px !important;
+    box-shadow: none !important;
+    border: none !important;
+    transform: none !important;
+  }
+}
+
+/* ─── IDS FUTURISTIC HERO SECTION ANIMATIONS ─── */
+@keyframes idsFloatingShield {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes idsEnergyPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.95;
+  }
+}
+
+.ids-floating-shield {
+  animation: idsFloatingShield 4s ease-in-out infinite;
+}
+
+.ids-energy-pulse {
+  animation: idsEnergyPulse 3s ease-in-out infinite;
+}
+
+.ids-cyber-feature-card {
+  will-change: transform, box-shadow, border-color;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ids-floating-shield,
+  .ids-energy-pulse,
+  .em-phone-float,
+  .em-screen-sheen,
+  .em-header-entrance,
+  .em-mobile-entrance,
+  .em-card-cascade,
+  .em-screen-animate,
+  .em-active-text,
+  .em-progress-fill,
+  .em-arrow-bounce {
+    animation: none !important;
+  }
+}
+
+/* ─── English Master Pro Application Modules Scroll & Refresh Entrance Animations ─── */
+@keyframes emScrollHeaderUp {
+  0% {
+    transform: translateY(28px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes emScrollMobileUp {
+  0% {
+    transform: translateY(48px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes emScrollCardUp {
+  0% {
+    transform: translateY(36px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.em-scroll-header-entrance {
+  animation: emScrollHeaderUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.em-scroll-mobile-entrance {
+  animation: emScrollMobileUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) both 0.06s;
+}
+
+.em-scroll-card-entrance {
+  animation: emScrollCardUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes emScreenZoomFade {
+  0% {
+    transform: scale(0.96) translateY(-10px);
+    opacity: 0.35;
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes emActiveTextSlide {
+  0% {
+    transform: translateX(-5px);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes emCardProgressBar {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes emArrowPulse {
+  0%, 100% {
+    transform: translateX(0);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateX(3.5px);
+    opacity: 1;
+  }
+}
+
+@keyframes emInteractivePhoneFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes emScreenLightSweep {
+  0% {
+    transform: translateX(-150%) skewX(-20deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateX(180%) skewX(-20deg);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateX(200%) skewX(-20deg);
+    opacity: 0;
+  }
+}
+
+.em-header-entrance {
+  animation: none !important;
+}
+
+.em-mobile-entrance {
+  animation: none !important;
+}
+
+.em-card-cascade {
+  animation: none !important;
+}
+
+.em-screen-animate {
+  animation: none !important;
+}
+
+.em-active-text {
+  animation: none !important;
+}
+
+.em-progress-fill {
+  animation: none !important;
+}
+
+.em-arrow-bounce {
+  animation: none !important;
+}
+
+.em-phone-float {
+  animation: none !important;
+}
+
+.em-screen-sheen {
+  animation: none !important;
+}
+

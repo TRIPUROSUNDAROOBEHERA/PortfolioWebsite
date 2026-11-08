@@ -16,4 +16,23 @@ axiosClient.interceptors.request.use((config) => {
   return config;
 });
 
+// Auto-heal expired or invalid tokens from localStorage to prevent 401 errors on public endpoints
+axiosClient.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
+    if (error.response && error.response.status === 401 && originalRequest && !originalRequest._retry) {
+      originalRequest._retry = true;
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('refresh_token');
+      delete originalRequest.headers.Authorization;
+      // If it's a GET request, retry without the stale token
+      if (originalRequest.method === 'get') {
+        return axiosClient(originalRequest);
+      }
+    }
+    return Promise.reject(error);
+  }
+);
+
 export default axiosClient;

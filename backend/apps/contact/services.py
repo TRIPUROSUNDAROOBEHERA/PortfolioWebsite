@@ -59,7 +59,7 @@ def send_contact_email_notification(contact_message):
         logger.warning(f"Failed to record in-app notification: {notif_err}")
 
     # ─── 2. Prepare Email Body ───
-    recipient = getattr(settings, 'EMAIL_HOST_USER', 'sramkumar0101@gmail.com')
+    recipient = getattr(settings, 'EMAIL_HOST_USER', '24jnf00084@svcn.ac.in')
     from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', f"Portfolio Administration <{recipient}>")
     subject = f"[Portfolio Contact] New message from {sender_name}"
 

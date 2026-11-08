@@ -52,7 +52,7 @@ RUN echo 'upstream backend_server { server backend:8000; }' > /etc/nginx/conf.d/
     echo 'server {' >> /etc/nginx/conf.d/default.conf && \
     echo '    listen 80;' >> /etc/nginx/conf.d/default.conf && \
     echo '    listen [::]:80;' >> /etc/nginx/conf.d/default.conf && \
-    echo '    server_name localhost 127.0.0.1;' >> /etc/nginx/conf.d/default.conf && \
+    echo '    server_name tripurosundarobehera.me www.tripurosundarobehera.me localhost 127.0.0.1;' >> /etc/nginx/conf.d/default.conf && \
     echo '    root /usr/share/nginx/html;' >> /etc/nginx/conf.d/default.conf && \
     echo '    index index.html;' >> /etc/nginx/conf.d/default.conf && \
     echo '    client_max_body_size 25M;' >> /etc/nginx/conf.d/default.conf && \

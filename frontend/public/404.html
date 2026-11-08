@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tripurosundaro Behera | Full Stack Developer Portfolio</title>
+    <link rel="canonical" href="https://tripurosundaro.me/" />
+    <meta name="description" content="Tripurosundaro Behera - Full Stack Developer Portfolio showcasing Python, Django, React, MySQL, and full-stack engineering projects." />
+    <meta property="og:title" content="Tripurosundaro Behera | Full Stack Developer Portfolio" />
+    <meta property="og:description" content="Explore projects, skills, education, experience, and full-stack achievements of Tripurosundaro Behera." />
+    <meta property="og:url" content="https://tripurosundaro.me/" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Tripurosundaro Behera | Full Stack Developer Portfolio" />
+    <meta name="twitter:url" content="https://tripurosundaro.me/" />
+
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Devicon Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
+    />
+    <script type="module" crossorigin src="/assets/index-DkdZLRdl.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-vk9RfbRr.css">
+  </head>
+  <body class="bg-[#f8faff] text-slate-900 font-['Plus_Jakarta_Sans',sans-serif]">
+    <script>
+      (function() {
+        try {
+          if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+          }
+          var search = window.location.search || '';
+          var hash = (window.location.hash || '').replace('#', '').toLowerCase();
+          var sMatch = search.match(/[?&]skill=([^&]+)/);
+          var pMatch = search.match(/[?&]project=([^&]+)/);
+          var target = sMatch ? 'skills' : (pMatch ? 'projects' : (hash || ''));
+          if (target && target !== 'home') {
+            var saved = sessionStorage.getItem('landing_pos_' + target);
+            if (saved) {
+              window.scrollTo(0, parseInt(saved, 10));
+            }
+          }
+        } catch(e) {}
+      })();
+    </script>
+    <div id="root"></div>
+  </body>
+</html>

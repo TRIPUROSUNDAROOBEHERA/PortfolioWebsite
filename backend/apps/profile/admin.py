@@ -63,6 +63,7 @@ class ProfileAdmin(admin.ModelAdmin):
                 'linkedin_url',
                 'twitter_url',
                 'instagram_url',
+                'whatsapp_url',
             )
         }),
         ('Audit Metadata', {

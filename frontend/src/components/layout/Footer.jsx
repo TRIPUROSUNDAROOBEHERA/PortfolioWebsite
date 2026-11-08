@@ -1,273 +1,123 @@
-import React, { useState, useEffect } from 'react';
-import axiosClient from '../../api/axiosClient';
+import React from 'react';
 
-export default function Footer({ setActiveTab, profile }) {
-  const [systemStatus, setSystemStatus] = useState({
-    server: 'Checking...',
-    db: 'Checking...',
-    version: 'Django 5.1 + REST',
-    isOnline: false,
-  });
+export default function Footer({ profile, refreshingSection, refreshKey = 0 }) {
+  // WhatsApp Link Resolver:
+  // Desktop: Directs to WhatsApp Web login / chat (https://web.whatsapp.com/send?phone=...)
+  // Mobile: Directs to WhatsApp app directly (https://wa.me/...)
+  const rawWhatsApp = profile?.whatsapp_url || profile?.whatsapp_number || profile?.phone || '+91 98765 43210';
+  const isDirectUrl = typeof rawWhatsApp === 'string' && (rawWhatsApp.startsWith('http://') || rawWhatsApp.startsWith('https://'));
+  const cleanPhone = !isDirectUrl ? String(rawWhatsApp).replace(/[^0-9]/g, '') : '';
+  const isMobileDevice = typeof window !== 'undefined' && typeof navigator !== 'undefined'
+    ? /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+    : false;
+  const whatsappUrl = isDirectUrl
+    ? rawWhatsApp
+    : cleanPhone
+      ? (isMobileDevice ? `https://wa.me/${cleanPhone}` : `https://web.whatsapp.com/send?phone=${cleanPhone}`)
+      : 'https://web.whatsapp.com/';
 
-  useEffect(() => {
-    let isMounted = true;
+  const targetEmail = profile?.email || '24jnf00084@svcn.ac.in';
+  const gmailComposeUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(targetEmail)}&su=${encodeURIComponent('Portfolio Inquiry - Tripurosundaro Behera')}`;
 
-    const checkSystemHealth = async () => {
-      try {
-        // Direct call to Django health check endpoint
-        const res = await axiosClient.get('/health/');
-        const data = res.data || res;
-
-        if (isMounted) {
-          setSystemStatus({
-            server: data.backend || 'Online',
-            db: data.database || 'Healthy (Local)',
-            version: data.architecture || 'Django 5.1 + REST',
-            isOnline: true,
-          });
-        }
-      } catch (err) {
-        if (isMounted) {
-          setSystemStatus({
-            server: 'Offline',
-            db: 'Check Backend',
-            version: 'Django 5.1 + REST',
-            isOnline: false,
-          });
-        }
-      }
-    };
-
-    // Immediate check on mount
-    checkSystemHealth();
-
-    // Auto refresh status every 15 seconds
-    const interval = setInterval(checkSystemHealth, 15000);
-
-    return () => {
-      isMounted = false;
-      clearInterval(interval);
-    };
-  }, []);
-
-  const handleNavClick = (tabId) => {
-    if (typeof setActiveTab === 'function') {
-      setActiveTab(tabId);
-    }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const quickLinksLeft = [
-    { id: 'home', label: 'Home' },
-    { id: 'experience', label: 'Experience' },
-    { id: 'skills', label: 'Skills' },
-    { id: 'certificates', label: 'Certificates' },
-    { id: 'blog', label: 'Blog Posts' },
+  const socialLinks = [
+    {
+      id: 'linkedin',
+      label: 'LinkedIn',
+      href: profile?.linkedin_url || 'https://linkedin.com',
+      hoverBg: 'group-hover:bg-[#005e93]',
+      iconClass: 'text-[#0077b5] group-hover:text-white',
+      renderIcon: () => <i className="fa-brands fa-linkedin-in text-base sm:text-lg transition-colors"></i>,
+    },
+    {
+      id: 'github',
+      label: 'GitHub',
+      href: profile?.github_url || 'https://github.com',
+      hoverBg: 'group-hover:bg-[#24292f]',
+      iconClass: 'text-slate-800 group-hover:text-white',
+      renderIcon: () => <i className="fa-brands fa-github text-base sm:text-lg transition-colors"></i>,
+    },
+    {
+      id: 'naukri',
+      label: 'Naukri',
+      href: profile?.naukri_url || 'https://www.naukri.com',
+      hoverBg: 'group-hover:bg-[#0284c7]',
+      iconClass: 'text-[#00a2e8] group-hover:text-white',
+      renderIcon: () => (
+        <svg className="w-4 h-4 sm:w-5 sm:h-5 fill-none stroke-current stroke-[2.5] transition-colors" viewBox="0 0 24 24">
+          <path strokeLinecap="round" d="M8 7c3-3 8-1 9 4s-3 8-7 8" />
+          <circle cx="12" cy="12" r="1.5" fill="currentColor" />
+        </svg>
+      ),
+    },
+    {
+      id: 'whatsapp',
+      label: 'WhatsApp',
+      href: whatsappUrl,
+      hoverBg: 'group-hover:bg-[#15803d]',
+      iconClass: 'text-[#25D366] group-hover:text-white',
+      renderIcon: () => <i className="fa-brands fa-whatsapp text-base sm:text-lg transition-colors"></i>,
+    },
+    {
+      id: 'email',
+      label: 'Email',
+      href: gmailComposeUrl,
+      hoverBg: 'group-hover:bg-[#be123c]',
+      iconClass: 'text-[#ea4335] group-hover:text-white',
+      renderIcon: () => <i className="fa-regular fa-envelope text-base sm:text-lg transition-colors"></i>,
+    },
   ];
 
-  const quickLinksRight = [
-    { id: 'about', label: 'About Me' },
-    { id: 'projects', label: 'Projects' },
-    { id: 'education', label: 'Education' },
-    { id: 'achievements', label: 'Honors' },
-    { id: 'contact', label: 'Contact' },
-  ];
+  const currentYear = new Date().getFullYear();
+  const fullName = profile?.full_name || 'Tripurosundaro Behera';
 
   return (
     <footer
-      className="w-full relative overflow-hidden font-['Plus_Jakarta_Sans',sans-serif] select-none mt-20"
+      id="contact"
+      className="w-full relative font-['Plus_Jakarta_Sans',sans-serif] select-none py-8 sm:py-10 px-4 overflow-hidden scroll-mt-20 transition-opacity duration-200"
       style={{
         background:
-          'linear-gradient(90deg, #1d4ed8 0%, #2563eb 25%, #4f46e5 50%, #7c3aed 75%, #9333ea 100%)',
-        boxShadow: '0 -10px 40px rgba(124, 58, 237, 0.25)',
+          'linear-gradient(135deg, #0b3bca 0%, #1738c8 25%, #2524a8 50%, #351a8e 75%, #431282 100%)',
+        boxShadow: '0 -10px 40px rgba(19, 68, 223, 0.25)',
       }}
     >
-      <div className="w-full max-w-[1550px] mx-auto px-6 sm:px-10 pt-10 pb-6 text-white">
-        
-        {/* ─── 4 COLUMNS MAIN GRID ─── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6 items-start">
-          
-          {/* COLUMN 1: IDENTITY & DESCRIPTION */}
-          <div className="space-y-3">
-            <div
-              className="flex items-center gap-2.5 cursor-pointer group"
-              onClick={() => handleNavClick('home')}
+      <div
+        key={`footer-content-${refreshKey}`}
+        className={`max-w-4xl mx-auto flex flex-col items-center justify-center text-center transition-opacity duration-200 ${
+          refreshingSection === 'contact' ? 'opacity-30' : 'opacity-100'
+        }`}
+      >
+        {/* ─── Social Media Icons Row: Direct External Links ─── */}
+        <div className="flex items-center justify-center gap-3.5 xs:gap-4 sm:gap-7 md:gap-9 flex-wrap animate-heading-fade-slide-up">
+          {socialLinks.map((item, idx) => (
+            <a
+              key={item.id}
+              style={{ animationDelay: `${idx * 0.1 + 0.1}s` }}
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact-social-item animate-card-slide-fade flex flex-col items-center group cursor-pointer select-none"
+              title={item.id === 'email' ? `Send Direct Message to ${targetEmail} via Gmail` : item.label}
+              aria-label={item.label}
             >
-              <div className="w-8 h-8 rounded-xl bg-white text-blue-600 flex items-center justify-center font-black text-xs shadow-md group-hover:scale-105 transition-transform">
-                {profile?.initials || 'SR'}
+              <div
+                className={`contact-social-icon w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white ${item.hoverBg} ${item.iconClass} shadow-md border-2 border-white/85 group-hover:border-transparent flex items-center justify-center transition-colors duration-200`}
+              >
+                {item.renderIcon()}
               </div>
-              <span className="font-black text-base tracking-tight text-[#FFE600]">
-                {profile?.full_name || 'S. Ram Kumar'}
+              <span className="text-[13px] xs:text-[13.5px] sm:text-[13px] font-semibold text-white tracking-wide mt-2 group-hover:text-cyan-200 transition-colors">
+                {item.label}
               </span>
-            </div>
-            <p className="text-[12px] leading-relaxed text-white/90 font-medium">
-              A modern full-stack web portfolio &amp; content management system
-              engineered with React, Tailwind CSS, and Django REST Framework.
-            </p>
-            <div className="flex items-center gap-1.5 text-xs font-bold text-[#FFE600] pt-1">
-              <i className="fa-solid fa-link text-[11px]"></i>
-              <a href="http://localhost:5173" className="hover:underline tracking-wide">
-                portfolio.sramkumar.dev
-              </a>
-            </div>
-          </div>
-
-          {/* COLUMN 2: QUICK LINKS */}
-          <div className="lg:pl-4">
-            <h4 className="text-xs font-black uppercase tracking-wider text-[#FFE600] mb-3 flex items-center gap-1.5">
-              <i className="fa-solid fa-circle-check text-xs"></i> QUICK LINKS
-            </h4>
-            <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-[12px] font-semibold text-white/95">
-              <div className="space-y-2">
-                {quickLinksLeft.map((link) => (
-                  <button
-                    key={link.id}
-                    onClick={() => handleNavClick(link.id)}
-                    className="block text-left hover:text-[#FFE600] transition-colors cursor-pointer w-full"
-                  >
-                    • {link.label}
-                  </button>
-                ))}
-              </div>
-              <div className="space-y-2">
-                {quickLinksRight.map((link) => (
-                  <button
-                    key={link.id}
-                    onClick={() => handleNavClick(link.id)}
-                    className="block text-left hover:text-[#FFE600] transition-colors cursor-pointer w-full"
-                  >
-                    • {link.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* COLUMN 3: REAL-TIME SYSTEM STATUS */}
-          <div>
-            <h4 className="text-xs font-black uppercase tracking-wider text-[#FFE600] mb-3 flex items-center gap-1.5">
-              <i className="fa-solid fa-server text-xs"></i> SYSTEM STATUS
-            </h4>
-            <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-3.5 space-y-2 text-[12px] font-medium shadow-sm">
-              <div className="flex justify-between items-center pb-1.5 border-b border-white/10">
-                <span className="text-white/90">Backend API:</span>
-                <span
-                  className={`px-2 py-0.5 rounded-full text-[10px] font-extrabold flex items-center gap-1 border ${
-                    systemStatus.isOnline
-                      ? 'bg-emerald-500/25 text-emerald-300 border-emerald-400/30'
-                      : 'bg-rose-500/25 text-rose-300 border-rose-400/30'
-                  }`}
-                >
-                  <span
-                    className={`w-1.5 h-1.5 rounded-full ${
-                      systemStatus.isOnline
-                        ? 'bg-emerald-400 animate-pulse'
-                        : 'bg-rose-400'
-                    }`}
-                  ></span>
-                  {systemStatus.server}
-                </span>
-              </div>
-              <div className="flex justify-between items-center pb-1.5 border-b border-white/10">
-                <span className="text-white/90">Database:</span>
-                <span className="text-white font-bold">{systemStatus.db}</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-white/90">Architecture:</span>
-                <span className="text-white font-bold">{systemStatus.version}</span>
-              </div>
-            </div>
-          </div>
-
-          {/* COLUMN 4: BUILT BY PROFILE CARD */}
-          <div>
-            <h4 className="text-xs font-black uppercase tracking-wider text-[#FFE600] mb-3 flex items-center gap-1.5">
-              <span className="font-mono text-sm font-black">&lt;/&gt;</span> BUILT BY
-            </h4>
-            <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-3.5 space-y-2.5 shadow-sm">
-              <div>
-                <div className="font-black text-xs text-[#FFE600]">
-                  {profile?.full_name || 'S. Ram Kumar'}
-                </div>
-                <div className="text-[10px] text-white/80 font-medium">
-                  Full Stack Developer
-                </div>
-              </div>
-
-              {/* Stack Badges */}
-              <div className="flex flex-wrap gap-1">
-                {['React 19', 'Tailwind', 'Django 5', 'MySQL', 'REST API'].map(
-                  (tag, idx) => (
-                    <span
-                      key={idx}
-                      className="px-1.5 py-0.5 rounded bg-white/15 text-white text-[9.5px] font-semibold border border-white/20"
-                    >
-                      {tag}
-                    </span>
-                  )
-                )}
-              </div>
-
-              {/* Social Channels */}
-              <div className="grid grid-cols-2 gap-y-1.5 gap-x-2 pt-2 border-t border-white/15 text-[11px] font-bold text-[#FFE600]">
-                <a
-                  href="https://github.com"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center gap-1 hover:underline"
-                >
-                  <i className="fa-brands fa-github text-xs"></i> GitHub
-                </a>
-                <a
-                  href="https://linkedin.com"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center gap-1 hover:underline"
-                >
-                  <i className="fa-brands fa-linkedin text-xs"></i> LinkedIn
-                </a>
-                <a
-                  href="https://www.naukri.com"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center gap-1 hover:underline"
-                >
-                  <i className="fa-solid fa-briefcase text-xs"></i> Naukri
-                </a>
-                <a
-                  href={`mailto:${profile?.email || 'sramkumar0101@gmail.com'}`}
-                  className="flex items-center gap-1 hover:underline"
-                >
-                  <i className="fa-solid fa-envelope text-xs"></i> Email
-                </a>
-              </div>
-            </div>
-          </div>
-
+            </a>
+          ))}
         </div>
 
-        {/* ─── BOTTOM COPYRIGHT STRIP ─── */}
-        <div className="mt-8 pt-4 border-t border-white/20 flex flex-col md:flex-row justify-between items-center text-[11px] text-white/85 gap-3 font-medium">
-          <div className="flex items-center gap-2">
-            <span className="bg-[#FFE600] text-slate-900 font-black px-1.5 py-0.5 rounded text-[10px]">
-              {profile?.initials || 'SR'}
-            </span>
-            <span>
-              © 2026 {profile?.full_name || 'S. Ram Kumar'}. All rights reserved.
-            </span>
-          </div>
+        {/* ─── Subtle Horizontal Divider Line ─── */}
+        <div className="w-full max-w-md sm:max-w-xl border-t border-white/20 my-4 sm:my-5"></div>
 
-          <div className="flex items-center gap-5 font-semibold">
-            <a href="#privacy" className="hover:text-[#FFE600] transition-colors">Privacy Policy</a>
-            <a href="#terms" className="hover:text-[#FFE600] transition-colors">Terms of Service</a>
-            <a href="#sitemap" className="hover:text-[#FFE600] transition-colors">Sitemap</a>
-          </div>
-
-          <div>
-            Made with <span className="text-red-400">❤</span> using React &amp; Django REST Framework
-          </div>
-        </div>
-
+        {/* ─── Centered Copyright Statement ─── */}
+        <p className="text-[13px] xs:text-[13.5px] sm:text-[13px] font-normal text-white/90 tracking-normal">
+          © {currentYear} {fullName}. All rights reserved.
+        </p>
       </div>
     </footer>
   );

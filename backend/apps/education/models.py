@@ -76,5 +76,7 @@ class Education(models.Model):
 
     @property
     def duration(self):
-        """Format duration string: e.g., '2021 – 2023'"""
-        return f"{self.start_year} – {self.end_year}"
+        """Format duration string: e.g., '2021 - 2023' or '2015'"""
+        if self.start_year == self.end_year:
+            return str(self.start_year)
+        return f"{self.start_year} - {self.end_year}"
