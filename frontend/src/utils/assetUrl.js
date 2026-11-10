@@ -14,3 +14,4 @@ export function assetUrl(path) {
 }
 
 export default assetUrl;
+
