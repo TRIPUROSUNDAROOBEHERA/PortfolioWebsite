@@ -11,7 +11,7 @@ export default function ProjectDetails({ project, setActiveTab }) {
       'Dynamic CRUD management for projects, blogs, skills, and certifications.',
       'PostgreSQL/MySQL integrated backend with Django REST endpoints.',
     ],
-    liveUrl: 'http://localhost:5173',
+    liveUrl: 'https://tripurosundaro.me',
     repoUrl: 'https://github.com',
   };
 

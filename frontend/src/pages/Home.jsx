@@ -86,7 +86,7 @@ const CORE_PROJECTS = [
       'Interactive map integration and live weather forecast notifications for travel itineraries.'
     ],
     tags: ['Python', 'Django', 'MySQL', 'Full-Stack Web App', 'Django REST'],
-    liveUrl: 'http://127.0.0.1:8001/',
+    liveUrl: 'https://github.com/TRIPUROSUNDAROOBEHERA',
     repoUrl: 'https://github.com/TRIPUROSUNDAROOBEHERA'
   },
   {
@@ -284,7 +284,7 @@ const CORE_PROJECTS = [
     },
     tags: ['Python', 'Django', 'Machine Learning', 'HTML', 'CSS', 'JavaScript', 'SQL', 'Scikit-learn', 'Cybersecurity', 'NSL-KDD'],
     repoUrl: 'https://github.com/TRIPUROSUNDAROOBEHERA',
-    liveUrl: 'http://127.0.0.1:8002/'
+    liveUrl: 'https://github.com/TRIPUROSUNDAROOBEHERA'
   }
 ];
 

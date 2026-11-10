@@ -1,7 +1,20 @@
 import axios from 'axios';
 
+// Resolve base URL safely:
+// 1. If VITE_API_BASE_URL is specified (e.g., in production backend deployment), use it.
+// 2. Otherwise default to same-origin '/api'.
+// In local development, Vite dev server proxies '/api' to 'http://127.0.0.1:8000'.
+// In production, same-origin '/api' prevents Chrome from triggering the Private Network Access prompt
+// ("wants to access other apps and services on this device") when visiting via mobile/desktop.
+const getBaseURL = () => {
+  if (import.meta.env.VITE_API_BASE_URL) {
+    return import.meta.env.VITE_API_BASE_URL;
+  }
+  return '/api';
+};
+
 const axiosClient = axios.create({
-  baseURL: 'http://127.0.0.1:8000/api',
+  baseURL: getBaseURL(),
   headers: {
     'Content-Type': 'application/json',
   },

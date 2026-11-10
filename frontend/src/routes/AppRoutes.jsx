@@ -38,7 +38,10 @@ export default function AppRoutes() {
 // Helper: Redirects legacy frontend admin URLs to Django
 function RedirectToDjangoBackend() {
   useEffect(() => {
-    window.location.href = 'http://127.0.0.1:8000/admin/';
+    const adminUrl = import.meta.env.VITE_API_BASE_URL
+      ? import.meta.env.VITE_API_BASE_URL.replace(/\/api\/?$/, '/admin/')
+      : '/admin/';
+    window.location.href = adminUrl;
   }, []);
   return null;
 }
