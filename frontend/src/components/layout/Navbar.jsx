@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ResumeModal from '../ui/ResumeModal';
+import { assetUrl } from '../../utils/assetUrl';
 
 export default function Navbar({
   activeTab,
@@ -273,7 +274,7 @@ export default function Navbar({
               {/* Exact TB Logo Image */}
               <div className="flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform select-none">
                 <img
-                  src="/tb-logo.png"
+                  src={assetUrl('tb-logo.png')}
                   alt="TB"
                   className="h-7 sm:h-8 md:h-9 w-auto object-contain block"
                 />
@@ -348,7 +349,7 @@ export default function Navbar({
               onClick={() => handleNavClick('home')}
             >
               <img
-                src="/tb-logo.png"
+                src={assetUrl('tb-logo.png')}
                 alt="TB"
                 className="h-7 w-auto object-contain block"
               />

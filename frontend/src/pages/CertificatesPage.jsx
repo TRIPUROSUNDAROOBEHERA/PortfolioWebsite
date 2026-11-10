@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import certificatesApi from '../api/certificatesApi';
 import Modal from '../components/ui/Modal';
 import CertificatePreviewModal from '../components/ui/CertificatePreviewModal';
+import { assetUrl } from '../utils/assetUrl';
 
 const CORE_CERTIFICATES = [
   {
@@ -10,8 +11,8 @@ const CORE_CERTIFICATES = [
     issuer: 'EduSkills Academy & AICTE',
     issue_date: 'Dec 2025',
     credential_id: 'c85f1f38b6e67487a6e5e2667c7179b8',
-    image: '/cert-python-fullstack.jpg',
-    pdf: '/certificates/Python_Full_Stack_Developer_Certificate.pdf',
+    image: assetUrl('cert-python-fullstack.jpg'),
+    pdf: assetUrl('certificates/Python_Full_Stack_Developer_Certificate.pdf'),
     desc: 'Completed 10-week intensive Python full-stack engineering virtual internship supported by AICTE, Ministry of Education, and EduSkills with Grade O (Outstanding).',
   },
   {
@@ -20,8 +21,8 @@ const CORE_CERTIFICATES = [
     issuer: 'Fortinet Training Institute',
     issue_date: 'Sept 2025',
     credential_id: '3451334320TB',
-    image: '/cert-fortinet-associate.jpg',
-    pdf: '/certificates/Fortinet_Certified_Associate_in_Cybersecurity.pdf',
+    image: assetUrl('cert-fortinet-associate.jpg'),
+    pdf: assetUrl('certificates/Fortinet_Certified_Associate_in_Cybersecurity.pdf'),
     desc: 'Certified technical cybersecurity competence validating real-world operations in network security architecture, threat intelligence, and enterprise defense workflows.',
   },
   {
@@ -30,8 +31,8 @@ const CORE_CERTIFICATES = [
     issuer: 'Fortinet Training Institute',
     issue_date: 'Sept 2025',
     credential_id: '5435469190TB',
-    image: '/cert-fortinet-fundamentals.jpg',
-    pdf: '/certificates/Fortinet_Certified_Fundamentals_in_Cybersecurity.pdf',
+    image: assetUrl('cert-fortinet-fundamentals.jpg'),
+    pdf: assetUrl('certificates/Fortinet_Certified_Fundamentals_in_Cybersecurity.pdf'),
     desc: 'Comprehensive mastery of the foundational cybersecurity threat landscape, core security principles, attack vectors, and enterprise data protection strategies.',
   },
   {
@@ -40,8 +41,8 @@ const CORE_CERTIFICATES = [
     issuer: 'Simplilearn SkillUp',
     issue_date: 'Dec 2025',
     credential_id: '9609807',
-    image: '/cert-simplilearn-python.jpg',
-    pdf: '/certificates/Programming_with_Python_3.x.pdf',
+    image: assetUrl('cert-simplilearn-python.jpg'),
+    pdf: assetUrl('certificates/Programming_with_Python_3.x.pdf'),
     desc: 'Validated core proficiency in Python 3.x programming, data structures, object-oriented design, exception handling, and backend automation scripting.',
   },
   {
@@ -50,8 +51,8 @@ const CORE_CERTIFICATES = [
     issuer: 'Simplilearn SkillUp',
     issue_date: 'Dec 2025',
     credential_id: '9610480',
-    image: '/cert-prompt-engineering.jpg',
-    pdf: '/certificates/Introduction_to_Prompt_Engineering.pdf',
+    image: assetUrl('cert-prompt-engineering.jpg'),
+    pdf: assetUrl('certificates/Introduction_to_Prompt_Engineering.pdf'),
     desc: 'Mastered generative AI prompt architecture, LLM context structuring, few-shot prompting patterns, and efficient AI-driven developer productivity workflows.',
   },
 ];

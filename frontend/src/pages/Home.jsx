@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { assetUrl } from '../utils/assetUrl';
 import Modal from '../components/ui/Modal';
 import CertificatePreviewModal from '../components/ui/CertificatePreviewModal';
 import SkillsMarquee from '../components/ui/SkillsMarquee';
@@ -48,7 +49,7 @@ const CORE_PROJECTS = [
     id: 'travel-planner',
     title: 'TripGen (Travel Plan Itinerary Generator)',
     category: 'Python • Django • MySQL • Full-Stack Web App',
-    image: '/project-travel-planner.png',
+    image: assetUrl('project-travel-planner.png'),
     desc: 'TripGen is a travel planning web application that helps users explore destinations, find tour packages, plan itineraries, book hotels and transportation, and manage their trips. It also provides tools for administrators and employees to manage bookings, users, and customer feedback.',
     longDesc: 'TripGen is a travel planning web application that helps users explore destinations, find tour packages, plan itineraries, book hotels and transportation, and manage their trips. It also provides tools for administrators and employees to manage bookings, users, and customer feedback.',
     problemStatement: 'Planning multi-day travel typically requires juggling disconnected booking sites, disparate transport schedules, and uncoordinated hotel reservations, causing booking friction and scheduling confusion.',
@@ -92,8 +93,8 @@ const CORE_PROJECTS = [
     id: 'english-master',
     title: 'English Master Pro',
     category: 'Flutter • Dart • Firebase',
-    image: '/english_master_pro_showcase.jpg',
-    video: '/english-master-demo.mp4',
+    image: assetUrl('english_master_pro_showcase.jpg'),
+    video: assetUrl('english-master-demo.mp4'),
     desc: 'A cross-platform mobile language learning application built with Flutter and Firebase featuring interactive grammar lessons, vocabulary flashcards, and quizzes.',
     longDesc: '',
     problemStatement: 'Language learners frequently struggle with generic learning apps that lack structured learning progression, provide no real-time feedback, or require continuous online connectivity that hinders studying on the go.',
@@ -145,7 +146,7 @@ const CORE_PROJECTS = [
     category: 'Machine Learning | Cybersecurity | Django',
     projectStatus: 'Completed',
     projectType: 'MCA Academic Project',
-    image: '/project-ids-showcase.png',
+    image: assetUrl('project-ids-showcase.png'),
     desc: 'The Intrusion Detection System (IDS) is a machine learning-based cybersecurity application designed to classify network traffic and identify potentially malicious activities.',
     overview: 'The Intrusion Detection System (IDS) is a machine learning-based cybersecurity application designed to classify network traffic and identify potentially malicious activities. It uses machine learning algorithms and a Django-based web interface to provide intrusion prediction results and model performance information.',
     longDesc: 'The Intrusion Detection System (IDS) is a machine learning-based cybersecurity application designed to classify network traffic and identify potentially malicious activities. It uses machine learning algorithms and a Django-based web interface to provide intrusion prediction results and model performance information.',
@@ -498,8 +499,8 @@ const CORE_CERTIFICATES = [
     issuer: 'EduSkills Academy & AICTE',
     issue_date: 'Dec 2025',
     credential_id: 'c85f1f38b6e67487a6e5e2667c7179b8',
-    image: '/cert-python-fullstack.jpg',
-    pdf: '/certificates/Python_Full_Stack_Developer_Certificate.pdf',
+    image: assetUrl('cert-python-fullstack.jpg'),
+    pdf: assetUrl('certificates/Python_Full_Stack_Developer_Certificate.pdf'),
     desc: 'Completed 10-week intensive Python full-stack engineering virtual internship supported by AICTE, Ministry of Education, and EduSkills with Grade O (Outstanding).',
     badge: 'Internship',
   },
@@ -509,8 +510,8 @@ const CORE_CERTIFICATES = [
     issuer: 'Fortinet Training Institute',
     issue_date: 'Sept 2025',
     credential_id: '3451334320TB',
-    image: '/cert-fortinet-associate.jpg',
-    pdf: '/certificates/Fortinet_Certified_Associate_in_Cybersecurity.pdf',
+    image: assetUrl('cert-fortinet-associate.jpg'),
+    pdf: assetUrl('certificates/Fortinet_Certified_Associate_in_Cybersecurity.pdf'),
     desc: 'Certified technical cybersecurity competence validating real-world operations in network security architecture, threat intelligence, and enterprise defense workflows.',
     badge: 'Cybersecurity',
   },
@@ -520,8 +521,8 @@ const CORE_CERTIFICATES = [
     issuer: 'Fortinet Training Institute',
     issue_date: 'Sept 2025',
     credential_id: '5435469190TB',
-    image: '/cert-fortinet-fundamentals.jpg',
-    pdf: '/certificates/Fortinet_Certified_Fundamentals_in_Cybersecurity.pdf',
+    image: assetUrl('cert-fortinet-fundamentals.jpg'),
+    pdf: assetUrl('certificates/Fortinet_Certified_Fundamentals_in_Cybersecurity.pdf'),
     desc: 'Comprehensive mastery of the foundational cybersecurity threat landscape, core security principles, attack vectors, and enterprise data protection strategies.',
     badge: 'Fortinet',
   },
@@ -531,8 +532,8 @@ const CORE_CERTIFICATES = [
     issuer: 'Simplilearn SkillUp',
     issue_date: 'Dec 2025',
     credential_id: '9609807',
-    image: '/cert-simplilearn-python.jpg',
-    pdf: '/certificates/Programming_with_Python_3.x.pdf',
+    image: assetUrl('cert-simplilearn-python.jpg'),
+    pdf: assetUrl('certificates/Programming_with_Python_3.x.pdf'),
     desc: 'Validated core proficiency in Python 3.x programming, data structures, object-oriented design, exception handling, and backend automation scripting.',
     badge: 'Python',
   },
@@ -542,8 +543,8 @@ const CORE_CERTIFICATES = [
     issuer: 'Simplilearn SkillUp',
     issue_date: 'Dec 2025',
     credential_id: '9610480',
-    image: '/cert-prompt-engineering.jpg',
-    pdf: '/certificates/Introduction_to_Prompt_Engineering.pdf',
+    image: assetUrl('cert-prompt-engineering.jpg'),
+    pdf: assetUrl('certificates/Introduction_to_Prompt_Engineering.pdf'),
     desc: 'Mastered generative AI prompt architecture, LLM context structuring, few-shot prompting patterns, and efficient AI-driven developer productivity workflows.',
     badge: 'AI / Prompt',
   },
@@ -2946,13 +2947,13 @@ export default function Home({
               <div className="w-[185px] h-[185px] xs:w-[200px] xs:h-[200px] sm:w-[220px] sm:h-[220px] lg:w-auto lg:h-auto rounded-full lg:rounded-none border-4 border-[#0062FF] lg:border-none overflow-hidden lg:overflow-visible bg-gradient-to-b from-blue-50/80 to-indigo-50/40 lg:bg-none lg:bg-transparent shadow-[0_10px_28px_-6px_rgba(0,98,255,0.25)] lg:shadow-none flex items-center justify-center animate-mobile-profile-slide">
                 {/* Mobile Profile Image: 2nd image type (Forward-facing portrait) */}
                 <img
-                  src="/hero-portrait-mobile.png"
+                  src={assetUrl('hero-portrait-mobile.png')}
                   alt={profile?.full_name || 'Tripurosundaro Behera'}
                   className="lg:hidden w-full h-full object-cover object-top scale-[1.06] translate-y-2.5 xs:translate-y-3 select-none"
                 />
                 {/* Desktop Hero Portrait (Crossed-arms pose, subtle scaled desktop size with smooth slow flip animation on refresh) */}
                 <img
-                  src="/hero-portrait.png"
+                  src={assetUrl('hero-portrait.png')}
                   alt={profile?.full_name || 'Tripurosundaro Behera'}
                   className="hidden lg:block w-auto h-[425px] xl:h-[455px] max-w-full object-contain object-top scale-100 translate-y-0 select-none transition-all duration-300 drop-shadow-sm hover:drop-shadow-md mx-auto animate-desktop-photo-flip"
                 />
@@ -3249,7 +3250,7 @@ export default function Home({
               }`}
             >
               <img
-                src="/projects-header-illustration.png"
+                src={assetUrl('projects-header-illustration.png')}
                 alt="Featured Projects Illustration"
                 className="w-full h-auto object-contain drop-shadow-sm"
                 loading="eager"
@@ -3663,7 +3664,7 @@ export default function Home({
                   }`}
                 >
                   <img
-                    src="/certificates-header-illustration.png"
+                    src={assetUrl('certificates-header-illustration.png')}
                     alt="Certificates Illustration"
                     className="w-full h-auto object-contain drop-shadow-sm"
                     loading="eager"
@@ -3838,7 +3839,7 @@ export default function Home({
         <div className="space-y-3">
           <div className="rounded-2xl overflow-hidden bg-slate-950 border border-slate-800 shadow-2xl flex items-center justify-center p-1">
             <img
-              src={profile?.about_image || profile?.workspaceImg || '/about-illustration.png'}
+              src={profile?.about_image || profile?.workspaceImg || assetUrl('about-illustration.png')}
               alt="Full Workspace Setup"
               className="w-full h-auto max-h-[70vh] object-contain"
             />

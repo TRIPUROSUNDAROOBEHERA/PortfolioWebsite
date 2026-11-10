@@ -5,15 +5,27 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tripurosundaro Behera | Full Stack Developer Portfolio</title>
-    <link rel="canonical" href="https://tripurosundaro.me/" />
+    <link rel="canonical" href="https://tripurosundaroobehera.github.io/PortfolioWebsite/" />
     <meta name="description" content="Tripurosundaro Behera - Full Stack Developer Portfolio showcasing Python, Django, React, MySQL, and full-stack engineering projects." />
     <meta property="og:title" content="Tripurosundaro Behera | Full Stack Developer Portfolio" />
     <meta property="og:description" content="Explore projects, skills, education, experience, and full-stack achievements of Tripurosundaro Behera." />
-    <meta property="og:url" content="https://tripurosundaro.me/" />
+    <meta property="og:url" content="https://tripurosundaroobehera.github.io/PortfolioWebsite/" />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Tripurosundaro Behera | Full Stack Developer Portfolio" />
-    <meta name="twitter:url" content="https://tripurosundaro.me/" />
+    <meta name="twitter:url" content="https://tripurosundaroobehera.github.io/PortfolioWebsite/" />
+
+    <script>
+      // Automatic asset path resolution for GitHub Pages subpath
+      window.addEventListener('error', function(e) {
+        if (e.target && e.target.tagName === 'IMG') {
+          var src = e.target.getAttribute('src');
+          if (src && src.startsWith('/') && !src.startsWith('/PortfolioWebsite/')) {
+            e.target.src = '/PortfolioWebsite' + src;
+          }
+        }
+      }, true);
+    </script>
 
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

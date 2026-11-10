@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useLayoutEffect, useCallback, useRef } from 'react';
 import SkillDetailModal from './SkillDetailModal';
+import { assetUrl } from '../../utils/assetUrl';
 
 // Brand configurations with distinctive colors, custom colored icon boxes, and SVG/icon rendering
 const SKILL_REGISTRY = {
@@ -615,7 +616,7 @@ export default function SkillsMarquee({ setActiveTab, skills = [], refreshingSec
           }`}
         >
           <img
-            src="/skills-header-illustration.png"
+            src={assetUrl('skills-header-illustration.png')}
             alt="Skills Illustration"
             className="w-full h-auto object-contain drop-shadow-sm pointer-events-none"
             loading="eager"

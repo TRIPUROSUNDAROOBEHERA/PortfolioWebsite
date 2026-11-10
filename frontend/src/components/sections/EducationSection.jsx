@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import educationApi from '../../api/educationApi';
+import { assetUrl } from '../../utils/assetUrl';
 
 export default function EducationSection({ isStandalonePage = false, refreshKey = 0, refreshingSection = null }) {
   const defaultItems = [
@@ -357,7 +358,7 @@ export default function EducationSection({ isStandalonePage = false, refreshKey 
             }`}
           >
             <img
-              src="/education-header-illustration.png"
+              src={assetUrl('education-header-illustration.png')}
               alt="Academic Journey 3D Illustration"
               className="w-full h-auto object-contain drop-shadow-sm pointer-events-none"
               loading="eager"
@@ -536,13 +537,9 @@ export default function EducationSection({ isStandalonePage = false, refreshKey 
               title="Academic Journey - MCA, B.Sc., 12th, 10th"
             >
               <img
-                src="/education-illustration-3d.png"
+                src={assetUrl('education-illustration-3d.png')}
                 alt="Academic Journey 3D Illustration - MCA, B.Sc., 12th, 10th"
                 className="w-full h-auto object-contain rounded-2xl pointer-events-none select-none transition-transform duration-500 hover:scale-[1.02]"
-                onError={(e) => {
-                  e.currentTarget.onerror = null;
-                  e.currentTarget.src = '/education-illustration-3d.png';
-                }}
               />
             </div>
           </div>

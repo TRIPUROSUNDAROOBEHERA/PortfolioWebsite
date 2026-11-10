@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { assetUrl } from '../../utils/assetUrl';
 
 export default function AboutSection({ setActiveTab, isStandalonePage = false, refreshingSection = null, refreshKey = 0 }) {
   const [isInView, setIsInView] = useState(false);
@@ -168,7 +169,7 @@ export default function AboutSection({ setActiveTab, isStandalonePage = false, r
                 }`}
               >
                 <img
-                  src="/about-illustration.png"
+                  src={assetUrl('about-illustration.png')}
                   alt="Developer Working Illustration"
                   className="w-full h-auto object-contain select-none drop-shadow-sm pointer-events-none"
                   loading="eager"
@@ -310,7 +311,7 @@ export default function AboutSection({ setActiveTab, isStandalonePage = false, r
           >
             <div className="relative w-full max-w-[320px] sm:max-w-[420px] lg:max-w-[480px] flex items-center justify-center">
               <img
-                src="/about-illustration.png"
+                src={assetUrl('about-illustration.png')}
                 alt="Developer Working Illustration - Better Code Better Tomorrow"
                 className="w-full h-auto max-h-[300px] sm:max-h-[360px] lg:max-h-[440px] object-contain drop-shadow-xs transition-transform duration-300 hover:scale-[1.02] select-none"
                 loading="eager"

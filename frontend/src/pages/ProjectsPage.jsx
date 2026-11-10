@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import projectsApi from '../api/projectsApi';
+import { assetUrl } from '../utils/assetUrl';
 
 const FEATURED_PRIMARY_PROJECTS = [
   {
@@ -35,7 +36,7 @@ const FEATURED_PRIMARY_PROJECTS = [
     desc: 'A machine learning-based network security system engineered with Django and Scikit-learn to classify traffic and detect potential intrusions.',
     badge: 'MCA Academic Project',
     featured: true,
-    image: '/project-ids-showcase.png',
+    image: assetUrl('project-ids-showcase.png'),
     demo_url: '',
     github_url: 'https://github.com/TRIPUROSUNDAROOBEHERA',
   },
