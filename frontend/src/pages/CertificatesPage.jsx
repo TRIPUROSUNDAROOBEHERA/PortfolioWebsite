@@ -120,7 +120,7 @@ export default function CertificatesPage({ setActiveTab, initialData = [] }) {
           >
             Home
           </span>{' '}
-          / Certificates
+          / Certifications
         </p>
       </div>
 

@@ -18,7 +18,7 @@ describe('Navbar Component Suite', () => {
     expect(screen.getByText(/Behera/i)).toBeInTheDocument();
 
     // Verify navigation links
-    const navItems = ['Home', 'About', 'Skills', 'Projects', 'Education', 'Certificates', 'Contact'];
+    const navItems = ['Home', 'About', 'Skills', 'Projects', 'Education', 'Certifications', 'Contact'];
     navItems.forEach((label) => {
       expect(screen.getByRole('button', { name: new RegExp(label, 'i') })).toBeInTheDocument();
     });

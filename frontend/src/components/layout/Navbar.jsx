@@ -76,7 +76,7 @@ export default function Navbar({
     { id: 'skills', label: 'Skills', icon: 'fa-solid fa-globe' },
     { id: 'projects', label: 'Projects', icon: 'fa-regular fa-folder' },
     { id: 'education', label: 'Education', icon: 'fa-solid fa-graduation-cap' },
-    { id: 'certificates', label: 'Certificates', icon: 'fa-solid fa-certificate' },
+    { id: 'certificates', label: 'Certifications', icon: 'fa-solid fa-certificate' },
     { id: 'contact', label: 'Contact', icon: 'fa-regular fa-envelope' },
   ];
 

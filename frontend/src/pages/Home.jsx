@@ -3519,10 +3519,10 @@ export default function Home({
             <div className="hidden sm:block space-y-6 sm:space-y-7">
               <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-1 animate-heading-fade-slide-up">
                 <div className="space-y-2">
-                  {/* Category Tag: CERTIFICATES — */}
+                  {/* Category Tag: CERTIFICATIONS — */}
                   <div className="flex items-center gap-2.5">
                     <span className="text-[13px] xs:text-[13.5px] sm:text-[13px] font-black tracking-wider text-[#0062FF] uppercase">
-                      CERTIFICATES
+                      CERTIFICATIONS
                     </span>
                     <span className="w-8 sm:w-10 h-[2.5px] bg-[#0062FF] rounded-full inline-block"></span>
                   </div>
@@ -3640,7 +3640,7 @@ export default function Home({
                     }}
                     className="inline-flex items-center gap-2 text-[13px] xs:text-sm sm:text-sm font-bold text-[#0062FF] bg-blue-50/80 hover:bg-blue-100 text-blue-600 px-5 py-2 rounded-full border border-blue-200/60 shadow-xs transition-all cursor-pointer"
                   >
-                    <span>Show Less Certificates</span>
+                    <span>Show Less Certifications</span>
                     <span>↑</span>
                   </button>
                 </div>
@@ -3677,7 +3677,7 @@ export default function Home({
                 {/* Category Tag */}
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-[12px] font-black tracking-wider text-[#0062FF] uppercase">
-                    CERTIFICATES
+                    CERTIFICATIONS
                   </span>
                   <span className="w-8 h-[2px] bg-[#0062FF] rounded-full inline-block"></span>
                 </div>
@@ -3695,13 +3695,13 @@ export default function Home({
                 <div className="clear-both"></div>
               </div>
 
-              {/* 2. Stats Pill Card: Real Certificates Count | Platforms | Multiple Domains */}
+              {/* 2. Stats Pill Card: Real Certifications Count | Platforms | Multiple Domains */}
               <div className="bg-white rounded-2xl border border-slate-200/90 shadow-2xs py-2.5 px-2 grid grid-cols-3 divide-x divide-slate-100 text-center">
                 <div className="flex flex-col items-center justify-center px-1">
                   <span className="text-[15px] font-black text-[#0062FF] leading-tight">
                     {displayCertificates.length}
                   </span>
-                  <span className="text-[10.5px] font-semibold text-slate-500 leading-tight mt-0.5">Certificates</span>
+                  <span className="text-[10.5px] font-semibold text-slate-500 leading-tight mt-0.5">Certifications</span>
                 </div>
 
                 <div className="flex flex-col items-center justify-center px-1">
@@ -3819,7 +3819,7 @@ export default function Home({
                   }}
                   className="w-full py-2.5 rounded-xl bg-blue-50/90 hover:bg-blue-100/90 active:bg-blue-100 border border-blue-200/70 text-[#0062FF] font-black text-[12.5px] xs:text-[13px] flex items-center justify-center gap-2 shadow-2xs transition-all duration-200 cursor-pointer"
                 >
-                  <span>{mobileShowAllCertificates ? 'Show Less Certificates' : 'View All Certificates'}</span>
+                  <span>{mobileShowAllCertificates ? 'Show Less Certifications' : 'View All Certifications'}</span>
                   <span>{mobileShowAllCertificates ? '↑' : '→'}</span>
                 </button>
               )}

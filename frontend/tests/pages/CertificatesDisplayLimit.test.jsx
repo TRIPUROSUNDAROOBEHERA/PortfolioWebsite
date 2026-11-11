@@ -118,9 +118,9 @@ describe('Certificates Section Visual Limit Suite', () => {
     const mobileCardsList = mobileContainer.querySelector('.flex.flex-col.gap-3');
     expect(mobileCardsList).toBeInTheDocument();
 
-    // Verify real certificates count in stats card (5 Certificates, matching real certificates count)
+    // Verify real certificates count in stats card (5 Certifications, matching real certificates count)
     expect(mobileContainer).toHaveTextContent('5');
-    expect(mobileContainer).toHaveTextContent(/Certificates/i);
+    expect(mobileContainer).toHaveTextContent(/Certifications/i);
 
     // Verify real platforms count in stats card (3 Platforms, matching unique issuers)
     expect(mobileContainer).toHaveTextContent('3');
@@ -133,9 +133,9 @@ describe('Certificates Section Visual Limit Suite', () => {
     // Verify mobile View All button is present
     const mobileViewBtn = mobileContainer.querySelector('#mobile-view-all-certificates-btn');
     expect(mobileViewBtn).toBeInTheDocument();
-    expect(mobileViewBtn).toHaveTextContent(/View All Certificates/i);
+    expect(mobileViewBtn).toHaveTextContent(/View All Certifications/i);
 
-    // Click "View All Certificates"
+    // Click "View All Certifications"
     await act(async () => {
       fireEvent.click(mobileViewBtn);
     });
@@ -143,9 +143,9 @@ describe('Certificates Section Visual Limit Suite', () => {
     // All certificates now visible in mobile view
     mobileCards = mobileCardsList.querySelectorAll(':scope > div');
     expect(mobileCards.length).toBeGreaterThan(3);
-    expect(mobileViewBtn).toHaveTextContent(/Show Less Certificates/i);
+    expect(mobileViewBtn).toHaveTextContent(/Show Less Certifications/i);
 
-    // Click "Show Less Certificates"
+    // Click "Show Less Certifications"
     await act(async () => {
       fireEvent.click(mobileViewBtn);
     });
@@ -153,7 +153,7 @@ describe('Certificates Section Visual Limit Suite', () => {
     // Collapsed back to 3 certificates
     mobileCards = mobileCardsList.querySelectorAll(':scope > div');
     expect(mobileCards.length).toBe(3);
-    expect(mobileViewBtn).toHaveTextContent(/View All Certificates/i);
+    expect(mobileViewBtn).toHaveTextContent(/View All Certifications/i);
 
     // Open first certificate modal
     const firstCertCard = mobileCards[0];
