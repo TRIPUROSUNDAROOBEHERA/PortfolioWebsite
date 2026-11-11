@@ -123,8 +123,8 @@ export default function AboutSection({ setActiveTab, isStandalonePage = false, r
     };
   }, [refreshKey]);
 
-  const handleExploreProjects = () => {
-    const el = document.getElementById('projects');
+  const handleNavigateSection = (sectionId) => {
+    const el = document.getElementById(sectionId);
     if (el) {
       const navHeight = 70;
       const elementPosition = el.getBoundingClientRect().top + window.pageYOffset;
@@ -133,9 +133,23 @@ export default function AboutSection({ setActiveTab, isStandalonePage = false, r
         behavior: 'smooth',
       });
     } else if (typeof setActiveTab === 'function') {
-      setActiveTab('projects');
+      setActiveTab(sectionId);
     }
   };
+
+  const getCardNavigationProps = (sectionId) => ({
+    role: 'button',
+    tabIndex: 0,
+    onClick: () => handleNavigateSection(sectionId),
+    onKeyDown: (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        handleNavigateSection(sectionId);
+      }
+    },
+  });
+
+  const handleExploreProjects = () => handleNavigateSection('projects');
 
   const bioText =
     "I'm an MCA postgraduate and aspiring Python Full-Stack Developer seeking to start my career in software development. I have developed four academic and personal projects, gaining practical knowledge of application development and problem-solving. I have a strong foundation in Python, Django, Django REST Framework, React.js, JavaScript, and SQL, and I am eager to learn, grow, and build reliable, user-friendly applications.";
@@ -212,8 +226,9 @@ export default function AboutSection({ setActiveTab, isStandalonePage = false, r
 
               {/* Card 1: My Education (Left side slowly coming into position on mobile) */}
               <div
+                {...getCardNavigationProps('education')}
                 style={{ animationDelay: '0.1s' }}
-                className={`bg-white rounded-xl sm:rounded-2xl border border-slate-200/90 border-b-[3.5px] border-b-[#0062FF] lg:border-b-slate-200/90 px-2.5 xs:px-3 pt-2.5 xs:pt-3 pb-2 xs:pb-2.5 sm:p-5 shadow-xs hover:shadow-md hover:border-blue-300 card-hover-lift lg:animate-card-slide-fade transition-all duration-300 flex flex-col items-center lg:items-start text-center lg:text-left justify-between h-full ${
+                className={`bg-white rounded-xl sm:rounded-2xl border border-slate-200/90 border-b-[3.5px] border-b-[#0062FF] lg:border-b-slate-200/90 px-2.5 xs:px-3 pt-2.5 xs:pt-3 pb-2 xs:pb-2.5 sm:p-5 shadow-xs hover:shadow-md hover:border-blue-300 card-hover-lift lg:animate-card-slide-fade transition-all duration-300 flex flex-col items-center lg:items-start text-center lg:text-left justify-between h-full cursor-pointer ${
                   cardsInView
                     ? cardsShouldSlide
                       ? 'animate-mobile-pillar-left'
@@ -236,8 +251,9 @@ export default function AboutSection({ setActiveTab, isStandalonePage = false, r
 
               {/* Card 2: What I'm Learning (Middle slowly coming up from down below on mobile) */}
               <div
+                {...getCardNavigationProps('skills')}
                 style={{ animationDelay: '0.25s' }}
-                className={`bg-white rounded-xl sm:rounded-2xl border border-slate-200/90 border-b-[3.5px] border-b-[#7C3AED] lg:border-b-slate-200/90 px-2.5 xs:px-3 pt-2.5 xs:pt-3 pb-2 xs:pb-2.5 sm:p-5 shadow-xs hover:shadow-md hover:border-purple-300 card-hover-lift lg:animate-card-slide-fade transition-all duration-300 flex flex-col items-center lg:items-start text-center lg:text-left justify-between h-full ${
+                className={`bg-white rounded-xl sm:rounded-2xl border border-slate-200/90 border-b-[3.5px] border-b-[#7C3AED] lg:border-b-slate-200/90 px-2.5 xs:px-3 pt-2.5 xs:pt-3 pb-2 xs:pb-2.5 sm:p-5 shadow-xs hover:shadow-md hover:border-purple-300 card-hover-lift lg:animate-card-slide-fade transition-all duration-300 flex flex-col items-center lg:items-start text-center lg:text-left justify-between h-full cursor-pointer ${
                   cardsInView
                     ? cardsShouldSlide
                       ? 'animate-mobile-pillar-down'
@@ -262,8 +278,9 @@ export default function AboutSection({ setActiveTab, isStandalonePage = false, r
 
               {/* Card 3: My Approach (Right side slowly coming into position on mobile) */}
               <div
+                {...getCardNavigationProps('contact')}
                 style={{ animationDelay: '0.4s' }}
-                className={`bg-white rounded-xl sm:rounded-2xl border border-slate-200/90 border-b-[3.5px] border-b-[#06B6D4] lg:border-b-slate-200/90 px-2.5 xs:px-3 pt-2.5 xs:pt-3 pb-2 xs:pb-2.5 sm:p-5 shadow-xs hover:shadow-md hover:border-cyan-300 card-hover-lift lg:animate-card-slide-fade transition-all duration-300 flex flex-col items-center lg:items-start text-center lg:text-left justify-between h-full ${
+                className={`bg-white rounded-xl sm:rounded-2xl border border-slate-200/90 border-b-[3.5px] border-b-[#06B6D4] lg:border-b-slate-200/90 px-2.5 xs:px-3 pt-2.5 xs:pt-3 pb-2 xs:pb-2.5 sm:p-5 shadow-xs hover:shadow-md hover:border-cyan-300 card-hover-lift lg:animate-card-slide-fade transition-all duration-300 flex flex-col items-center lg:items-start text-center lg:text-left justify-between h-full cursor-pointer ${
                   cardsInView
                     ? cardsShouldSlide
                       ? 'animate-mobile-pillar-right'
