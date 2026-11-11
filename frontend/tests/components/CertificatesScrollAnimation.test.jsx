@@ -105,10 +105,10 @@ describe('Certificates 3-Card Scroll Animation & Staggered Vertical Entrance Sui
     expect(textBlocks[1].style.animationDelay).toBe('0.36s');
     expect(textBlocks[2].style.animationDelay).toBe('0.54s');
 
-    // Verify certificate titles render clearly
+    // Verify certificate titles render clearly in canonical 1-3 serial order
     expect(screen.getAllByText('Python Full Stack Developer Virtual Internship')[0]).toBeInTheDocument();
-    expect(screen.getAllByText('Fortinet Certified Associate in Cybersecurity')[0]).toBeInTheDocument();
-    expect(screen.getAllByText('Fortinet Certified Fundamentals in Cybersecurity')[0]).toBeInTheDocument();
+    expect(screen.getAllByText('Programming with Python 3.X')[0]).toBeInTheDocument();
+    expect(screen.getAllByText('Introduction to Prompt Engineering')[0]).toBeInTheDocument();
   });
 });
 

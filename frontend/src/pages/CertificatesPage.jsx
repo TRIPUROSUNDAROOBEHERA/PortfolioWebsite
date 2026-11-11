@@ -2,60 +2,7 @@ import React, { useState, useEffect } from 'react';
 import certificatesApi from '../api/certificatesApi';
 import Modal from '../components/ui/Modal';
 import CertificatePreviewModal from '../components/ui/CertificatePreviewModal';
-import { assetUrl } from '../utils/assetUrl';
-
-const CORE_CERTIFICATES = [
-  {
-    id: 1,
-    title: 'Python Full Stack Developer Virtual Internship',
-    issuer: 'EduSkills Academy & AICTE',
-    issue_date: 'Dec 2025',
-    credential_id: 'c85f1f38b6e67487a6e5e2667c7179b8',
-    image: assetUrl('cert-python-fullstack.jpg'),
-    pdf: assetUrl('certificates/Python_Full_Stack_Developer_Certificate.pdf'),
-    desc: 'Completed 10-week intensive Python full-stack engineering virtual internship supported by AICTE, Ministry of Education, and EduSkills with Grade O (Outstanding).',
-  },
-  {
-    id: 2,
-    title: 'Fortinet Certified Associate in Cybersecurity',
-    issuer: 'Fortinet Training Institute',
-    issue_date: 'Sept 2025',
-    credential_id: '3451334320TB',
-    image: assetUrl('cert-fortinet-associate.jpg'),
-    pdf: assetUrl('certificates/Fortinet_Certified_Associate_in_Cybersecurity.pdf'),
-    desc: 'Certified technical cybersecurity competence validating real-world operations in network security architecture, threat intelligence, and enterprise defense workflows.',
-  },
-  {
-    id: 3,
-    title: 'Fortinet Certified Fundamentals in Cybersecurity',
-    issuer: 'Fortinet Training Institute',
-    issue_date: 'Sept 2025',
-    credential_id: '5435469190TB',
-    image: assetUrl('cert-fortinet-fundamentals.jpg'),
-    pdf: assetUrl('certificates/Fortinet_Certified_Fundamentals_in_Cybersecurity.pdf'),
-    desc: 'Comprehensive mastery of the foundational cybersecurity threat landscape, core security principles, attack vectors, and enterprise data protection strategies.',
-  },
-  {
-    id: 4,
-    title: 'Programming with Python 3.X',
-    issuer: 'Simplilearn SkillUp',
-    issue_date: 'Dec 2025',
-    credential_id: '9609807',
-    image: assetUrl('cert-simplilearn-python.jpg'),
-    pdf: assetUrl('certificates/Programming_with_Python_3.x.pdf'),
-    desc: 'Validated core proficiency in Python 3.x programming, data structures, object-oriented design, exception handling, and backend automation scripting.',
-  },
-  {
-    id: 5,
-    title: 'Introduction to Prompt Engineering',
-    issuer: 'Simplilearn SkillUp',
-    issue_date: 'Dec 2025',
-    credential_id: '9610480',
-    image: assetUrl('cert-prompt-engineering.jpg'),
-    pdf: assetUrl('certificates/Introduction_to_Prompt_Engineering.pdf'),
-    desc: 'Mastered generative AI prompt architecture, LLM context structuring, few-shot prompting patterns, and efficient AI-driven developer productivity workflows.',
-  },
-];
+import { CORE_CERTIFICATES, mergeWithCoreCertificates } from '../data/certificatesData';
 
 export default function CertificatesPage({ setActiveTab, initialData = [] }) {
   const [selectedCert, setSelectedCert] = useState(null);
@@ -68,33 +15,7 @@ export default function CertificatesPage({ setActiveTab, initialData = [] }) {
       .then((res) => {
         const data = res?.data?.results || res?.results || res?.data || res;
         if (isMounted && Array.isArray(data) && data.length) {
-          const merged = CORE_CERTIFICATES.map((core) => {
-            const match = data.find((c) => {
-              if (!c.title) return false;
-              const cTitle = c.title.toLowerCase().trim();
-              const coreTitle = core.title.toLowerCase().trim();
-              if (cTitle === coreTitle) return true;
-              if (coreTitle.includes('associate') && cTitle.includes('associate')) return true;
-              if (coreTitle.includes('fundamentals') && cTitle.includes('fundamentals')) return true;
-              if (coreTitle.includes('virtual internship') && cTitle.includes('virtual internship')) return true;
-              if (coreTitle.includes('python 3') && cTitle.includes('python 3')) return true;
-              if (coreTitle.includes('prompt') && cTitle.includes('prompt')) return true;
-              return false;
-            });
-            return {
-              ...core,
-              ...(match || {}),
-              id: core.id,
-              title: core.title,
-              issuer: core.issuer,
-              issue_date: core.issue_date,
-              credential_id: core.credential_id,
-              image: core.image,
-              pdf: core.pdf,
-              desc: core.desc,
-            };
-          });
-          setCertificates(merged);
+          setCertificates(mergeWithCoreCertificates(data));
         }
       })
       .catch(() => { });

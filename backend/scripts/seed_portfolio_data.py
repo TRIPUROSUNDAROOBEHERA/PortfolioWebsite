@@ -193,10 +193,10 @@ def seed_data():
     # 4. Seed 25 Certificates
     cert_data = [
         ("Python Full Stack Developer Virtual Internship", "EduSkills Academy & AICTE", "Dec 2025", "c85f1f38b6e67487a6e5e2667c7179b8"),
-        ("Fortinet Certified Associate in Cybersecurity", "Fortinet Training Institute", "Sept 2025", "3451334320TB"),
-        ("Fortinet Certified Fundamentals in Cybersecurity", "Fortinet Training Institute", "Sept 2025", "5435469190TB"),
         ("Programming with Python 3.X", "Simplilearn SkillUp", "Dec 2025", "9609807"),
         ("Introduction to Prompt Engineering", "Simplilearn SkillUp", "Dec 2025", "9610480"),
+        ("Fortinet Certified Associate in Cybersecurity", "Fortinet Training Institute", "Sept 2025", "3451334320TB"),
+        ("Fortinet Certified Fundamentals in Cybersecurity", "Fortinet Training Institute", "Sept 2025", "5435469190TB"),
         ("Python (Basic & Intermediate) Skill Certification", "HackerRank", "2024", "HR-PY-SKILL-24"),
         ("SQL (Advanced) Certification", "HackerRank", "2024", "HR-SQL-ADV-24"),
         ("Full Stack Web Development Professional Certificate", "IBM / Coursera", "2024", "IBM-FS-2024-99"),

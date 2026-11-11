@@ -80,10 +80,21 @@ describe('Certificates Section Visual Limit Suite', () => {
       fireEvent.click(viewAllBtn);
     });
 
-    // Verify all 5 certificates are now rendered
+    // Verify all 5 certificates are now rendered in exact serial order 1 -> 2 -> 3 -> 4 -> 5
     cards = cardsGrid.querySelectorAll(':scope > div');
     expect(cards.length).toBe(5);
     expect(viewAllBtn).toHaveTextContent(/Show Less/i);
+
+    const renderedTitles = Array.from(cards).map((card) =>
+      card.querySelector('h4')?.textContent?.trim()
+    );
+    expect(renderedTitles).toEqual([
+      'Python Full Stack Developer Virtual Internship',
+      'Programming with Python 3.X',
+      'Introduction to Prompt Engineering',
+      'Fortinet Certified Associate in Cybersecurity',
+      'Fortinet Certified Fundamentals in Cybersecurity',
+    ]);
 
     // Click "Show Less" to collapse back
     await act(async () => {
