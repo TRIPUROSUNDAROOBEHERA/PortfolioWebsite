@@ -3033,7 +3033,7 @@ export default function Home({
             </div>
 
             {/* ─── MOBILE ONLY: QUICK STATS CARD (Placed Above Action Buttons per Mobile Arrow) ─── */}
-            <div className="lg:hidden w-full max-w-sm mx-auto pt-3.5 xs:pt-4">
+            <div className="lg:hidden w-full max-w-sm mx-auto pt-3.5 xs:pt-4 pb-2.5 xs:pb-3">
               <div className="bg-white border border-blue-100/90 rounded-2xl p-2.5 xs:p-3 shadow-[0_2px_12px_-3px_rgba(0,98,255,0.06)] grid grid-cols-3 divide-x divide-slate-100 text-center">
                 <div className="px-1 flex flex-col items-center justify-center">
                   <i className="fa-solid fa-graduation-cap text-[#0062FF] text-base xs:text-lg mb-0.5"></i>
