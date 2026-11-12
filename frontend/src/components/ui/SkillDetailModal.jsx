@@ -1948,11 +1948,11 @@ export default function SkillDetailModal({ isOpen, onClose, skillKey }) {
         onTouchEnd={() => setIsCloseHovered(false)}
         onFocus={() => setIsCloseHovered(true)}
         onBlur={() => setIsCloseHovered(false)}
-        className="fixed top-3 right-3 sm:top-4 sm:right-4 lg:top-8 lg:right-8 z-50 w-10 h-10 sm:w-10.5 sm:h-10.5 lg:w-11 lg:h-11 aspect-square rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer select-none active:scale-95 hover:scale-105 animate-skill-item-entrance"
+        className="fixed top-3 right-3 sm:top-4 sm:right-4 lg:top-8 lg:right-8 z-50 w-9 h-9 sm:w-10.5 sm:h-10.5 lg:w-11 lg:h-11 aspect-square rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer select-none active:scale-95 hover:scale-105 animate-skill-item-entrance"
         style={{
           animationDelay: '0.1s',
           backgroundColor: isCloseHovered ? brandColor : '#ffffff',
-          border: `2.5px solid ${brandColor}`,
+          border: `2px solid ${brandColor}`,
           color: isCloseHovered ? '#ffffff' : brandColor,
           boxShadow: isCloseHovered
             ? `0 8px 24px ${brandColor}66`
@@ -1962,11 +1962,11 @@ export default function SkillDetailModal({ isOpen, onClose, skillKey }) {
         aria-label="Close skill detail"
       >
         <svg
-          className="w-4.5 h-4.5 sm:w-5 sm:h-5 lg:w-5 lg:h-5 transition-colors duration-200"
+          className="w-4 h-4 sm:w-5 sm:h-5 lg:w-5 lg:h-5 transition-colors duration-200"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          strokeWidth="2.8"
+          strokeWidth="2.5"
           strokeLinecap="round"
           strokeLinejoin="round"
         >
