@@ -346,6 +346,7 @@ const DEFAULT_SKILL_KEYS = [
 
 export default function SkillsMarquee({ setActiveTab, skills = [], refreshingSection = null, refreshKey = 0, onOpenProject }) {
   const [hoveredIdx, setHoveredIdx] = useState(null);
+  const mobileMarqueeRef = useRef(null);
   const [activeModalSkill, setActiveModalSkill] = useState(() => {
     try {
       if (typeof window !== 'undefined') {
@@ -411,6 +412,9 @@ export default function SkillsMarquee({ setActiveTab, skills = [], refreshingSec
         document.documentElement.classList.remove('modal-open');
         document.body.classList.remove('modal-open');
       }
+      if (document.activeElement && typeof document.activeElement.blur === 'function') {
+        document.activeElement.blur();
+      }
     }
     try {
       sessionStorage.removeItem('open_skill_id');
@@ -438,6 +442,13 @@ export default function SkillsMarquee({ setActiveTab, skills = [], refreshingSec
       }
     }
   }, []);
+
+  // Ensure mobile marquee animation continues automatically after closing any skill detail modal
+  useEffect(() => {
+    if (!activeModalSkill && mobileMarqueeRef.current) {
+      mobileMarqueeRef.current.style.animationPlayState = 'running';
+    }
+  }, [activeModalSkill]);
 
   // Synchronize modal state & body lock on initial mount / refresh
   useLayoutEffect(() => {
@@ -738,7 +749,9 @@ export default function SkillsMarquee({ setActiveTab, skills = [], refreshingSec
       <div className="md:hidden -mx-4 w-[calc(100%+2rem)] overflow-hidden relative py-2 animate-card-slide-fade">
         {/* Marquee Track in Continuous Slow Motion (Automatic Scrolled, Full Visual Clarity with Zero Fog Mask) */}
         <div
-          className="animate-marquee-slow flex items-center gap-3 py-3 cursor-grab active:cursor-grabbing select-none"
+          ref={mobileMarqueeRef}
+          className="animate-marquee-slow flex items-center gap-3 py-3 select-none"
+          style={{ animationPlayState: 'running' }}
           title="Skills & Technologies"
         >
           {marqueeList.map((skill, idx) => (

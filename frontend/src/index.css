@@ -276,8 +276,16 @@ body,
   will-change: transform;
 }
 
-.animate-marquee-slow:hover {
-  animation-play-state: paused;
+@media (hover: hover) and (pointer: fine) {
+  .animate-marquee-slow:hover {
+    animation-play-state: paused;
+  }
+}
+
+@media (max-width: 767px) {
+  .animate-marquee-slow {
+    animation-play-state: running !important;
+  }
 }
 
 /* ─── 1. HEADING FADE IN + SLIDE UP ANIMATION ─── */
