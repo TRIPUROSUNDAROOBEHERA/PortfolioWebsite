@@ -93,7 +93,7 @@ describe('Individual Page Back Button Navigation Suite (Skills, Projects, Certif
     const { container } = render(<Home profile={mockProfile} setActiveTab={setActiveTab} />);
 
     // Query mobile certificate cards
-    const mobileCards = container.querySelectorAll('[data-identified]');
+    const mobileCards = container.querySelectorAll('#certificates [data-identified]');
     expect(mobileCards.length).toBeGreaterThan(0);
 
     // Initial load / refresh: no certificate card is identified
@@ -193,9 +193,10 @@ describe('Individual Page Back Button Navigation Suite (Skills, Projects, Certif
       fireEvent.click(closeBtn);
     });
 
-    // Verify first skill card is identified with orange box
+    // Verify first skill card is identified with its individual icon color box
     expect(mobileSkills[0].getAttribute('data-identified')).toBe('true');
-    expect(mobileSkills[0].className).toContain('border-orange-500');
+    expect(mobileSkills[0].style.borderWidth).toBe('2px');
+    expect(mobileSkills[0].style.borderColor).toBeTruthy();
   });
 
   it('does not intercept or scroll when user is on the landing page without any modal open and taps back button', async () => {

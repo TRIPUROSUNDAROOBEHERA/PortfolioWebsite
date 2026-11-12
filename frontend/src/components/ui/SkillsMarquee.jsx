@@ -819,11 +819,16 @@ export default function SkillsMarquee({ setActiveTab, skills = [], refreshingSec
                   openSkill(skillKey);
                 }}
                 data-identified={isIdentified ? 'true' : 'false'}
-                className={`w-[128px] h-[144px] rounded-2xl flex-shrink-0 flex flex-col items-center justify-center p-3 transition-all duration-300 cursor-pointer select-none active:scale-95 group ${
-                  isIdentified
-                    ? 'border-2 border-orange-500 shadow-sm shadow-orange-500/15 ring-2 ring-orange-400/25 bg-orange-50/10'
-                    : 'bg-white border border-slate-200/90 shadow-2xs hover:shadow-xs hover:border-blue-400'
-                }`}
+                className="w-[128px] h-[144px] rounded-2xl flex-shrink-0 flex flex-col items-center justify-center p-3 transition-all duration-300 cursor-pointer select-none active:scale-95 group"
+                style={{
+                  backgroundColor: isIdentified ? (skill.cardBgHover || '#ffffff') : '#ffffff',
+                  borderWidth: isIdentified ? '2px' : '1px',
+                  borderStyle: 'solid',
+                  borderColor: isIdentified ? (skill.cardBorderHover || skill.brandColor || '#3b82f6') : '#e2e8f0',
+                  boxShadow: isIdentified
+                    ? (skill.cardShadowHover || '0 8px 24px rgba(0, 0, 0, 0.15)')
+                    : '0 1px 2px rgba(0, 0, 0, 0.04)',
+                }}
               >
                 {/* Colored Icon Box */}
                 <div
@@ -839,9 +844,14 @@ export default function SkillsMarquee({ setActiveTab, skills = [], refreshingSec
                 </div>
 
                 {/* Skill Label */}
-                <span className={`text-[12.5px] font-extrabold text-center tracking-tight truncate max-w-[112px] leading-tight transition-colors duration-200 mt-2.5 ${
-                  isIdentified ? 'text-orange-600 font-black' : 'text-slate-800 group-hover:text-blue-600'
-                }`}>
+                <span
+                  className={`text-[12.5px] text-center tracking-tight truncate max-w-[112px] leading-tight transition-colors duration-200 mt-2.5 ${
+                    isIdentified ? 'font-black' : 'font-extrabold text-slate-800'
+                  }`}
+                  style={{
+                    color: isIdentified ? (skill.cardTextHover || skill.brandColor || '#2563eb') : undefined,
+                  }}
+                >
                   {skill.displayName}
                 </span>
               </div>
