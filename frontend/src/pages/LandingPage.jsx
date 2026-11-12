@@ -87,7 +87,6 @@ export default function LandingPage() {
 
     const cleanPath = location.pathname.toLowerCase().replace(/\/+$/, '').replace(/^\//, '');
     const isSpecialPath = ['about', 'skills', 'projects', 'education', 'certificates', 'contact'].includes(cleanPath);
-    const savedSec = sessionStorage.getItem('active_portfolio_section');
     const targetId = hasSkill
       ? 'skills'
       : (hasProject
@@ -96,7 +95,7 @@ export default function LandingPage() {
               ? 'certificates'
               : (location.hash
                   ? location.hash.replace('#', '').toLowerCase()
-                  : (isSpecialPath ? cleanPath : (savedSec || null)))));
+                  : (isSpecialPath ? cleanPath : 'home'))));
 
     if (targetId && targetId !== 'home') {
       const applyLandingPosition = () => {
@@ -130,8 +129,22 @@ export default function LandingPage() {
       });
 
       return () => cancelAnimationFrame(rafId);
-    } else if (targetId === 'home') {
-      window.scrollTo({ top: 0, behavior: 'instant' });
+    } else {
+      // Direct visit to root URL (tripurosundaro.me) always starts strictly at the very top (Hero section)
+      const resetToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        if (document.documentElement) document.documentElement.scrollTop = 0;
+        if (document.body) document.body.scrollTop = 0;
+      };
+      resetToTop();
+      const rafId = requestAnimationFrame(resetToTop);
+      const timer = setTimeout(resetToTop, 50);
+      sessionStorage.setItem('active_portfolio_section', 'home');
+      sessionStorage.setItem('active_portfolio_tab', 'home');
+      return () => {
+        cancelAnimationFrame(rafId);
+        clearTimeout(timer);
+      };
     }
   }, [location.hash, location.pathname, location.search]);
 
@@ -483,9 +496,9 @@ export default function LandingPage() {
   const getInitialActiveSection = () => {
     if (typeof window !== 'undefined') {
       const search = new URLSearchParams(window.location.search);
-      if (search.get('skill') || sessionStorage.getItem('open_skill_id')) return 'skills';
-      if (search.get('project') || sessionStorage.getItem('open_project_id')) return 'projects';
-      if (search.get('cert') || sessionStorage.getItem('open_cert_id')) return 'certificates';
+      if (search.get('skill')) return 'skills';
+      if (search.get('project')) return 'projects';
+      if (search.get('cert')) return 'certificates';
       const hash = window.location.hash.replace('#', '').toLowerCase();
       if (hash) return hash;
     }

@@ -45,11 +45,14 @@ export default function Navbar({
   const getInitialSection = () => {
     if (typeof window !== 'undefined') {
       const search = new URLSearchParams(window.location.search);
-      if (search.get('skill') || sessionStorage.getItem('open_skill_id')) {
+      if (search.get('skill')) {
         return 'skills';
       }
-      if (search.get('project') || sessionStorage.getItem('open_project_id')) {
+      if (search.get('project')) {
         return 'projects';
+      }
+      if (search.get('cert')) {
+        return 'certificates';
       }
       const hash = window.location.hash.replace('#', '').toLowerCase();
       if (hash && VALID_SECTIONS.includes(hash)) {
@@ -58,10 +61,6 @@ export default function Navbar({
       const path = window.location.pathname.replace(/^\/|\/$/g, '').toLowerCase();
       if (path && VALID_SECTIONS.includes(path)) {
         return path;
-      }
-      const saved = sessionStorage.getItem('active_portfolio_section');
-      if (saved && VALID_SECTIONS.includes(saved)) {
-        return saved;
       }
     }
     return 'home';
