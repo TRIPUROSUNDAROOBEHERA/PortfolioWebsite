@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import SkillDetailModal from '../components/ui/SkillDetailModal';
 
 // ─── CATEGORIZED SKILLS CONFIGURATION ───

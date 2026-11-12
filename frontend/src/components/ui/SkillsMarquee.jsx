@@ -372,6 +372,16 @@ export default function SkillsMarquee({ setActiveTab, skills = [], refreshingSec
     activeModalSkillRef.current = activeModalSkill;
   }, [activeModalSkill]);
 
+  // Mobile Skill Identified State: transient in-memory state, resets to null on page refresh
+  const [identifiedSkillId, setIdentifiedSkillId] = useState(null);
+  useEffect(() => {
+    try {
+      sessionStorage.removeItem('identified_skill_id');
+    } catch {
+      // fallback
+    }
+  }, []);
+
   const openSkill = useCallback((skillKey) => {
     if (!skillKey) return;
 
@@ -383,6 +393,10 @@ export default function SkillsMarquee({ setActiveTab, skills = [], refreshingSec
       window.scrollTo({ top: targetTop, behavior: 'instant' });
       sessionStorage.setItem('landing_pos_skills', Math.round(targetTop));
     }
+
+    const cleanKey = String(skillKey).trim().toLowerCase();
+    const canonical = ALIAS_LOOKUP[cleanKey] || cleanKey;
+    setIdentifiedSkillId(canonical);
 
     setActiveModalSkill(skillKey);
     try {
@@ -405,6 +419,11 @@ export default function SkillsMarquee({ setActiveTab, skills = [], refreshingSec
   }, []);
 
   const closeSkill = useCallback(() => {
+    if (activeModalSkillRef.current) {
+      const cleanKey = String(activeModalSkillRef.current).trim().toLowerCase();
+      const canonical = ALIAS_LOOKUP[cleanKey] || cleanKey;
+      setIdentifiedSkillId(canonical);
+    }
     setActiveModalSkill(null);
     if (typeof document !== 'undefined') {
       const isOtherModalOpen =
@@ -508,6 +527,9 @@ export default function SkillsMarquee({ setActiveTab, skills = [], refreshingSec
         const params = new URLSearchParams(window.location.search);
         const urlSkill = params.get('skill');
         if (urlSkill) {
+          const cleanKey = String(urlSkill).trim().toLowerCase();
+          const canonical = ALIAS_LOOKUP[cleanKey] || cleanKey;
+          setIdentifiedSkillId(canonical);
           setActiveModalSkill(urlSkill);
           sessionStorage.setItem('open_skill_id', urlSkill);
           return;
@@ -516,6 +538,11 @@ export default function SkillsMarquee({ setActiveTab, skills = [], refreshingSec
         // Only trigger closeSkill if a skill was actually open in React state
         const wasSkillOpen = Boolean(activeModalSkillRef.current);
         if (wasSkillOpen) {
+          if (activeModalSkillRef.current) {
+            const cleanKey = String(activeModalSkillRef.current).trim().toLowerCase();
+            const canonical = ALIAS_LOOKUP[cleanKey] || cleanKey;
+            setIdentifiedSkillId(canonical);
+          }
           closeSkill();
         }
       } catch {
@@ -777,34 +804,49 @@ export default function SkillsMarquee({ setActiveTab, skills = [], refreshingSec
           style={{ animationPlayState: 'running' }}
           title="Skills & Technologies"
         >
-          {marqueeList.map((skill, idx) => (
-            <div
-              key={`mobile-${skill.id}-${idx}`}
-              onClick={() => {
-                const skillKey = skill.id || skill.displayName || skill.name;
-                openSkill(skillKey);
-              }}
-              className="w-[128px] h-[144px] rounded-2xl flex-shrink-0 flex flex-col items-center justify-center p-3 transition-all duration-200 cursor-pointer select-none active:scale-95 bg-white border border-slate-200/90 shadow-2xs hover:shadow-xs hover:border-blue-400 group"
-            >
-              {/* Colored Icon Box */}
-              <div
-                className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-2xs transition-transform duration-200 group-hover:scale-105"
-                style={{
-                  backgroundColor: skill.iconBoxBg,
-                  borderWidth: skill.iconBoxBorder && skill.iconBoxBorder !== 'transparent' ? '1px' : '0',
-                  borderStyle: 'solid',
-                  borderColor: skill.iconBoxBorder || 'transparent',
-                }}
-              >
-                {skill.renderIcon()}
-              </div>
+          {marqueeList.map((skill, idx) => {
+            const isIdentified = Boolean(
+              identifiedSkillId &&
+              (skill.id === identifiedSkillId ||
+               String(skill.displayName || '').toLowerCase() === identifiedSkillId)
+            );
 
-              {/* Skill Label */}
-              <span className="text-[12.5px] font-extrabold text-center tracking-tight truncate max-w-[112px] leading-tight transition-colors duration-200 mt-2.5 text-slate-800 group-hover:text-blue-600">
-                {skill.displayName}
-              </span>
-            </div>
-          ))}
+            return (
+              <div
+                key={`mobile-${skill.id}-${idx}`}
+                onClick={() => {
+                  const skillKey = skill.id || skill.displayName || skill.name;
+                  openSkill(skillKey);
+                }}
+                data-identified={isIdentified ? 'true' : 'false'}
+                className={`w-[128px] h-[144px] rounded-2xl flex-shrink-0 flex flex-col items-center justify-center p-3 transition-all duration-300 cursor-pointer select-none active:scale-95 group ${
+                  isIdentified
+                    ? 'border-2 border-orange-500 shadow-sm shadow-orange-500/15 ring-2 ring-orange-400/25 bg-orange-50/10'
+                    : 'bg-white border border-slate-200/90 shadow-2xs hover:shadow-xs hover:border-blue-400'
+                }`}
+              >
+                {/* Colored Icon Box */}
+                <div
+                  className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-2xs transition-transform duration-200 group-hover:scale-105"
+                  style={{
+                    backgroundColor: skill.iconBoxBg,
+                    borderWidth: skill.iconBoxBorder && skill.iconBoxBorder !== 'transparent' ? '1px' : '0',
+                    borderStyle: 'solid',
+                    borderColor: skill.iconBoxBorder || 'transparent',
+                  }}
+                >
+                  {skill.renderIcon()}
+                </div>
+
+                {/* Skill Label */}
+                <span className={`text-[12.5px] font-extrabold text-center tracking-tight truncate max-w-[112px] leading-tight transition-colors duration-200 mt-2.5 ${
+                  isIdentified ? 'text-orange-600 font-black' : 'text-slate-800 group-hover:text-blue-600'
+                }`}>
+                  {skill.displayName}
+                </span>
+              </div>
+            );
+          })}
         </div>
       </div>
 

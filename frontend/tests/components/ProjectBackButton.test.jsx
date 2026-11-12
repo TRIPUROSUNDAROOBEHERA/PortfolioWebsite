@@ -123,7 +123,7 @@ describe('Individual Page Back Button Navigation Suite (Skills, Projects, Certif
 
     // Verify inner thumbnail box does not have orange border
     const thumbBox = mobileCards[0].querySelector('img')?.parentElement;
-    expect(thumbBox?.className).not.toContain('border-orange-400');
+    expect(String(thumbBox?.className || '')).not.toContain('border-orange-400');
 
     // Click second mobile certificate card
     if (mobileCards.length > 1) {
@@ -169,6 +169,33 @@ describe('Individual Page Back Button Navigation Suite (Skills, Projects, Certif
       expect(sessionStorage.getItem('open_skill_id')).toBeNull();
       expect(document.body.style.overflow).toBe('');
     }
+  });
+
+  it('identifies clicked skill with orange color when modal is closed via close button or back button, resetting on refresh', async () => {
+    const setActiveTab = vi.fn();
+    const { container } = render(<Home profile={mockProfile} setActiveTab={setActiveTab} />);
+
+    // Query mobile skills
+    const mobileSkills = container.querySelectorAll('.md\\:hidden [data-identified]');
+    expect(mobileSkills.length).toBeGreaterThan(0);
+
+    // Initial load: no skill is identified
+    expect(mobileSkills[0].getAttribute('data-identified')).toBe('false');
+
+    // Click first mobile skill
+    act(() => {
+      fireEvent.click(mobileSkills[0]);
+    });
+
+    // Close via close button
+    const closeBtn = screen.getByRole('button', { name: /close/i });
+    act(() => {
+      fireEvent.click(closeBtn);
+    });
+
+    // Verify first skill card is identified with orange box
+    expect(mobileSkills[0].getAttribute('data-identified')).toBe('true');
+    expect(mobileSkills[0].className).toContain('border-orange-500');
   });
 
   it('does not intercept or scroll when user is on the landing page without any modal open and taps back button', async () => {
