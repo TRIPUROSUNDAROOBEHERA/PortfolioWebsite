@@ -294,9 +294,7 @@ export default function SkillsPage({ setActiveTab, targetSkill = null }) {
           sessionStorage.setItem('open_skill_id', urlSkill);
           return;
         }
-        const wasSkillOpen =
-          Boolean(activeModalSkillRef.current) ||
-          Boolean(sessionStorage.getItem('open_skill_id'));
+        const wasSkillOpen = Boolean(activeModalSkillRef.current);
         if (wasSkillOpen) {
           closeSkill();
         }

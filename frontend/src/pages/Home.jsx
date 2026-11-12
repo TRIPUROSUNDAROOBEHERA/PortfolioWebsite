@@ -2718,6 +2718,18 @@ export default function Home({
     setTimeout(immediateReturnToCertificates, 50);
   }, [setActiveTab]);
 
+  // Clear stale session items if not present in URL on initial mount
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const params = new URLSearchParams(window.location.search);
+    if (!params.get('project')) {
+      sessionStorage.removeItem('open_project_id');
+    }
+    if (!params.get('cert')) {
+      sessionStorage.removeItem('open_cert_id');
+    }
+  }, []);
+
   // Handle mobile hardware/system Back button, browser Back/Forward buttons & URL sync
   useEffect(() => {
     const handlePopState = () => {
@@ -2738,10 +2750,8 @@ export default function Home({
           sessionStorage.setItem('open_project_id', found.id || found.title);
         }
       } else {
-        // Only run closeProject if project modal was actually open
-        const wasProjectOpen =
-          Boolean(selectedProjectRef.current) ||
-          Boolean(sessionStorage.getItem('open_project_id'));
+        // Only run closeProject if project modal was actually open in React state
+        const wasProjectOpen = Boolean(selectedProjectRef.current);
         if (wasProjectOpen) {
           closeProject();
         }
@@ -2760,10 +2770,8 @@ export default function Home({
           sessionStorage.setItem('open_cert_id', foundCert.id || foundCert.title);
         }
       } else {
-        // Only run closeCert if certificate modal was actually open
-        const wasCertOpen =
-          Boolean(selectedCertRef.current) ||
-          Boolean(sessionStorage.getItem('open_cert_id'));
+        // Only run closeCert if certificate modal was actually open in React state
+        const wasCertOpen = Boolean(selectedCertRef.current);
         if (wasCertOpen) {
           closeCert();
         }

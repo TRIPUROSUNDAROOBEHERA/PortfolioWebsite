@@ -492,6 +492,15 @@ export default function SkillsMarquee({ setActiveTab, skills = [], refreshingSec
     }
   }, [activeModalSkill]);
 
+  // Clear stale open_skill_id if not present in URL on mount
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const params = new URLSearchParams(window.location.search);
+    if (!params.get('skill')) {
+      sessionStorage.removeItem('open_skill_id');
+    }
+  }, []);
+
   // Listen to browser Back / Forward navigation (popstate)
   useEffect(() => {
     const handlePopState = () => {
@@ -504,10 +513,8 @@ export default function SkillsMarquee({ setActiveTab, skills = [], refreshingSec
           return;
         }
 
-        // Only trigger closeSkill if a skill was actually open
-        const wasSkillOpen =
-          Boolean(activeModalSkillRef.current) ||
-          Boolean(sessionStorage.getItem('open_skill_id'));
+        // Only trigger closeSkill if a skill was actually open in React state
+        const wasSkillOpen = Boolean(activeModalSkillRef.current);
         if (wasSkillOpen) {
           closeSkill();
         }

@@ -77,9 +77,13 @@ export default function LandingPage() {
     }
 
     const searchParams = new URLSearchParams(location.search);
-    const hasSkill = searchParams.get('skill') || sessionStorage.getItem('open_skill_id');
-    const hasProject = searchParams.get('project') || sessionStorage.getItem('open_project_id');
-    const hasCert = searchParams.get('cert') || sessionStorage.getItem('open_cert_id');
+    if (!searchParams.get('skill')) sessionStorage.removeItem('open_skill_id');
+    if (!searchParams.get('project')) sessionStorage.removeItem('open_project_id');
+    if (!searchParams.get('cert')) sessionStorage.removeItem('open_cert_id');
+
+    const hasSkill = searchParams.get('skill');
+    const hasProject = searchParams.get('project');
+    const hasCert = searchParams.get('cert');
 
     const cleanPath = location.pathname.toLowerCase().replace(/\/+$/, '').replace(/^\//, '');
     const isSpecialPath = ['about', 'skills', 'projects', 'education', 'certificates', 'contact'].includes(cleanPath);

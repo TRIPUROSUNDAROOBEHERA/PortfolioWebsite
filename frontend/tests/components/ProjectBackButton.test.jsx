@@ -113,4 +113,21 @@ describe('Individual Page Back Button Navigation Suite (Skills, Projects, Certif
       expect(document.body.style.overflow).toBe('');
     }
   });
+
+  it('does not intercept or scroll when user is on the landing page without any modal open and taps back button', async () => {
+    const setActiveTab = vi.fn();
+    render(<Home profile={mockProfile} setActiveTab={setActiveTab} />);
+
+    // When no modal is open
+    expect(screen.queryByRole('button', { name: /close project view/i })).not.toBeInTheDocument();
+
+    // Trigger popstate as user presses back to return to previous page (e.g. Google Chrome home)
+    act(() => {
+      window.dispatchEvent(new PopStateEvent('popstate'));
+    });
+
+    // setActiveTab should not be called and no modal should be open
+    expect(setActiveTab).not.toHaveBeenCalled();
+    expect(document.body.style.overflow).toBe('');
+  });
 });
