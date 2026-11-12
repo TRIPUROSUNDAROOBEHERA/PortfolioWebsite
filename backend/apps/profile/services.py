@@ -25,6 +25,7 @@ def get_or_create_default_profile():
             email=user.email or "example@gmail.com",
             phone="+91 98765 43210",
             location="India",
+            github_url="https://github.com/TRIPUROSUNDAROOBEHERA",
             is_available=True,
             years_of_learning="2+",
             total_projects_count="10+",

@@ -42,7 +42,7 @@ export default function ContactPage({ profile, setActiveTab }) {
       name: 'GitHub',
       tag: '// connect',
       icon: 'fa-brands fa-github',
-      url: 'https://github.com',
+      url: 'https://github.com/TRIPUROSUNDAROOBEHERA',
       color: '#181717',
       hoverBorder: 'hover:border-slate-400',
     },

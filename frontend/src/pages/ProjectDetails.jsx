@@ -12,7 +12,7 @@ export default function ProjectDetails({ project, setActiveTab }) {
       'PostgreSQL/MySQL integrated backend with Django REST endpoints.',
     ],
     liveUrl: 'https://tripurosundaro.me',
-    repoUrl: 'https://github.com',
+    repoUrl: 'https://github.com/TRIPUROSUNDAROOBEHERA',
   };
 
   return (

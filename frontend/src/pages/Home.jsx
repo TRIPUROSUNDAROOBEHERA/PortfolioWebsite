@@ -3106,7 +3106,11 @@ export default function Home({
                 <i className="fa-brands fa-linkedin-in"></i>
               </a>
               <a
-                href={profile?.github_url || 'https://github.com'}
+                href={
+                  profile?.github_url && !profile.github_url.includes('tripurosundarobehera') && profile.github_url !== 'https://github.com'
+                    ? profile.github_url
+                    : 'https://github.com/TRIPUROSUNDAROOBEHERA'
+                }
                 target="_blank"
                 rel="noreferrer"
                 className="contact-social-item w-12 h-12 rounded-full bg-white border border-slate-200 text-slate-800 hover:bg-[#24292f] hover:text-white hover:border-[#24292f] shadow-xs hover:shadow-md flex items-center justify-center text-base transition-colors duration-200"

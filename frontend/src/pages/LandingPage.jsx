@@ -395,7 +395,7 @@ export default function LandingPage() {
     email: '24jnf00084@svcn.ac.in',
     phone: '+91- 9014239763',
     linkedin_url: 'https://www.linkedin.com/in/btripurosundaro/',
-    github_url: 'https://github.com/tripurosundarobehera',
+    github_url: 'https://github.com/TRIPUROSUNDAROOBEHERA',
     whatsapp_url: '',
     whatsapp_number: '+91 98765 43210',
     location: 'India',

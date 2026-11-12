@@ -146,7 +146,7 @@ class Profile(models.Model):
     # --------------------------------------------------------------------------
     github_url = models.URLField(
         blank=True,
-        default="https://github.com",
+        default="https://github.com/TRIPUROSUNDAROOBEHERA",
         help_text="GitHub profile URL"
     )
     linkedin_url = models.URLField(

@@ -19,6 +19,14 @@ export default function Footer({ profile, refreshingSection, refreshKey = 0 }) {
   const targetEmail = profile?.email || '24jnf00084@svcn.ac.in';
   const gmailComposeUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(targetEmail)}&su=${encodeURIComponent('Portfolio Inquiry - Tripurosundaro Behera')}`;
 
+  const resolveGitHubUrl = () => {
+    const raw = profile?.github_url;
+    if (!raw || raw === 'https://github.com' || raw.includes('tripurosundarobehera')) {
+      return 'https://github.com/TRIPUROSUNDAROOBEHERA';
+    }
+    return raw;
+  };
+
   const socialLinks = [
     {
       id: 'linkedin',
@@ -31,7 +39,7 @@ export default function Footer({ profile, refreshingSection, refreshKey = 0 }) {
     {
       id: 'github',
       label: 'GitHub',
-      href: profile?.github_url || 'https://github.com',
+      href: resolveGitHubUrl(),
       hoverBg: 'group-hover:bg-[#24292f]',
       iconClass: 'text-slate-800 group-hover:text-white',
       renderIcon: () => <i className="fa-brands fa-github text-base sm:text-lg transition-colors"></i>,

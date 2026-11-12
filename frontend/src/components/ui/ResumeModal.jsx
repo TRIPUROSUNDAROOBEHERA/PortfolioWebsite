@@ -48,7 +48,7 @@ export default function ResumeModal({ isOpen, onClose, profile }) {
   const phone = '+91- 9014239763';
   const location = 'Bengaluru, Karnataka, India';
   const linkedinUrl = 'https://www.linkedin.com/in/btripurosundaro/';
-  const githubUrl = 'https://github.com/tripurosundarobehera';
+  const githubUrl = 'https://github.com/TRIPUROSUNDAROOBEHERA';
 
   return createPortal(
     <div className="fixed inset-0 z-[9999] flex items-center justify-center p-2 sm:p-4 overflow-hidden animate-fade-in font-['Plus_Jakarta_Sans',sans-serif]">
@@ -217,7 +217,7 @@ export default function ResumeModal({ isOpen, onClose, profile }) {
                   >
                     <span>GitHub:</span>
                     <span className="text-blue-600 group-hover:underline font-medium">
-                      github.com/tripurosundarobehera
+                      github.com/TRIPUROSUNDAROOBEHERA
                     </span>
                   </a>
                   <span className="text-slate-400">|</span>
