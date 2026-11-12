@@ -88,6 +88,47 @@ describe('Individual Page Back Button Navigation Suite (Skills, Projects, Certif
     expect(document.body.style.overflow).toBe('');
   });
 
+  it('identifies the clicked certificate card with orange box when modal is closed via close button or back button', async () => {
+    const setActiveTab = vi.fn();
+    const { container } = render(<Home profile={mockProfile} setActiveTab={setActiveTab} />);
+
+    // Query mobile certificate cards
+    const mobileCards = container.querySelectorAll('[data-identified]');
+    expect(mobileCards.length).toBeGreaterThan(0);
+
+    // Click the first mobile certificate card
+    act(() => {
+      fireEvent.click(mobileCards[0]);
+    });
+
+    // Close via close button
+    const closeBtn = screen.getByRole('button', { name: /close/i });
+    act(() => {
+      fireEvent.click(closeBtn);
+    });
+
+    // Verify first mobile certificate card is identified with orange box
+    expect(mobileCards[0].getAttribute('data-identified')).toBe('true');
+    expect(mobileCards[0].className).toContain('border-orange-500');
+
+    // Click second mobile certificate card
+    if (mobileCards.length > 1) {
+      act(() => {
+        fireEvent.click(mobileCards[1]);
+      });
+
+      // Simulate back button
+      act(() => {
+        window.history.replaceState({}, '', '/#certificates');
+        window.dispatchEvent(new PopStateEvent('popstate'));
+      });
+
+      // Now second card is identified with orange box
+      expect(mobileCards[1].getAttribute('data-identified')).toBe('true');
+      expect(mobileCards[1].className).toContain('border-orange-500');
+    }
+  });
+
   it('closes skill detail modal and returns to skills section when mobile back button is pressed', async () => {
     const setActiveTab = vi.fn();
     render(<Home profile={mockProfile} setActiveTab={setActiveTab} />);

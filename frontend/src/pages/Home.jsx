@@ -1811,6 +1811,21 @@ export default function Home({
   }, [selectedCert]);
   const certsScrollPosRef = useRef(0);
 
+  // Mobile Certificate Identified State: marks the clicked/viewed certificate card with an orange border/box
+  const [identifiedCertId, setIdentifiedCertId] = useState(() => {
+    try {
+      if (typeof window !== 'undefined') {
+        const params = new URLSearchParams(window.location.search);
+        const certId = params.get('cert');
+        if (certId) return String(certId);
+        return sessionStorage.getItem('identified_cert_id') || null;
+      }
+    } catch {
+      // fallback
+    }
+    return null;
+  });
+
   // ─── MOBILE FEATURED PROJECTS CAROUSEL STATE & AUTOMATIC VERY SLOW SCROLL ───
   const [activeMobileProjectIdx, setActiveMobileProjectIdx] = useState(0);
   const [isMobileProjectTransitioning, setIsMobileProjectTransitioning] = useState(true);
@@ -2642,9 +2657,11 @@ export default function Home({
       certsScrollPosRef.current = window.scrollY || window.pageYOffset || 0;
     }
 
+    const certId = cert.id || cert.title;
+    setIdentifiedCertId(String(certId));
     setSelectedCert(cert);
     try {
-      const certId = cert.id || cert.title;
+      sessionStorage.setItem('identified_cert_id', String(certId));
       sessionStorage.setItem('open_cert_id', String(certId));
       sessionStorage.setItem('landing_pos_certificates', Math.round(certsScrollPosRef.current));
       const url = new URL(window.location.href);
@@ -2657,6 +2674,15 @@ export default function Home({
 
   // Close certificate preview & immediately return to Certificates section without scroll animation
   const closeCert = useCallback(() => {
+    if (selectedCertRef.current) {
+      const lastId = String(selectedCertRef.current.id || selectedCertRef.current.title);
+      setIdentifiedCertId(lastId);
+      try {
+        sessionStorage.setItem('identified_cert_id', lastId);
+      } catch {
+        // fallback
+      }
+    }
     setSelectedCert(null);
 
     if (typeof document !== 'undefined') {
@@ -2767,12 +2793,28 @@ export default function Home({
         );
         if (foundCert) {
           setSelectedCert(foundCert);
-          sessionStorage.setItem('open_cert_id', foundCert.id || foundCert.title);
+          const foundId = String(foundCert.id || foundCert.title);
+          setIdentifiedCertId(foundId);
+          try {
+            sessionStorage.setItem('identified_cert_id', foundId);
+            sessionStorage.setItem('open_cert_id', foundId);
+          } catch {
+            // fallback
+          }
         }
       } else {
         // Only run closeCert if certificate modal was actually open in React state
         const wasCertOpen = Boolean(selectedCertRef.current);
         if (wasCertOpen) {
+          if (selectedCertRef.current) {
+            const lastId = String(selectedCertRef.current.id || selectedCertRef.current.title);
+            setIdentifiedCertId(lastId);
+            try {
+              sessionStorage.setItem('identified_cert_id', lastId);
+            } catch {
+              // fallback
+            }
+          }
           closeCert();
         }
       }
@@ -3828,17 +3870,35 @@ export default function Home({
                 {(mobileShowAllCertificates ? displayCertificates : displayCertificates.slice(0, 3)).map((cert, idx) => {
                   const badgeLabel = cert.badge || (cert.title.toLowerCase().includes('internship') ? 'Internship' : cert.issuer.split(' ')[0]);
                   const staggerDelay = `${(idx % 6) * 85}ms`;
+                  const certIdStr = String(cert.id || cert.title || '');
+                  const targetIdentified = String(identifiedCertId || '').toLowerCase().trim();
+                  const isIdentified = Boolean(
+                    targetIdentified &&
+                    (certIdStr.toLowerCase().trim() === targetIdentified ||
+                     (cert.title && cert.title.toLowerCase().trim() === targetIdentified) ||
+                     (cert.title && cert.title.toLowerCase().includes(targetIdentified)) ||
+                     (targetIdentified.includes(String(cert.title || '').toLowerCase())))
+                  );
 
                   return (
                     <div
                       key={`mobile-cert-${cert.id || idx}-k${mobileCertsExpandKey}`}
                       onClick={() => openCert(cert)}
-                      className="bg-white rounded-2xl border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-[#0062FF]/40 py-2 px-2.5 flex items-center gap-2.5 xs:gap-3 transition-all duration-200 cursor-pointer group/mcard overflow-hidden"
+                      data-identified={isIdentified ? 'true' : 'false'}
+                      className={`bg-white rounded-2xl py-2 px-2.5 flex items-center gap-2.5 xs:gap-3 transition-all duration-300 cursor-pointer group/mcard overflow-hidden ${
+                        isIdentified
+                          ? 'border-2 border-orange-500 shadow-sm shadow-orange-500/15 ring-2 ring-orange-400/25 bg-orange-50/10'
+                          : 'border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-[#0062FF]/40'
+                      }`}
                     >
                       {/* Left Thumbnail (Slowly coming into position from Left Side) */}
                       <div
                         style={mobileCertsInView ? { animationDelay: staggerDelay } : undefined}
-                        className={`w-[80px] xs:w-[88px] h-[66px] xs:h-[72px] flex-shrink-0 rounded-xl overflow-hidden bg-slate-50 border border-slate-200/80 p-1 flex items-center justify-center shadow-2xs ${
+                        className={`w-[80px] xs:w-[88px] h-[66px] xs:h-[72px] flex-shrink-0 rounded-xl overflow-hidden p-1 flex items-center justify-center shadow-2xs transition-all duration-300 ${
+                          isIdentified
+                            ? 'border-2 border-orange-400 bg-orange-50/40 ring-1 ring-orange-400/30'
+                            : 'bg-slate-50 border border-slate-200/80'
+                        } ${
                           mobileCertsInView
                             ? mobileCertsShouldSlide
                               ? 'animate-mobile-cert-thumb-left'
@@ -3869,10 +3929,16 @@ export default function Home({
                         }`}
                       >
                         <div className="flex items-start justify-between gap-1.5">
-                          <h4 className="text-[12.5px] xs:text-[13.5px] font-black text-slate-900 leading-snug line-clamp-1 group-hover/mcard:text-[#0062FF] transition-colors">
+                          <h4 className={`text-[12.5px] xs:text-[13.5px] font-black leading-snug line-clamp-1 transition-colors ${
+                            isIdentified ? 'text-orange-600' : 'text-slate-900 group-hover/mcard:text-[#0062FF]'
+                          }`}>
                             {cert.title}
                           </h4>
-                          <span className="text-[9.5px] xs:text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-50 text-[#0062FF] border border-blue-200/60 shrink-0">
+                          <span className={`text-[9.5px] xs:text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0 transition-colors ${
+                            isIdentified
+                              ? 'bg-orange-50 text-orange-600 border border-orange-200/80'
+                              : 'bg-blue-50 text-[#0062FF] border border-blue-200/60'
+                          }`}>
                             {badgeLabel}
                           </span>
                         </div>
@@ -3885,7 +3951,11 @@ export default function Home({
                           <span className="text-[10px] font-semibold text-slate-400">
                             {cert.issue_date}
                           </span>
-                          <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-200/60 text-[9.5px] font-bold">
+                          <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[9.5px] font-bold transition-colors ${
+                            isIdentified
+                              ? 'bg-orange-50 text-orange-600 border border-orange-200/80'
+                              : 'bg-emerald-50 text-emerald-600 border border-emerald-200/60'
+                          }`}>
                             <span>✔</span>
                             <span>Completed</span>
                           </span>
