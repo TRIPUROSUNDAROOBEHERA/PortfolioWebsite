@@ -3829,11 +3829,11 @@ export default function Home({
               <button
                 type="button"
                 onClick={closeProject}
-                className="fixed top-3 right-3 sm:top-6 sm:right-8 z-50 w-8.5 h-8.5 xs:w-9 xs:h-9 sm:w-11 sm:h-11 rounded-full border-2 bg-white/95 shadow-md backdrop-blur-xs flex items-center justify-center transition-all duration-200 hover:scale-110 cursor-pointer border-[#0284C7] text-[#0284C7] hover:bg-[#0284C7] hover:text-white hover:border-[#0284C7]"
+                className="fixed top-3 right-3 sm:top-6 sm:right-8 z-50 w-9 h-9 sm:w-11 sm:h-11 aspect-square rounded-full bg-white text-slate-700 shadow-md border border-slate-200/80 flex items-center justify-center transition-all duration-200 hover:scale-105 sm:hover:scale-110 active:scale-95 cursor-pointer sm:border-2 sm:bg-white/95 sm:backdrop-blur-xs sm:border-[#0284C7] sm:text-[#0284C7] sm:hover:bg-[#0284C7] sm:hover:text-white sm:hover:border-[#0284C7]"
                 title="Close (Esc)"
                 aria-label="Close project view"
               >
-                <i className="fa-solid fa-xmark text-base sm:text-xl font-bold"></i>
+                <i className="fa-solid fa-xmark text-sm sm:text-xl font-bold"></i>
               </button>
 
               {/* Scrollable Container with TripGen Pink → Purple → Dark Navy Gradient Scrollbar */}
@@ -4411,15 +4411,15 @@ export default function Home({
           );
         }
 
-        const closeBtnClass = isTripGen
-          ? 'border-[#0284C7] text-[#0284C7] hover:bg-[#0284C7] hover:text-white hover:border-[#0284C7]'
+        const closeBtnDesktopClass = isTripGen
+          ? 'sm:border-[#0284C7] sm:text-[#0284C7] sm:hover:bg-[#0284C7] sm:hover:text-white sm:hover:border-[#0284C7]'
           : isTBCMS
-            ? 'border-[#6366F1] text-[#6366F1] hover:bg-[#6366F1] hover:text-white hover:border-[#6366F1]'
+            ? 'sm:border-[#6366F1] sm:text-[#6366F1] sm:hover:bg-[#6366F1] sm:hover:text-white sm:hover:border-[#6366F1]'
             : isEnglishMaster
-              ? 'border-[#FF762E] text-[#FF762E] hover:bg-[#FF762E] hover:text-white hover:border-[#FF762E]'
+              ? 'sm:border-[#FF762E] sm:text-[#FF762E] sm:hover:bg-[#FF762E] sm:hover:text-white sm:hover:border-[#FF762E]'
               : isIDS
-                ? 'border-[#0070F3] text-[#0070F3] hover:bg-[#0070F3] hover:text-white hover:border-[#0070F3]'
-                : 'border-slate-400 text-slate-600 hover:bg-slate-700 hover:text-white hover:border-slate-700';
+                ? 'sm:border-[#0070F3] sm:text-[#0070F3] sm:hover:bg-[#0070F3] sm:hover:text-white sm:hover:border-[#0070F3]'
+                : 'sm:border-slate-400 sm:text-slate-600 sm:hover:bg-slate-700 sm:hover:text-white sm:hover:border-slate-700';
 
         const headerBgClass = isTripGen
           ? 'bg-gradient-to-b from-[#FCD2D8] via-[#FCD2D8] via-[82%] to-white'
@@ -4439,11 +4439,11 @@ export default function Home({
             <button
               type="button"
               onClick={closeProject}
-              className={`fixed top-3 right-3 sm:top-6 sm:right-8 z-50 w-8.5 h-8.5 xs:w-9 xs:h-9 sm:w-11 sm:h-11 rounded-full border-2 bg-white/95 shadow-md backdrop-blur-xs flex items-center justify-center transition-all duration-200 hover:scale-110 cursor-pointer ${closeBtnClass}`}
+              className={`fixed top-3 right-3 sm:top-6 sm:right-8 z-50 w-9 h-9 sm:w-11 sm:h-11 aspect-square rounded-full bg-white text-slate-700 shadow-md border border-slate-200/80 flex items-center justify-center transition-all duration-200 hover:scale-105 sm:hover:scale-110 active:scale-95 cursor-pointer sm:border-2 sm:bg-white/95 sm:backdrop-blur-xs ${closeBtnDesktopClass}`}
               title="Close (Esc)"
               aria-label="Close project view"
             >
-              <i className="fa-solid fa-xmark text-base sm:text-xl font-bold"></i>
+              <i className="fa-solid fa-xmark text-sm sm:text-xl font-bold"></i>
             </button>
 
             {/* ─── FULL SCREEN SCROLLABLE CONTENT BODY (TOTAL SCROLLED) ─── */}
