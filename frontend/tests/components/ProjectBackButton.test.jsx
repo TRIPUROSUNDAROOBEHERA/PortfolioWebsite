@@ -88,13 +88,19 @@ describe('Individual Page Back Button Navigation Suite (Skills, Projects, Certif
     expect(document.body.style.overflow).toBe('');
   });
 
-  it('identifies the clicked certificate card with orange box when modal is closed via close button or back button', async () => {
+  it('identifies only one clicked certificate card at a time with orange box and resets on refresh', async () => {
     const setActiveTab = vi.fn();
     const { container } = render(<Home profile={mockProfile} setActiveTab={setActiveTab} />);
 
     // Query mobile certificate cards
     const mobileCards = container.querySelectorAll('[data-identified]');
     expect(mobileCards.length).toBeGreaterThan(0);
+
+    // Initial load / refresh: no certificate card is identified
+    mobileCards.forEach((card) => {
+      expect(card.getAttribute('data-identified')).toBe('false');
+      expect(card.className).not.toContain('border-orange-500');
+    });
 
     // Click the first mobile certificate card
     act(() => {
@@ -107,9 +113,17 @@ describe('Individual Page Back Button Navigation Suite (Skills, Projects, Certif
       fireEvent.click(closeBtn);
     });
 
-    // Verify first mobile certificate card is identified with orange box
+    // Verify ONLY the first mobile certificate card is identified with orange box
     expect(mobileCards[0].getAttribute('data-identified')).toBe('true');
     expect(mobileCards[0].className).toContain('border-orange-500');
+    if (mobileCards.length > 1) {
+      expect(mobileCards[1].getAttribute('data-identified')).toBe('false');
+      expect(mobileCards[1].className).not.toContain('border-orange-500');
+    }
+
+    // Verify inner thumbnail box does not have orange border
+    const thumbBox = mobileCards[0].querySelector('img')?.parentElement;
+    expect(thumbBox?.className).not.toContain('border-orange-400');
 
     // Click second mobile certificate card
     if (mobileCards.length > 1) {
@@ -123,9 +137,11 @@ describe('Individual Page Back Button Navigation Suite (Skills, Projects, Certif
         window.dispatchEvent(new PopStateEvent('popstate'));
       });
 
-      // Now second card is identified with orange box
+      // Now ONLY second card is identified (never two at a time!)
       expect(mobileCards[1].getAttribute('data-identified')).toBe('true');
       expect(mobileCards[1].className).toContain('border-orange-500');
+      expect(mobileCards[0].getAttribute('data-identified')).toBe('false');
+      expect(mobileCards[0].className).not.toContain('border-orange-500');
     }
   });
 

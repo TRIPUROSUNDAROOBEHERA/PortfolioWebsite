@@ -1811,20 +1811,15 @@ export default function Home({
   }, [selectedCert]);
   const certsScrollPosRef = useRef(0);
 
-  // Mobile Certificate Identified State: marks the clicked/viewed certificate card with an orange border/box
-  const [identifiedCertId, setIdentifiedCertId] = useState(() => {
+  // Mobile Certificate Identified State: transient in-memory state, resets to null on page refresh
+  const [identifiedCertId, setIdentifiedCertId] = useState(null);
+  useEffect(() => {
     try {
-      if (typeof window !== 'undefined') {
-        const params = new URLSearchParams(window.location.search);
-        const certId = params.get('cert');
-        if (certId) return String(certId);
-        return sessionStorage.getItem('identified_cert_id') || null;
-      }
+      sessionStorage.removeItem('identified_cert_id');
     } catch {
       // fallback
     }
-    return null;
-  });
+  }, []);
 
   // ─── MOBILE FEATURED PROJECTS CAROUSEL STATE & AUTOMATIC VERY SLOW SCROLL ───
   const [activeMobileProjectIdx, setActiveMobileProjectIdx] = useState(0);
@@ -2657,11 +2652,10 @@ export default function Home({
       certsScrollPosRef.current = window.scrollY || window.pageYOffset || 0;
     }
 
-    const certId = cert.id || cert.title;
-    setIdentifiedCertId(String(certId));
+    const certId = cert.id != null ? cert.id : cert.title;
+    setIdentifiedCertId(certId);
     setSelectedCert(cert);
     try {
-      sessionStorage.setItem('identified_cert_id', String(certId));
       sessionStorage.setItem('open_cert_id', String(certId));
       sessionStorage.setItem('landing_pos_certificates', Math.round(certsScrollPosRef.current));
       const url = new URL(window.location.href);
@@ -2675,13 +2669,8 @@ export default function Home({
   // Close certificate preview & immediately return to Certificates section without scroll animation
   const closeCert = useCallback(() => {
     if (selectedCertRef.current) {
-      const lastId = String(selectedCertRef.current.id || selectedCertRef.current.title);
+      const lastId = selectedCertRef.current.id != null ? selectedCertRef.current.id : selectedCertRef.current.title;
       setIdentifiedCertId(lastId);
-      try {
-        sessionStorage.setItem('identified_cert_id', lastId);
-      } catch {
-        // fallback
-      }
     }
     setSelectedCert(null);
 
@@ -2793,11 +2782,10 @@ export default function Home({
         );
         if (foundCert) {
           setSelectedCert(foundCert);
-          const foundId = String(foundCert.id || foundCert.title);
+          const foundId = foundCert.id != null ? foundCert.id : foundCert.title;
           setIdentifiedCertId(foundId);
           try {
-            sessionStorage.setItem('identified_cert_id', foundId);
-            sessionStorage.setItem('open_cert_id', foundId);
+            sessionStorage.setItem('open_cert_id', String(foundId));
           } catch {
             // fallback
           }
@@ -2807,13 +2795,8 @@ export default function Home({
         const wasCertOpen = Boolean(selectedCertRef.current);
         if (wasCertOpen) {
           if (selectedCertRef.current) {
-            const lastId = String(selectedCertRef.current.id || selectedCertRef.current.title);
+            const lastId = selectedCertRef.current.id != null ? selectedCertRef.current.id : selectedCertRef.current.title;
             setIdentifiedCertId(lastId);
-            try {
-              sessionStorage.setItem('identified_cert_id', lastId);
-            } catch {
-              // fallback
-            }
           }
           closeCert();
         }
@@ -3870,14 +3853,12 @@ export default function Home({
                 {(mobileShowAllCertificates ? displayCertificates : displayCertificates.slice(0, 3)).map((cert, idx) => {
                   const badgeLabel = cert.badge || (cert.title.toLowerCase().includes('internship') ? 'Internship' : cert.issuer.split(' ')[0]);
                   const staggerDelay = `${(idx % 6) * 85}ms`;
-                  const certIdStr = String(cert.id || cert.title || '');
-                  const targetIdentified = String(identifiedCertId || '').toLowerCase().trim();
+                  // Strictly match only the single active certificate at a time (never two simultaneously)
                   const isIdentified = Boolean(
-                    targetIdentified &&
-                    (certIdStr.toLowerCase().trim() === targetIdentified ||
-                     (cert.title && cert.title.toLowerCase().trim() === targetIdentified) ||
-                     (cert.title && cert.title.toLowerCase().includes(targetIdentified)) ||
-                     (targetIdentified.includes(String(cert.title || '').toLowerCase())))
+                    identifiedCertId != null &&
+                    (String(cert.id) === String(identifiedCertId) ||
+                     (cert.credential_id && String(cert.credential_id).toLowerCase() === String(identifiedCertId).toLowerCase()) ||
+                     (cert.title && cert.title.toLowerCase() === String(identifiedCertId).toLowerCase()))
                   );
 
                   return (
@@ -3891,14 +3872,10 @@ export default function Home({
                           : 'border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-[#0062FF]/40'
                       }`}
                     >
-                      {/* Left Thumbnail (Slowly coming into position from Left Side) */}
+                      {/* Left Thumbnail (Standard clean border preserved; inner round box color removed) */}
                       <div
                         style={mobileCertsInView ? { animationDelay: staggerDelay } : undefined}
-                        className={`w-[80px] xs:w-[88px] h-[66px] xs:h-[72px] flex-shrink-0 rounded-xl overflow-hidden p-1 flex items-center justify-center shadow-2xs transition-all duration-300 ${
-                          isIdentified
-                            ? 'border-2 border-orange-400 bg-orange-50/40 ring-1 ring-orange-400/30'
-                            : 'bg-slate-50 border border-slate-200/80'
-                        } ${
+                        className={`w-[80px] xs:w-[88px] h-[66px] xs:h-[72px] flex-shrink-0 rounded-xl overflow-hidden bg-slate-50 border border-slate-200/80 p-1 flex items-center justify-center shadow-2xs ${
                           mobileCertsInView
                             ? mobileCertsShouldSlide
                               ? 'animate-mobile-cert-thumb-left'
