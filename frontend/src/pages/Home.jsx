@@ -1780,8 +1780,36 @@ export default function Home({
     }
     return null;
   });
+  const selectedProjectRef = useRef(selectedProject);
+  useEffect(() => {
+    selectedProjectRef.current = selectedProject;
+  }, [selectedProject]);
   const projectsScrollPosRef = useRef(0);
-  const [selectedCert, setSelectedCert] = useState(null);
+
+  const [selectedCert, setSelectedCert] = useState(() => {
+    try {
+      if (typeof window !== 'undefined') {
+        const params = new URLSearchParams(window.location.search);
+        const certId = params.get('cert');
+        if (certId) {
+          const found = CORE_CERTIFICATES.find(
+            (c) =>
+              String(c.id).toLowerCase() === certId.toLowerCase() ||
+              (c.title && c.title.toLowerCase().includes(certId.toLowerCase()))
+          );
+          if (found) return found;
+        }
+      }
+    } catch {
+      // fallback
+    }
+    return null;
+  });
+  const selectedCertRef = useRef(selectedCert);
+  useEffect(() => {
+    selectedCertRef.current = selectedCert;
+  }, [selectedCert]);
+  const certsScrollPosRef = useRef(0);
 
   // ─── MOBILE FEATURED PROJECTS CAROUSEL STATE & AUTOMATIC VERY SLOW SCROLL ───
   const [activeMobileProjectIdx, setActiveMobileProjectIdx] = useState(0);
@@ -2541,10 +2569,15 @@ export default function Home({
     setTripgenLightboxImage(null);
 
     if (typeof document !== 'undefined') {
-      document.documentElement.style.overflow = '';
-      document.body.style.overflow = '';
-      document.documentElement.classList.remove('modal-open');
-      document.body.classList.remove('modal-open');
+      const isOtherModalOpen =
+        Boolean(sessionStorage.getItem('open_skill_id')) ||
+        Boolean(sessionStorage.getItem('open_cert_id'));
+      if (!isOtherModalOpen) {
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
+        document.documentElement.classList.remove('modal-open');
+        document.body.classList.remove('modal-open');
+      }
     }
 
     try {
@@ -2595,11 +2628,104 @@ export default function Home({
     setTimeout(immediateReturnToProjects, 50);
   }, [setActiveTab]);
 
+  // Open certificate preview modal & update browser URL (?cert=id)
+  const openCert = useCallback((cert) => {
+    const certsEl = document.getElementById('certificates');
+    if (certsEl) {
+      const navHeight = 70;
+      const buffer = 16;
+      certsScrollPosRef.current = Math.max(
+        0,
+        certsEl.getBoundingClientRect().top + window.pageYOffset - navHeight - buffer
+      );
+    } else {
+      certsScrollPosRef.current = window.scrollY || window.pageYOffset || 0;
+    }
+
+    setSelectedCert(cert);
+    try {
+      const certId = cert.id || cert.title;
+      sessionStorage.setItem('open_cert_id', String(certId));
+      sessionStorage.setItem('landing_pos_certificates', Math.round(certsScrollPosRef.current));
+      const url = new URL(window.location.href);
+      url.searchParams.set('cert', String(certId));
+      window.history.pushState({ certId }, '', url);
+    } catch {
+      // fallback
+    }
+  }, []);
+
+  // Close certificate preview & immediately return to Certificates section without scroll animation
+  const closeCert = useCallback(() => {
+    setSelectedCert(null);
+
+    if (typeof document !== 'undefined') {
+      const isOtherModalOpen =
+        Boolean(sessionStorage.getItem('open_project_id')) ||
+        Boolean(sessionStorage.getItem('open_skill_id'));
+      if (!isOtherModalOpen) {
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
+        document.documentElement.classList.remove('modal-open');
+        document.body.classList.remove('modal-open');
+      }
+    }
+
+    try {
+      sessionStorage.removeItem('open_cert_id');
+      sessionStorage.setItem('active_portfolio_section', 'certificates');
+      sessionStorage.setItem('active_portfolio_tab', 'certificates');
+      const url = new URL(window.location.href);
+      if (url.searchParams.has('cert')) {
+        url.searchParams.delete('cert');
+        url.hash = 'certificates';
+        window.history.replaceState({}, '', url);
+      }
+    } catch {
+      // fallback
+    }
+
+    const immediateReturnToCertificates = () => {
+      if (typeof setActiveTab === 'function') {
+        setActiveTab('certificates', null, 'instant');
+      }
+
+      const el = document.getElementById('certificates');
+      const navHeight = 70;
+      const buffer = 16;
+      const savedLandingPos = sessionStorage.getItem('landing_pos_certificates');
+      const parsedLandingPos = savedLandingPos ? parseInt(savedLandingPos, 10) : NaN;
+
+      let targetTop = 0;
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        const calculated = rect.top + window.pageYOffset - navHeight - buffer;
+        targetTop = calculated > 0 ? calculated : (!isNaN(parsedLandingPos) ? parsedLandingPos : (certsScrollPosRef.current || 0));
+      } else if (!isNaN(parsedLandingPos)) {
+        targetTop = parsedLandingPos;
+      } else {
+        targetTop = certsScrollPosRef.current || 0;
+      }
+
+      window.scrollTo({
+        top: targetTop,
+        behavior: 'instant',
+      });
+    };
+
+    immediateReturnToCertificates();
+    requestAnimationFrame(immediateReturnToCertificates);
+    setTimeout(immediateReturnToCertificates, 50);
+  }, [setActiveTab]);
+
   // Handle mobile hardware/system Back button, browser Back/Forward buttons & URL sync
   useEffect(() => {
     const handlePopState = () => {
       const params = new URLSearchParams(window.location.search);
       const projectId = params.get('project');
+      const certId = params.get('cert');
+
+      // 1. Projects back button / forward navigation
       if (projectId) {
         const candidateProjects = [...CORE_PROJECTS, ...(projects || [])];
         const found = candidateProjects.find(
@@ -2610,16 +2736,43 @@ export default function Home({
         if (found) {
           setSelectedProject(found);
           sessionStorage.setItem('open_project_id', found.id || found.title);
-          return;
+        }
+      } else {
+        // Only run closeProject if project modal was actually open
+        const wasProjectOpen =
+          Boolean(selectedProjectRef.current) ||
+          Boolean(sessionStorage.getItem('open_project_id'));
+        if (wasProjectOpen) {
+          closeProject();
         }
       }
-      // User tapped mobile hardware / browser Back button -> immediately return to Projects section
-      closeProject();
+
+      // 2. Certificates back button / forward navigation
+      if (certId) {
+        const candidateCerts = displayCertificates || [];
+        const foundCert = candidateCerts.find(
+          (c) =>
+            String(c.id).toLowerCase() === certId.toLowerCase() ||
+            (c.title && c.title.toLowerCase().includes(certId.toLowerCase()))
+        );
+        if (foundCert) {
+          setSelectedCert(foundCert);
+          sessionStorage.setItem('open_cert_id', foundCert.id || foundCert.title);
+        }
+      } else {
+        // Only run closeCert if certificate modal was actually open
+        const wasCertOpen =
+          Boolean(selectedCertRef.current) ||
+          Boolean(sessionStorage.getItem('open_cert_id'));
+        if (wasCertOpen) {
+          closeCert();
+        }
+      }
     };
 
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
-  }, [projects, closeProject]);
+  }, [projects, displayCertificates, closeProject, closeCert]);
 
   // Sync project from URL when projects finish loading asynchronously on deep-link / page reload
   useEffect(() => {
@@ -3510,7 +3663,7 @@ export default function Home({
                     <div
                       key={cert.id || idx}
                       style={certificatesAnimationActive ? { animationDelay: cardDelay } : undefined}
-                      onClick={() => setSelectedCert(cert)}
+                      onClick={() => openCert(cert)}
                       className={`cert-card-hover bg-white rounded-2xl sm:rounded-3xl border border-slate-200 shadow-xs hover:shadow-md hover:border-amber-400 transition-all duration-200 flex flex-col justify-between overflow-hidden group/card cursor-pointer edu-text-clarity ${
                         certificatesAnimationActive
                           ? 'animate-cert-card-up animate-card-slide-fade opacity-100 translate-y-0'
@@ -3671,7 +3824,7 @@ export default function Home({
                   return (
                     <div
                       key={`mobile-cert-${cert.id || idx}-k${mobileCertsExpandKey}`}
-                      onClick={() => setSelectedCert(cert)}
+                      onClick={() => openCert(cert)}
                       className="bg-white rounded-2xl border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-[#0062FF]/40 py-2 px-2.5 flex items-center gap-2.5 xs:gap-3 transition-all duration-200 cursor-pointer group/mcard overflow-hidden"
                     >
                       {/* Left Thumbnail (Slowly coming into position from Left Side) */}
@@ -3798,7 +3951,7 @@ export default function Home({
       {/* Certificate Preview Modal with Rounded Zoom In/Out Controller */}
       <CertificatePreviewModal
         isOpen={!!selectedCert}
-        onClose={() => setSelectedCert(null)}
+        onClose={closeCert}
         certificate={selectedCert}
       />
 

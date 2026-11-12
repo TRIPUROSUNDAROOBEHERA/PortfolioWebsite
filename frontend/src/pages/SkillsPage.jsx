@@ -203,15 +203,17 @@ export default function SkillsPage({ setActiveTab, targetSkill = null }) {
           const hashSkill = hashParams.get('skill');
           if (hashSkill) return hashSkill;
         }
-
-        const storedSkill = sessionStorage.getItem('open_skill_id');
-        if (storedSkill) return storedSkill;
       }
     } catch {
       // fallback
     }
     return null;
   });
+
+  const activeModalSkillRef = useRef(activeModalSkill);
+  useEffect(() => {
+    activeModalSkillRef.current = activeModalSkill;
+  }, [activeModalSkill]);
 
   const openSkill = useCallback((skillKey) => {
     if (!skillKey) return;
@@ -292,20 +294,19 @@ export default function SkillsPage({ setActiveTab, targetSkill = null }) {
           sessionStorage.setItem('open_skill_id', urlSkill);
           return;
         }
-        const storedSkill = sessionStorage.getItem('open_skill_id');
-        if (storedSkill && !params.has('skill')) {
-          sessionStorage.removeItem('open_skill_id');
-          setActiveModalSkill(null);
-          return;
+        const wasSkillOpen =
+          Boolean(activeModalSkillRef.current) ||
+          Boolean(sessionStorage.getItem('open_skill_id'));
+        if (wasSkillOpen) {
+          closeSkill();
         }
-        setActiveModalSkill(null);
       } catch {
-        setActiveModalSkill(null);
+        // fallback
       }
     };
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
-  }, []);
+  }, [closeSkill]);
 
   // Auto-scroll & Highlight identified category when arriving from a specific skill button click
   useEffect(() => {

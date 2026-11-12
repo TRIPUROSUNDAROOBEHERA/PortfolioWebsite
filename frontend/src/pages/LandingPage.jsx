@@ -79,6 +79,7 @@ export default function LandingPage() {
     const searchParams = new URLSearchParams(location.search);
     const hasSkill = searchParams.get('skill') || sessionStorage.getItem('open_skill_id');
     const hasProject = searchParams.get('project') || sessionStorage.getItem('open_project_id');
+    const hasCert = searchParams.get('cert') || sessionStorage.getItem('open_cert_id');
 
     const cleanPath = location.pathname.toLowerCase().replace(/\/+$/, '').replace(/^\//, '');
     const isSpecialPath = ['about', 'skills', 'projects', 'education', 'certificates', 'contact'].includes(cleanPath);
@@ -87,9 +88,11 @@ export default function LandingPage() {
       ? 'skills'
       : (hasProject
           ? 'projects'
-          : (location.hash
-              ? location.hash.replace('#', '').toLowerCase()
-              : (isSpecialPath ? cleanPath : (savedSec || null))));
+          : (hasCert
+              ? 'certificates'
+              : (location.hash
+                  ? location.hash.replace('#', '').toLowerCase()
+                  : (isSpecialPath ? cleanPath : (savedSec || null)))));
 
     if (targetId && targetId !== 'home') {
       const applyLandingPosition = () => {
@@ -478,6 +481,7 @@ export default function LandingPage() {
       const search = new URLSearchParams(window.location.search);
       if (search.get('skill') || sessionStorage.getItem('open_skill_id')) return 'skills';
       if (search.get('project') || sessionStorage.getItem('open_project_id')) return 'projects';
+      if (search.get('cert') || sessionStorage.getItem('open_cert_id')) return 'certificates';
       const hash = window.location.hash.replace('#', '').toLowerCase();
       if (hash) return hash;
     }

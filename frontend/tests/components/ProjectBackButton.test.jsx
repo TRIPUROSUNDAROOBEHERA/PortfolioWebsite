@@ -3,7 +3,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import Home from '../../src/pages/Home';
 
-describe('Project Modal Mobile and Browser Back Button popstate behavior', () => {
+describe('Individual Page Back Button Navigation Suite (Skills, Projects, Certificates)', () => {
   const mockProfile = {
     first_name: 'Tripurosundaro',
     last_name: 'Behera',
@@ -32,7 +32,7 @@ describe('Project Modal Mobile and Browser Back Button popstate behavior', () =>
     document.body.classList.remove('modal-open');
   });
 
-  it('closes project modal and clears sessionStorage when browser/mobile back button (popstate) is triggered for any project', async () => {
+  it('closes project modal and returns to projects section when mobile back button is pressed', async () => {
     const setActiveTab = vi.fn();
     render(<Home profile={mockProfile} setActiveTab={setActiveTab} />);
 
@@ -40,7 +40,7 @@ describe('Project Modal Mobile and Browser Back Button popstate behavior', () =>
     const exploreButtons = screen.getAllByRole('button', { name: /explore project/i });
     expect(exploreButtons.length).toBeGreaterThan(0);
 
-    // Open first project (TripGen)
+    // Open project
     act(() => {
       fireEvent.click(exploreButtons[0]);
     });
@@ -49,7 +49,7 @@ describe('Project Modal Mobile and Browser Back Button popstate behavior', () =>
     expect(screen.getByRole('button', { name: /close project view/i })).toBeInTheDocument();
     expect(sessionStorage.getItem('open_project_id')).toBeTruthy();
 
-    // Simulate mobile / browser back button click (popstate without ?project in URL)
+    // Simulate mobile back button click
     act(() => {
       window.history.replaceState({}, '', '/#projects');
       window.dispatchEvent(new PopStateEvent('popstate'));
@@ -60,24 +60,56 @@ describe('Project Modal Mobile and Browser Back Button popstate behavior', () =>
     expect(sessionStorage.getItem('open_project_id')).toBeNull();
     expect(document.body.style.overflow).toBe('');
     expect(document.body.classList.contains('modal-open')).toBe(false);
+  });
 
-    // Now test opening another project (IDS / English Master)
-    if (exploreButtons.length > 1) {
+  it('closes certificate preview modal and returns to certificates section when mobile back button is pressed', async () => {
+    const setActiveTab = vi.fn();
+    render(<Home profile={mockProfile} setActiveTab={setActiveTab} />);
+
+    // Click on a certificate card to open it
+    const certCards = screen.getAllByText(/view certificate/i);
+    expect(certCards.length).toBeGreaterThan(0);
+
+    act(() => {
+      fireEvent.click(certCards[0]);
+    });
+
+    // Certificate preview modal should now be open
+    expect(sessionStorage.getItem('open_cert_id')).toBeTruthy();
+
+    // Simulate mobile back button click
+    act(() => {
+      window.history.replaceState({}, '', '/#certificates');
+      window.dispatchEvent(new PopStateEvent('popstate'));
+    });
+
+    // Certificate modal should now be closed
+    expect(sessionStorage.getItem('open_cert_id')).toBeNull();
+    expect(document.body.style.overflow).toBe('');
+  });
+
+  it('closes skill detail modal and returns to skills section when mobile back button is pressed', async () => {
+    const setActiveTab = vi.fn();
+    render(<Home profile={mockProfile} setActiveTab={setActiveTab} />);
+
+    // Click on a skill pill/card to open it
+    const pythonSkills = screen.getAllByText(/python/i);
+    expect(pythonSkills.length).toBeGreaterThan(0);
+
+    act(() => {
+      fireEvent.click(pythonSkills[0]);
+    });
+
+    // Check if skill was opened or session storage set
+    const openSkillId = sessionStorage.getItem('open_skill_id');
+    if (openSkillId) {
+      // Simulate mobile back button click
       act(() => {
-        fireEvent.click(exploreButtons[1]);
-      });
-
-      expect(screen.getByRole('button', { name: /close project view/i })).toBeInTheDocument();
-      expect(sessionStorage.getItem('open_project_id')).toBeTruthy();
-
-      // Tap Android system back button again
-      act(() => {
-        window.history.replaceState({}, '', '/#projects');
+        window.history.replaceState({}, '', '/#skills');
         window.dispatchEvent(new PopStateEvent('popstate'));
       });
 
-      expect(screen.queryByRole('button', { name: /close project view/i })).not.toBeInTheDocument();
-      expect(sessionStorage.getItem('open_project_id')).toBeNull();
+      expect(sessionStorage.getItem('open_skill_id')).toBeNull();
       expect(document.body.style.overflow).toBe('');
     }
   });

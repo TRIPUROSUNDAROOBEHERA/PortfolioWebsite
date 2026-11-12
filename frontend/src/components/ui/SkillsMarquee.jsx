@@ -360,15 +360,17 @@ export default function SkillsMarquee({ setActiveTab, skills = [], refreshingSec
           const hashSkill = hashParams.get('skill');
           if (hashSkill) return hashSkill;
         }
-
-        const storedSkill = sessionStorage.getItem('open_skill_id');
-        if (storedSkill) return storedSkill;
       }
     } catch {
       // fallback
     }
     return null;
   });
+
+  const activeModalSkillRef = useRef(activeModalSkill);
+  useEffect(() => {
+    activeModalSkillRef.current = activeModalSkill;
+  }, [activeModalSkill]);
 
   const openSkill = useCallback((skillKey) => {
     if (!skillKey) return;
@@ -405,7 +407,9 @@ export default function SkillsMarquee({ setActiveTab, skills = [], refreshingSec
   const closeSkill = useCallback(() => {
     setActiveModalSkill(null);
     if (typeof document !== 'undefined') {
-      const isOtherModalOpen = Boolean(sessionStorage.getItem('open_project_id'));
+      const isOtherModalOpen =
+        Boolean(sessionStorage.getItem('open_project_id')) ||
+        Boolean(sessionStorage.getItem('open_cert_id'));
       if (!isOtherModalOpen) {
         document.documentElement.style.overflow = '';
         document.body.style.overflow = '';
@@ -421,26 +425,37 @@ export default function SkillsMarquee({ setActiveTab, skills = [], refreshingSec
       sessionStorage.setItem('active_portfolio_section', 'skills');
       sessionStorage.setItem('active_portfolio_tab', 'skills');
       const url = new URL(window.location.href);
-      url.searchParams.delete('skill');
-      url.hash = 'skills';
-      window.history.replaceState({}, '', url);
+      if (url.searchParams.has('skill')) {
+        url.searchParams.delete('skill');
+        url.hash = 'skills';
+        window.history.replaceState({}, '', url);
+      }
     } catch {
       // fallback
     }
 
-    // Anchor user directly at #skills Landing Position with zero jumping or rolling
-    const el = document.getElementById('skills');
-    if (el) {
+    // Immediately return user directly to #skills without jumping or rolling
+    const immediateReturnToSkills = () => {
+      const el = document.getElementById('skills');
       const navHeight = 70;
-      const targetTop = Math.max(0, el.getBoundingClientRect().top + window.pageYOffset - navHeight);
-      window.scrollTo({ top: targetTop, behavior: 'instant' });
-      sessionStorage.setItem('landing_pos_skills', Math.round(targetTop));
-    } else {
       const saved = sessionStorage.getItem('landing_pos_skills');
-      if (saved) {
-        window.scrollTo({ top: parseInt(saved, 10), behavior: 'instant' });
+      const parsed = saved ? parseInt(saved, 10) : NaN;
+
+      let targetTop = 0;
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        const calculated = rect.top + window.pageYOffset - navHeight;
+        targetTop = calculated > 0 ? calculated : (!isNaN(parsed) ? parsed : 0);
+      } else if (!isNaN(parsed)) {
+        targetTop = parsed;
       }
-    }
+
+      window.scrollTo({ top: targetTop, behavior: 'instant' });
+    };
+
+    immediateReturnToSkills();
+    requestAnimationFrame(immediateReturnToSkills);
+    setTimeout(immediateReturnToSkills, 50);
   }, []);
 
   // Ensure mobile marquee animation continues automatically after closing any skill detail modal
@@ -488,21 +503,22 @@ export default function SkillsMarquee({ setActiveTab, skills = [], refreshingSec
           sessionStorage.setItem('open_skill_id', urlSkill);
           return;
         }
-        const storedSkill = sessionStorage.getItem('open_skill_id');
-        if (storedSkill && !params.has('skill')) {
-          sessionStorage.removeItem('open_skill_id');
-          setActiveModalSkill(null);
-          return;
+
+        // Only trigger closeSkill if a skill was actually open
+        const wasSkillOpen =
+          Boolean(activeModalSkillRef.current) ||
+          Boolean(sessionStorage.getItem('open_skill_id'));
+        if (wasSkillOpen) {
+          closeSkill();
         }
-        setActiveModalSkill(null);
       } catch {
-        setActiveModalSkill(null);
+        // fallback
       }
     };
 
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
-  }, []);
+  }, [closeSkill]);
 
   // ─── MOBILE ONLY: HEADER ILLUSTRATION SMOOTH ENTRANCE ON SCROLL / REFRESH ───
   const [skillsIllustrationInView, setSkillsIllustrationInView] = useState(false);
