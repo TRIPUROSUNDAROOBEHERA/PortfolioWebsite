@@ -409,6 +409,21 @@ export default function LandingPage() {
   });
 
   const fetchAllData = useCallback(async () => {
+    // In production on public domains without a remote API server, all data is already
+    // fully pre-populated in React state. Skip background probing to prevent any mobile
+    // permission notifications or connection delays.
+    if (
+      typeof window !== 'undefined' &&
+      window.location.hostname !== 'localhost' &&
+      window.location.hostname !== '127.0.0.1' &&
+      (!import.meta.env.VITE_API_BASE_URL ||
+        import.meta.env.VITE_API_BASE_URL === '/api' ||
+        import.meta.env.VITE_API_BASE_URL.includes('localhost') ||
+        import.meta.env.VITE_API_BASE_URL.includes('127.0.0.1'))
+    ) {
+      return;
+    }
+
     try {
       const [profRes, projRes, skillRes, certRes, eduRes] = await Promise.allSettled([
         axiosClient.get('/profile/'),

@@ -1,12 +1,28 @@
 import axios from 'axios';
 
 // Resolve base URL safely:
-// 1. If VITE_API_BASE_URL is specified (e.g., in production backend deployment), use it.
+// 1. In production or on any remote/mobile device (hostname is not localhost/127.0.0.1),
+// strictly NEVER attempt to connect to localhost or 127.0.0.1. That prevents Chrome for Android
+// from triggering the Private Network Access prompt:
+// "tripurosundaro.me wants to access other apps and services on this device".
 // 2. Otherwise default to same-origin '/api'.
-// In local development, Vite dev server proxies '/api' to 'http://127.0.0.1:8000'.
-// In production, same-origin '/api' prevents Chrome from triggering the Private Network Access prompt
-// ("wants to access other apps and services on this device") when visiting via mobile/desktop.
 const getBaseURL = () => {
+  if (
+    typeof window !== 'undefined' &&
+    window.location.hostname !== 'localhost' &&
+    window.location.hostname !== '127.0.0.1'
+  ) {
+    const envUrl = import.meta.env.VITE_API_BASE_URL;
+    if (envUrl && !envUrl.includes('localhost') && !envUrl.includes('127.0.0.1')) {
+      return envUrl;
+    }
+    return '/api';
+  }
+
+  if (import.meta.env.PROD) {
+    return '/api';
+  }
+
   if (import.meta.env.VITE_API_BASE_URL) {
     return import.meta.env.VITE_API_BASE_URL;
   }
