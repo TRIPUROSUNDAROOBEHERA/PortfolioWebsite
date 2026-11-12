@@ -1765,7 +1765,7 @@ export default function Home({
     try {
       if (typeof window !== 'undefined') {
         const params = new URLSearchParams(window.location.search);
-        const projectId = params.get('project') || sessionStorage.getItem('open_project_id');
+        const projectId = params.get('project');
         if (projectId) {
           const found = CORE_PROJECTS.find(
             (p) =>
@@ -2520,10 +2520,12 @@ export default function Home({
     setTripgenLightboxImage(null);
     setTripgenGalleryVisibleCount(12);
     try {
-      sessionStorage.setItem('open_project_id', proj.id || proj.title);
+      const projId = proj.id || proj.title;
+      sessionStorage.setItem('open_project_id', projId);
+      sessionStorage.setItem('landing_pos_projects', Math.round(projectsScrollPosRef.current));
       const url = new URL(window.location.href);
-      url.searchParams.set('project', proj.id || proj.title);
-      window.history.pushState({ projectId: proj.id || proj.title }, '', url);
+      url.searchParams.set('project', projId);
+      window.history.pushState({ projectId: projId }, '', url);
     } catch {
       // fallback
     }
@@ -2550,9 +2552,11 @@ export default function Home({
       sessionStorage.setItem('active_portfolio_section', 'projects');
       sessionStorage.setItem('active_portfolio_tab', 'projects');
       const url = new URL(window.location.href);
-      url.searchParams.delete('project');
-      url.hash = 'projects';
-      window.history.replaceState({}, '', url);
+      if (url.searchParams.has('project')) {
+        url.searchParams.delete('project');
+        url.hash = 'projects';
+        window.history.replaceState({}, '', url);
+      }
     } catch {
       // fallback
     }
@@ -2566,9 +2570,19 @@ export default function Home({
       const el = document.getElementById('projects');
       const navHeight = 70;
       const buffer = 16;
-      const targetTop = el
-        ? Math.max(0, el.getBoundingClientRect().top + window.pageYOffset - navHeight - buffer)
-        : (projectsScrollPosRef.current || 0);
+      const savedLandingPos = sessionStorage.getItem('landing_pos_projects');
+      const parsedLandingPos = savedLandingPos ? parseInt(savedLandingPos, 10) : NaN;
+
+      let targetTop = 0;
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        const calculated = rect.top + window.pageYOffset - navHeight - buffer;
+        targetTop = calculated > 0 ? calculated : (!isNaN(parsedLandingPos) ? parsedLandingPos : (projectsScrollPosRef.current || 0));
+      } else if (!isNaN(parsedLandingPos)) {
+        targetTop = parsedLandingPos;
+      } else {
+        targetTop = projectsScrollPosRef.current || 0;
+      }
 
       window.scrollTo({
         top: targetTop,
@@ -2578,13 +2592,14 @@ export default function Home({
 
     immediateReturnToProjects();
     requestAnimationFrame(immediateReturnToProjects);
+    setTimeout(immediateReturnToProjects, 50);
   }, [setActiveTab]);
 
-  // Sync project state on initial page load / refresh & browser Back / Forward buttons
+  // Handle mobile hardware/system Back button, browser Back/Forward buttons & URL sync
   useEffect(() => {
-    const syncProjectFromUrl = () => {
+    const handlePopState = () => {
       const params = new URLSearchParams(window.location.search);
-      const projectId = params.get('project') || sessionStorage.getItem('open_project_id');
+      const projectId = params.get('project');
       if (projectId) {
         const candidateProjects = [...CORE_PROJECTS, ...(projects || [])];
         const found = candidateProjects.find(
@@ -2594,17 +2609,35 @@ export default function Home({
         );
         if (found) {
           setSelectedProject(found);
+          sessionStorage.setItem('open_project_id', found.id || found.title);
           return;
         }
       }
-      setSelectedProject(null);
+      // User tapped mobile hardware / browser Back button -> immediately return to Projects section
+      closeProject();
     };
 
-    syncProjectFromUrl();
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [projects, closeProject]);
 
-    window.addEventListener('popstate', syncProjectFromUrl);
-    return () => window.removeEventListener('popstate', syncProjectFromUrl);
-  }, [projects]);
+  // Sync project from URL when projects finish loading asynchronously on deep-link / page reload
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const params = new URLSearchParams(window.location.search);
+    const projectId = params.get('project');
+    if (!projectId || selectedProject) return;
+    const candidateProjects = [...CORE_PROJECTS, ...(projects || [])];
+    const found = candidateProjects.find(
+      (p) =>
+        String(p.id).toLowerCase() === projectId.toLowerCase() ||
+        (p.title && p.title.toLowerCase().includes(projectId.toLowerCase()))
+    );
+    if (found) {
+      setSelectedProject(found);
+      sessionStorage.setItem('open_project_id', found.id || found.title);
+    }
+  }, [projects, selectedProject]);
 
   // ESC key listener and background scroll-lock for full-screen project view
   useEffect(() => {
@@ -2622,15 +2655,10 @@ export default function Home({
 
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
-      const isStillOpen =
-        document.querySelector('.fixed.inset-0.z-50') ||
-        Boolean(sessionStorage.getItem('open_project_id'));
-      if (!isStillOpen) {
-        document.documentElement.style.overflow = '';
-        document.body.style.overflow = '';
-        document.documentElement.classList.remove('modal-open');
-        document.body.classList.remove('modal-open');
-      }
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+      document.documentElement.classList.remove('modal-open');
+      document.body.classList.remove('modal-open');
     };
   }, [selectedProject, closeProject]);
 
