@@ -1998,7 +1998,7 @@ body,
 @media print {
   @page {
     size: A4 portrait;
-    margin: 12mm 14mm 12mm 14mm;
+    margin: 15mm 14mm 15mm 14mm;
   }
 
   /* Completely remove the website and anything other than the resume modal portal */
@@ -2063,7 +2063,10 @@ body,
     max-width: 100% !important;
     height: auto !important;
     margin: 0 auto !important;
-    padding: 0 !important;
+    padding-top: 5mm !important;
+    padding-bottom: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
     border: none !important;
     border-radius: 0 !important;
     box-shadow: none !important;
@@ -2093,13 +2096,17 @@ body,
   }
 
   #printable-resume .print-header .print-contact {
-    font-size: 12px !important;
+    font-size: 11px !important;
     line-height: 1.45 !important;
     margin-top: 6px !important;
   }
 
+  #printable-resume .print-header .print-contact p {
+    white-space: nowrap !important;
+  }
+
   #printable-resume .print-section {
-    margin-bottom: 16px !important;
+    margin-bottom: 16.5px !important;
     page-break-inside: avoid !important;
     break-inside: avoid !important;
   }
@@ -2116,8 +2123,8 @@ body,
   }
 
   #printable-resume .print-text {
-    font-size: 12.2px !important;
-    line-height: 1.55 !important;
+    font-size: 12.3px !important;
+    line-height: 1.56 !important;
   }
 
   #printable-resume .print-space-tight > * + * {

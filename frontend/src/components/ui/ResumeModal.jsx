@@ -202,7 +202,7 @@ export default function ResumeModal({ isOpen, onClose, profile }) {
                 <p>
                   {location} | {phone} | {email}
                 </p>
-                <p className="flex flex-wrap items-center justify-center gap-x-2.5 gap-y-0.5 text-blue-600">
+                <p className="flex flex-wrap sm:flex-nowrap items-center justify-center gap-x-2 text-blue-600">
                   <a
                     href={linkedinUrl}
                     target="_blank"
@@ -229,6 +229,8 @@ export default function ResumeModal({ isOpen, onClose, profile }) {
                     </span>
                   </a>
                   <span className="text-blue-600">|</span>
+                </p>
+                <p className="flex items-center justify-center text-blue-600">
                   <a
                     href="https://tripurosundaro.me"
                     target="_blank"
