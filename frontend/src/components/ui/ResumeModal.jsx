@@ -51,15 +51,18 @@ export default function ResumeModal({ isOpen, onClose, profile }) {
   const githubUrl = 'https://github.com/TRIPUROSUNDAROOBEHERA';
 
   return createPortal(
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-2 sm:p-4 overflow-hidden animate-fade-in font-['Plus_Jakarta_Sans',sans-serif]">
+    <div
+      id="resume-modal-portal"
+      className="fixed inset-0 z-[9999] flex items-center justify-center p-2 sm:p-4 overflow-hidden animate-fade-in font-['Plus_Jakarta_Sans',sans-serif]"
+    >
       {/* ─── Backdrop ─── */}
       <div
-        className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs transition-opacity"
+        className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs transition-opacity resume-modal-backdrop"
         onClick={onClose}
       />
 
       {/* ─── Dialog Container ─── */}
-      <div className="relative bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 shadow-2xl w-full max-w-5xl max-h-[94vh] flex flex-col z-10 overflow-hidden">
+      <div className="relative bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 shadow-2xl w-full max-w-5xl max-h-[94vh] flex flex-col z-10 overflow-hidden resume-modal-dialog">
         {/* Scoped Gray Scrollbar Styles for Resume Modal */}
         <style>{`
           .resume-gray-scrollbar::-webkit-scrollbar {
@@ -86,7 +89,7 @@ export default function ResumeModal({ isOpen, onClose, profile }) {
         `}</style>
         
         {/* ─── Top Control Bar (Exact Match to Reference Image) ─── */}
-        <div className="px-4 sm:px-6 py-3 border-b border-slate-200/90 bg-white flex items-center justify-between gap-3 flex-shrink-0">
+        <div className="px-4 sm:px-6 py-3 border-b border-slate-200/90 bg-white flex items-center justify-between gap-3 flex-shrink-0 resume-modal-header">
           
           {/* Left: Document Identity */}
           <div className="flex items-center gap-3 min-w-0">
@@ -173,7 +176,7 @@ export default function ResumeModal({ isOpen, onClose, profile }) {
         </div>
 
         {/* ─── Center: Scrollable Resume Canvas ─── */}
-        <div className="flex-1 overflow-y-auto bg-slate-100/70 p-3 sm:p-6 md:p-8 flex justify-center items-start resume-gray-scrollbar custom-slim-scrollbar">
+        <div className="flex-1 overflow-y-auto bg-slate-100/70 p-3 sm:p-6 md:p-8 flex justify-center items-start resume-gray-scrollbar custom-slim-scrollbar resume-modal-canvas">
           
           {/* Printable White Document Sheet (A4 Sheet Paper) */}
           <div
@@ -183,7 +186,7 @@ export default function ResumeModal({ isOpen, onClose, profile }) {
             className="bg-white shadow-xl border border-slate-200/90 rounded-sm w-full max-w-[820px] p-6 sm:p-10 md:p-12 text-slate-800 transition-transform duration-150 select-text font-sans mb-8"
           >
             {/* Header: Name & Contact Details */}
-            <div className="border-b border-slate-300 pb-3 mb-4 text-center">
+            <div className="border-b border-slate-300 pb-3 mb-4 text-center print-header">
               <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight uppercase">
                 {fullName}
               </h1>
@@ -238,21 +241,21 @@ export default function ResumeModal({ isOpen, onClose, profile }) {
             </div>
 
             {/* Section: Professional Summary */}
-            <div className="mb-4">
-              <h2 className="text-xs font-black text-slate-900 uppercase tracking-wider border-b border-slate-300 pb-1 mb-2">
+            <div className="mb-4 print-section">
+              <h2 className="text-xs font-black text-slate-900 uppercase tracking-wider border-b border-slate-300 pb-1 mb-2 print-section-title">
                 PROFESSIONAL SUMMARY
               </h2>
-              <p className="text-[12px] sm:text-[12.5px] leading-relaxed text-slate-800 text-justify font-normal">
+              <p className="text-[12px] sm:text-[12.5px] leading-relaxed text-slate-800 text-justify font-normal print-text">
                 I am an MCA postgraduate with a (CGPA of 8.47/10) and an aspiring Python Full-Stack Developer. I have practical experience through academic and personal projects using Python, Django, REST APIs, React.js, JavaScript, and SQL. I enjoy developing responsive web applications, solving problems, and learning new technologies. I am looking for an entry-level opportunity to improve my skills and contribute to real-world software development.
               </p>
             </div>
 
             {/* Section: Technical Skills */}
-            <div className="mb-4">
-              <h2 className="text-xs font-black text-slate-900 uppercase tracking-wider border-b border-slate-300 pb-1 mb-2">
+            <div className="mb-4 print-section">
+              <h2 className="text-xs font-black text-slate-900 uppercase tracking-wider border-b border-slate-300 pb-1 mb-2 print-section-title">
                 TECHNICAL SKILLS
               </h2>
-              <div className="text-[12px] sm:text-[12.5px] space-y-1 text-slate-800">
+              <div className="text-[12px] sm:text-[12.5px] space-y-1 text-slate-800 print-text print-space-tight">
                 <p>
                   <strong className="text-slate-900 font-bold">Programming:</strong> Python, JavaScript, SQL
                 </p>
@@ -278,11 +281,11 @@ export default function ResumeModal({ isOpen, onClose, profile }) {
             </div>
 
             {/* Section: Projects (Exact match to resume0101.pdf) */}
-            <div className="mb-4">
-              <h2 className="text-xs font-black text-slate-900 uppercase tracking-wider border-b border-slate-300 pb-1 mb-2">
+            <div className="mb-4 print-section">
+              <h2 className="text-xs font-black text-slate-900 uppercase tracking-wider border-b border-slate-300 pb-1 mb-2 print-section-title">
                 PROJECTS
               </h2>
-              <div className="space-y-1.5 text-[12px] sm:text-[12.5px] text-slate-900">
+              <div className="space-y-1.5 text-[12px] sm:text-[12.5px] text-slate-900 print-text print-space-tight">
                 <p className="font-bold">
                   TripGen – Travel Planning Web Application
                 </p>
@@ -296,11 +299,11 @@ export default function ResumeModal({ isOpen, onClose, profile }) {
             </div>
 
             {/* Section: Education (Exact match to resume0101.pdf) */}
-            <div className="mb-4">
-              <h2 className="text-xs font-black text-slate-900 uppercase tracking-wider border-b border-slate-300 pb-1 mb-2">
+            <div className="mb-4 print-section">
+              <h2 className="text-xs font-black text-slate-900 uppercase tracking-wider border-b border-slate-300 pb-1 mb-2 print-section-title">
                 EDUCATION
               </h2>
-              <div className="space-y-3 text-[12px] sm:text-[12.5px]">
+              <div className="space-y-3 text-[12px] sm:text-[12.5px] print-text print-space-tight">
                 <div>
                   <p className="font-bold text-slate-900">
                     Master of Computer Applications (MCA)
@@ -327,11 +330,11 @@ export default function ResumeModal({ isOpen, onClose, profile }) {
             </div>
 
             {/* Section: Certifications (Exact match to resume0101.pdf) */}
-            <div>
-              <h2 className="text-xs font-black text-slate-900 uppercase tracking-wider border-b border-slate-300 pb-1 mb-2">
+            <div className="print-section">
+              <h2 className="text-xs font-black text-slate-900 uppercase tracking-wider border-b border-slate-300 pb-1 mb-2 print-section-title">
                 CERTIFICATIONS
               </h2>
-              <div className="space-y-1 text-[12px] sm:text-[12.5px] text-slate-800">
+              <div className="space-y-1 text-[12px] sm:text-[12.5px] text-slate-800 print-text print-space-tight">
                 <p>
                   <strong className="font-bold text-slate-900">Python Full Stack Developer Virtual Internship</strong> — EduSkills Academy / AICTE | Oct–Dec 2025
                 </p>
@@ -355,7 +358,7 @@ export default function ResumeModal({ isOpen, onClose, profile }) {
         </div>
 
         {/* ─── Bottom Footer Bar (Exact Match to Reference Image) ─── */}
-        <div className="px-4 sm:px-6 py-2.5 bg-white border-t border-slate-200/90 flex items-center justify-between text-xs text-slate-600 flex-shrink-0">
+        <div className="px-4 sm:px-6 py-2.5 bg-white border-t border-slate-200/90 flex items-center justify-between text-xs text-slate-600 flex-shrink-0 resume-modal-footer">
           <div className="flex items-center gap-1.5 font-medium">
             <i className="fa-solid fa-circle-check text-emerald-600 text-sm"></i>
             <span>Document: <strong className="font-mono text-slate-800">Tripurosundaro_Behera_Resume.pdf</strong></span>
