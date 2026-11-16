@@ -394,7 +394,7 @@ export default function LandingPage() {
     headline: 'Python Full-Stack Developer',
     email: '24jnf00084@svcn.ac.in',
     phone: '+91- 7975616767',
-    linkedin_url: 'https://www.linkedin.com/in/btripurosundaro/',
+    linkedin_url: 'https://www.linkedin.com/in/btripurosundar/',
     github_url: 'https://github.com/TRIPUROSUNDAROOBEHERA',
     whatsapp_url: '',
     whatsapp_number: '+91 98765 43210',

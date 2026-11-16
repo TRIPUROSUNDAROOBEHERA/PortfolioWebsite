@@ -52,7 +52,7 @@ export default function ResumeModal({ isOpen, onClose, profile }) {
   const email = '24jnf00084@svcn.ac.in';
   const phone = '+91- 7975616767';
   const location = 'Bengaluru, Karnataka, India';
-  const linkedinUrl = 'https://www.linkedin.com/in/btripurosundaro/';
+  const linkedinUrl = 'https://www.linkedin.com/in/btripurosundar/';
   const githubUrl = 'https://github.com/TRIPUROSUNDAROOBEHERA';
 
   return createPortal(
@@ -212,7 +212,7 @@ export default function ResumeModal({ isOpen, onClose, profile }) {
                   >
                     <span>LinkedIn:</span>
                     <span className="font-medium">
-                      linkedin.com/in/btripurosundaro/
+                      linkedin.com/in/btripurosundar/
                     </span>
                   </a>
                   <span className="text-blue-600">|</span>
