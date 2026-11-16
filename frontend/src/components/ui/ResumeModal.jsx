@@ -202,7 +202,7 @@ export default function ResumeModal({ isOpen, onClose, profile }) {
                 <p>
                   {location} | {phone} | {email}
                 </p>
-                <p className="text-[10px] sm:text-[10.5px] flex flex-wrap sm:flex-nowrap items-center justify-center gap-x-1.5 text-blue-600 print-contact-links">
+                <p className="text-[10.8px] sm:text-[11.2px] flex flex-wrap sm:flex-nowrap items-center justify-center gap-x-1.5 text-blue-600 print-contact-links">
                   <a
                     href={linkedinUrl}
                     target="_blank"
@@ -230,7 +230,7 @@ export default function ResumeModal({ isOpen, onClose, profile }) {
                   </a>
                   <span className="text-blue-600">|</span>
                 </p>
-                <p className="text-[10px] sm:text-[10.5px] flex items-center justify-center text-blue-600 print-contact-links">
+                <p className="text-[10.8px] sm:text-[11.2px] flex items-center justify-center text-blue-600 print-contact-links">
                   <a
                     href="https://tripurosundaro.me"
                     target="_blank"
