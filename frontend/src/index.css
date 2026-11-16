@@ -2105,6 +2105,12 @@ body,
     white-space: nowrap !important;
   }
 
+  #printable-resume .print-header .print-contact-links,
+  #printable-resume .print-header .print-contact-links * {
+    font-size: 9.6px !important;
+    line-height: 1.4 !important;
+  }
+
   #printable-resume .print-section {
     margin-bottom: 16.5px !important;
     page-break-inside: avoid !important;
