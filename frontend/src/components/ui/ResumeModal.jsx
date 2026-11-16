@@ -369,7 +369,7 @@ export default function ResumeModal({ isOpen, onClose, profile }) {
             <span>Document: <strong className="font-mono text-slate-800">Tripurosundaro_Behera_Resume.pdf</strong></span>
           </div>
           <a
-            href={profile?.resume || '/resume.pdf'}
+            href={`${profile?.resume || '/resume.pdf'}#view=Fit`}
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-600 hover:underline font-bold text-xs inline-flex items-center gap-1 cursor-pointer"
