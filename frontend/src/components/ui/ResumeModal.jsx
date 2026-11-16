@@ -39,7 +39,12 @@ export default function ResumeModal({ isOpen, onClose, profile }) {
   const handleResetZoom = () => setZoom(100);
 
   const handlePrint = () => {
+    const originalTitle = document.title;
+    document.title = 'Tripurosundaro Behera | Python Full Stack Developer';
     window.print();
+    setTimeout(() => {
+      document.title = originalTitle;
+    }, 1000);
   };
 
   const fullName = 'Tripurosundaro Behera';

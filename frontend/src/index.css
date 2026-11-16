@@ -1998,7 +1998,7 @@ body,
 @media print {
   @page {
     size: A4 portrait;
-    margin: 18mm 14mm 18mm 14mm;
+    margin: 12mm 14mm 12mm 14mm;
   }
 
   /* Completely remove the website and anything other than the resume modal portal */
@@ -2076,30 +2076,30 @@ body,
     break-after: avoid !important;
   }
 
-  /* Balanced spacing and text zoom to comfortably fill one single page */
+  /* Zoomed and enlarged content typography and balanced spacing to fill the full single page */
   #printable-resume .print-header {
-    padding-bottom: 8px !important;
-    margin-bottom: 14px !important;
+    padding-bottom: 10px !important;
+    margin-bottom: 16px !important;
   }
 
   #printable-resume .print-header h1 {
-    font-size: 25px !important;
+    font-size: 28px !important;
     line-height: 1.2 !important;
   }
 
   #printable-resume .print-header p {
-    font-size: 14px !important;
+    font-size: 15.5px !important;
     line-height: 1.3 !important;
   }
 
   #printable-resume .print-header .print-contact {
-    font-size: 11px !important;
-    line-height: 1.4 !important;
-    margin-top: 5px !important;
+    font-size: 12px !important;
+    line-height: 1.45 !important;
+    margin-top: 6px !important;
   }
 
   #printable-resume .print-section {
-    margin-bottom: 14px !important;
+    margin-bottom: 16px !important;
     page-break-inside: avoid !important;
     break-inside: avoid !important;
   }
@@ -2109,23 +2109,23 @@ body,
   }
 
   #printable-resume .print-section-title {
-    padding-bottom: 3px !important;
-    margin-bottom: 5px !important;
-    font-size: 11.5px !important;
+    padding-bottom: 3.5px !important;
+    margin-bottom: 6px !important;
+    font-size: 12.5px !important;
     letter-spacing: 0.04em !important;
   }
 
   #printable-resume .print-text {
-    font-size: 11.5px !important;
-    line-height: 1.5 !important;
+    font-size: 12.2px !important;
+    line-height: 1.55 !important;
   }
 
   #printable-resume .print-space-tight > * + * {
-    margin-top: 4.5px !important;
+    margin-top: 5.5px !important;
   }
 
   #printable-resume .print-space-edu > * + * {
-    margin-top: 7px !important;
+    margin-top: 8.5px !important;
   }
 
   #printable-resume * {
