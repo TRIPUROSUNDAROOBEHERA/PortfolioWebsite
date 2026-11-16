@@ -193,7 +193,7 @@ export default function ResumeModal({ isOpen, onClose, profile }) {
               <p className="text-sm sm:text-base font-bold text-slate-900 tracking-wide mt-0.5">
                 {headline}
               </p>
-              <div className="text-[11px] sm:text-[11.5px] text-slate-700 mt-2 font-normal space-y-0.5">
+              <div className="text-[11px] sm:text-[11.5px] text-slate-700 mt-2 font-normal space-y-0.5 print-contact">
                 <p>
                   {location} | {phone} | {email}
                 </p>
@@ -303,7 +303,7 @@ export default function ResumeModal({ isOpen, onClose, profile }) {
               <h2 className="text-xs font-black text-slate-900 uppercase tracking-wider border-b border-slate-300 pb-1 mb-2 print-section-title">
                 EDUCATION
               </h2>
-              <div className="space-y-3 text-[12px] sm:text-[12.5px] print-text print-space-tight">
+              <div className="space-y-3 text-[12px] sm:text-[12.5px] print-text print-space-edu">
                 <div>
                   <p className="font-bold text-slate-900">
                     Master of Computer Applications (MCA)
