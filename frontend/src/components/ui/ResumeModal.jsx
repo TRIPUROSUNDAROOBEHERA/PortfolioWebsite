@@ -45,7 +45,7 @@ export default function ResumeModal({ isOpen, onClose, profile }) {
   const fullName = 'Tripurosundaro Behera';
   const headline = 'Python Full-Stack Developer';
   const email = '24jnf00084@svcn.ac.in';
-  const phone = '+91- 9014239763';
+  const phone = '+91- 7975616767';
   const location = 'Bengaluru, Karnataka, India';
   const linkedinUrl = 'https://www.linkedin.com/in/btripurosundaro/';
   const githubUrl = 'https://github.com/TRIPUROSUNDAROOBEHERA';
@@ -194,42 +194,42 @@ export default function ResumeModal({ isOpen, onClose, profile }) {
                 <p>
                   {location} | {phone} | {email}
                 </p>
-                <p className="flex flex-wrap items-center justify-center gap-x-2.5 gap-y-0.5">
+                <p className="flex flex-wrap items-center justify-center gap-x-2.5 gap-y-0.5 text-blue-600">
                   <a
                     href={linkedinUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 group text-slate-700 hover:text-blue-600 cursor-pointer"
+                    className="inline-flex items-center gap-1 group text-blue-600 hover:text-blue-700 hover:underline cursor-pointer"
                     title="Open LinkedIn Profile in new tab"
                   >
                     <span>LinkedIn:</span>
-                    <span className="text-blue-600 group-hover:underline font-medium">
+                    <span className="font-medium">
                       linkedin.com/in/btripurosundaro/
                     </span>
                   </a>
-                  <span className="text-slate-400">|</span>
+                  <span className="text-blue-600">|</span>
                   <a
                     href={githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 group text-slate-700 hover:text-blue-600 cursor-pointer"
+                    className="inline-flex items-center gap-1 group text-blue-600 hover:text-blue-700 hover:underline cursor-pointer"
                     title="Open GitHub Profile in new tab"
                   >
                     <span>GitHub:</span>
-                    <span className="text-blue-600 group-hover:underline font-medium">
+                    <span className="font-medium">
                       github.com/TRIPUROSUNDAROOBEHERA
                     </span>
                   </a>
-                  <span className="text-slate-400">|</span>
+                  <span className="text-blue-600">|</span>
                   <a
                     href="https://tripurosundaro.me"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 group text-slate-700 hover:text-blue-600 cursor-pointer"
+                    className="inline-flex items-center gap-1 group text-blue-600 hover:text-blue-700 hover:underline cursor-pointer"
                     title="Open Portfolio Website in new tab"
                   >
                     <span>Portfolio:</span>
-                    <span className="text-blue-600 group-hover:underline font-medium">
+                    <span className="font-medium">
                       tripurosundaro.me
                     </span>
                   </a>
