@@ -372,7 +372,7 @@ export default function ResumeModal({ isOpen, onClose, profile }) {
             href={`${profile?.resume || '/resume.pdf'}#view=Fit`}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-blue-600 hover:underline font-bold text-xs inline-flex items-center gap-1 cursor-pointer"
+            className="text-blue-600 hover:underline font-bold text-xs hidden md:inline-flex items-center gap-1 cursor-pointer"
           >
             <span>Open Vector PDF</span>
             <i className="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
