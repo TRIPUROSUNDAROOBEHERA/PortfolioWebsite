@@ -47,6 +47,28 @@ export default function ResumeModal({ isOpen, onClose, profile }) {
     }, 1000);
   };
 
+  const handleDownload = async (e) => {
+    const rawUrl = profile?.resume || '/resume.pdf';
+    const pdfUrl = rawUrl + (rawUrl.includes('?') ? '&' : '?') + `v=${Date.now()}`;
+    try {
+      const res = await fetch(pdfUrl);
+      if (res.ok) {
+        e.preventDefault();
+        const blob = await res.blob();
+        const blobUrl = window.URL.createObjectURL(blob);
+        const tempLink = document.createElement('a');
+        tempLink.href = blobUrl;
+        tempLink.download = 'Tripurosundaro_Behera_Resume.pdf';
+        document.body.appendChild(tempLink);
+        tempLink.click();
+        document.body.removeChild(tempLink);
+        window.URL.revokeObjectURL(blobUrl);
+      }
+    } catch {
+      // Fallback to default anchor behavior
+    }
+  };
+
   const fullName = 'Tripurosundaro Behera';
   const headline = 'Python Full-Stack Developer';
   const email = '24jnf00084@svcn.ac.in';
@@ -161,6 +183,7 @@ export default function ResumeModal({ isOpen, onClose, profile }) {
             <a
               href={profile?.resume || '/resume.pdf'}
               download="Tripurosundaro_Behera_Resume.pdf"
+              onClick={handleDownload}
               className="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-xl bg-[#0f172a] hover:bg-slate-800 text-white text-xs font-bold transition-all shadow-2xs cursor-pointer"
               title="Download PDF File"
             >
@@ -187,7 +210,7 @@ export default function ResumeModal({ isOpen, onClose, profile }) {
           <div
             ref={printRef}
             id="printable-resume"
-            style={{ transform: `scale(${zoom / 100})`, transformOrigin: 'top center' }}
+            style={{ transform: zoom === 100 ? undefined : `scale(${zoom / 100})`, transformOrigin: 'top center' }}
             className="bg-white shadow-xl border border-slate-200/90 rounded-sm w-full max-w-[820px] p-6 sm:p-10 md:p-12 text-slate-800 transition-transform duration-150 select-text font-sans mb-8"
           >
             {/* Header: Name & Contact Details */}
